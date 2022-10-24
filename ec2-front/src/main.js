@@ -2,8 +2,11 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import customModal from "@/components/common/customModal";
 
 Vue.config.productionTip = false;
+
+Vue.component("customModal", customModal);
 
 new Vue({
   router,
