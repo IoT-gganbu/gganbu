@@ -70,7 +70,6 @@
   font-weight: 200;
 }
 
-
 nav {
   padding: 30px;
 }
