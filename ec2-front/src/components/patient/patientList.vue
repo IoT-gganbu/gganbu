@@ -1,0 +1,75 @@
+<template>
+  <div class="patient-list" v-if="patientSearchList">
+    <table>
+      <thead>
+        <th class="name">성명</th>
+        <th class="no">주민등록번호</th>
+      </thead>
+      <tbody>
+        <tr v-for="(line, key) in patientSearchList" v-bind:key="key">
+          <td>{{ line.name }}</td>
+          <td>{{ line.no }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div v-else class="noResult">검색 결과가 없습니다.</div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      patientSearchList: [
+        { name: "장정훈", no: "950803-1xxxxxx" },
+        { name: "이한기", no: "951111-1xxxxxx" },
+        { name: "이한기", no: "951111-1xxxxxx" },
+        { name: "이한기", no: "951111-1xxxxxx" },
+        { name: "이한기", no: "951111-1xxxxxx" },
+        { name: "이한기", no: "951111-1xxxxxx" },
+        { name: "이한기", no: "951111-1xxxxxx" },
+        { name: "이한기", no: "951111-1xxxxxx" },
+        { name: "이한기", no: "951111-1xxxxxx" },
+        { name: "이한기", no: "951111-1xxxxxx" },
+        { name: "이한기", no: "951111-1xxxxxx" },
+      ],
+    };
+  },
+};
+</script>
+
+<style scoped>
+.patient-list {
+  background-color: #ffffff;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.name {
+  width: 30%;
+}
+.no {
+  width: 100%;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+td {
+  border-bottom: 0.5px solid #333333;
+}
+th {
+  background-color: #90b5ff;
+  border-bottom: 2px solid #333333;
+}
+.noResult {
+  text-align: center;
+  width: 100%;
+  font-size: 2rem;
+  margin-top: 20%;
+}
+</style>

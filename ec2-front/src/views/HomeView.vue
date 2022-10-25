@@ -8,13 +8,13 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
-// import PatientReceiptView from "@/views/PatientReceiptView.vue";
+import PatientReceiptView from "@/views/PatientReceiptView.vue";
 
 export default {
   name: "HomeView",
   components: {
     // HelloWorld,
-    // PatientReceiptView,
+    PatientReceiptView,
   },
 };
 </script>
