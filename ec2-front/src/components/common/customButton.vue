@@ -22,6 +22,7 @@ button {
   /* font-family: "Pretendard"; */
   text-align: center;
   text-decoration: none;
+  font-weight: bold;
 
   display: inline-block;
   width: auto;
