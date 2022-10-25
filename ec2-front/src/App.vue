@@ -1,10 +1,5 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-      <custom-button btnText="ㅇㅇㅇ"></custom-button>
-    </nav>
     <router-view />
   </div>
 </template>
@@ -16,6 +11,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  margin: 0;
 }
 
 @font-face {
@@ -69,18 +65,5 @@
   font-family: "Pretendard thin";
   src: url("@/assets/font/Pretendard-Thin.otf");
   font-weight: 200;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>
