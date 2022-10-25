@@ -2,6 +2,7 @@ package com.ssafy.gganbu.db.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,5 +20,9 @@ public class PatientProgressHistory {
     @ManyToOne(targetEntity = Patients.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "patient_id")
     private Patients patient;
+
+    @ManyToOne(targetEntity = TaskChecktitle.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "tc_id")
+    private TaskChecktitle taskChecktitle;
 
 }
