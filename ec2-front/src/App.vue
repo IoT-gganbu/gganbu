@@ -3,6 +3,7 @@
     <nav>
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
+      <custom-button btnText="ㅇㅇㅇ"></custom-button>
     </nav>
     <router-view />
   </div>
