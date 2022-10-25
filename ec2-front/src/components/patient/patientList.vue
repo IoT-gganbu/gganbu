@@ -1,11 +1,11 @@
 <template>
   <div class="patient-list" v-if="patientSearchList">
     <table>
-      <thead>
+      <thead class="head">
         <th class="name">성명</th>
         <th class="no">주민등록번호</th>
       </thead>
-      <tbody>
+      <tbody class="body">
         <tr v-for="(line, key) in patientSearchList" v-bind:key="key">
           <td>{{ line.name }}</td>
           <td>{{ line.no }}</td>
@@ -21,17 +21,15 @@ export default {
   data() {
     return {
       patientSearchList: [
-        { name: "장정훈", no: "950803-1xxxxxx" },
-        { name: "이한기", no: "951111-1xxxxxx" },
-        { name: "이한기", no: "951111-1xxxxxx" },
-        { name: "이한기", no: "951111-1xxxxxx" },
-        { name: "이한기", no: "951111-1xxxxxx" },
-        { name: "이한기", no: "951111-1xxxxxx" },
-        { name: "이한기", no: "951111-1xxxxxx" },
-        { name: "이한기", no: "951111-1xxxxxx" },
-        { name: "이한기", no: "951111-1xxxxxx" },
-        { name: "이한기", no: "951111-1xxxxxx" },
-        { name: "이한기", no: "951111-1xxxxxx" },
+        { name: "장정훈", no: "950803 - 1xxxxxx" },
+        { name: "이한기", no: "951111 - 1xxxxxx" },
+        { name: "이한기", no: "951111 - 1xxxxxx" },
+        { name: "이한기", no: "951111 - 1xxxxxx" },
+        { name: "이한기", no: "951111 - 1xxxxxx" },
+        { name: "이한기", no: "951111 - 1xxxxxx" },
+        { name: "이한기", no: "951111 - 1xxxxxx" },
+        { name: "이한기", no: "951111 - 1xxxxxx" },
+        { name: "이한기", no: "951111 - 1xxxxxx" },
       ],
     };
   },
@@ -46,8 +44,7 @@ export default {
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-top: auto;
-  margin-bottom: auto;
+  margin-top: 10%;
 }
 .name {
   width: 30%;
@@ -59,12 +56,20 @@ table {
   width: 100%;
   border-collapse: collapse;
 }
+.head {
+  font: 2rem "Pretendard";
+  color: #5780c6;
+}
+.body {
+  font: 2rem "Pretendard";
+  color: #90b5ff;
+}
 td {
-  border-bottom: 0.5px solid #333333;
+  border-bottom: 0.5px solid #919aa9;
 }
 th {
   background-color: #90b5ff;
-  border-bottom: 2px solid #333333;
+  border-bottom: 2px solid #919aa9;
 }
 .noResult {
   text-align: center;

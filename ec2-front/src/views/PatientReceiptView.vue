@@ -35,6 +35,7 @@ export default {
   width: 100%;
   justify-content: center;
   height: 100%;
+  margin-top: 5%;
 }
 .left-body {
   display: flex;
@@ -53,7 +54,16 @@ export default {
   border-radius: 3px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   width: 70%;
-  height: 90%;
+  height: 80%;
+}
+input::-webkit-input-placeholder {
+  background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnRdQ3uLA3uuoM-wXkg-x8fFh_RWxwoWT5KDI745hSV4ldIdm3nus-HDaIXy23oBXemfc&usqp=CAU);
+  background-size: 4%;
+  background-position: 1px center;
+  background-repeat: no-repeat;
+  text-indent: 0;
+  padding-left: 5%;
+  background-color: #ffffff;
 }
 .search-btn {
   margin-bottom: auto;
@@ -68,11 +78,13 @@ export default {
   flex-direction: row;
   justify-content: center;
   align-content: center;
-  height: 9%;
+  height: 7%;
   width: 100%;
 }
 .new-patient {
   display: flex;
+  height: 9%;
+  width: 100%;
 }
 .new-patient-btn {
   margin-left: 85%;
