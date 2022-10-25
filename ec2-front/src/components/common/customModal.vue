@@ -40,6 +40,7 @@ export default {
   border: 3px solid #90b5ff;
   border-radius: 10px;
   overflow-y: hidden;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .modalTopLine {
@@ -48,7 +49,7 @@ export default {
   margin-bottom: -20px;
   margin-top: -50px;
   font: 36px "Pretendard ExtraBold";
-  color: #6667ab;
+  color: #5780c6;
 }
 
 .modalClose {
@@ -59,7 +60,7 @@ export default {
 .modalTitle {
   font-family: "Pretendard Bold";
   font-size: 35px;
-  color: #6667ab;
+  color: #5780c6;
   text-align: left;
   width: fit-content;
   margin-left: 2rem;
@@ -71,7 +72,7 @@ export default {
   width: 140%;
   display: block;
   position: absolute;
-  /* margin-top: 50px; */
-  border-bottom: 5px solid #d0d1ff;
+  margin-top: 5px;
+  border-bottom: 4px solid #90b5ff;
 }
 </style>
