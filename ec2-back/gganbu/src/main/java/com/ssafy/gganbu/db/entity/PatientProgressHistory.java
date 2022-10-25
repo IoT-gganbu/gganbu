@@ -16,8 +16,8 @@ public class PatientProgressHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pph_id", nullable = false)
     private Long pphId;
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patientId")
-    private List<Patients> patients = new ArrayList<>();
+    @ManyToOne(targetEntity = Patients.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "patient_id")
+    private Patients patient;
 
 }
