@@ -34,7 +34,7 @@ export default {
   text-align: center;
   height: 40%;
   width: 40%;
-  margin-top: 10%;
+  margin-top: 8%;
   padding: 60px 0;
   background: #ffffff;
   border: 3px solid #90b5ff;
