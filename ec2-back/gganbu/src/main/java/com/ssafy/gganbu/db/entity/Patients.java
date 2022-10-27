@@ -26,5 +26,5 @@ public class Patients {
     @Column(name = "resident_no", nullable = false)
     private String residentNo;
     @Column(name = "is_checkup", nullable = false, columnDefinition = "boolean default false")
-    private Integer isCheckup;
+    private Boolean isCheckup = false;
 }
