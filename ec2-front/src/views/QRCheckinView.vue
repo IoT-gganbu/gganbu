@@ -1,6 +1,5 @@
 <template>
   <div>
-    <nav-bar type="접수처" department="소아" professorName="전승준" isLogin="false" />
     <custom-title id="custom_title" titleText="검진자 QR 인식"></custom-title>
     <qrcode-capture />
   </div>
