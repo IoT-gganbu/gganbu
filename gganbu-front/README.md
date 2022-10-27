@@ -1,4 +1,4 @@
-# kkanbu-front
+# gganbu-front
 
 ## Project setup
 ```
