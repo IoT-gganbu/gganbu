@@ -1,17 +1,17 @@
 <template>
   <div class="home">
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <!-- <HelloWorld msg="Welcome p" /> -->
+    <nav-bar type="접수처" department="소아" professorName="전승준" isLogin="false" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+// import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
   name: "HomeView",
   components: {
-    HelloWorld,
+    // HelloWorld,
   },
 };
 </script>
