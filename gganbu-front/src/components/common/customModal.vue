@@ -32,9 +32,9 @@ export default {
 
 .modal {
   text-align: center;
-  height: 40%;
-  width: 60%;
-  margin-top: 10%;
+  height: 50%;
+  width: 80%;
+  margin-top: 8%;
   padding: 60px 0;
   background: #ffffff;
   border: 3px solid #90b5ff;

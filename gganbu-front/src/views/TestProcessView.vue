@@ -45,11 +45,6 @@ export default {
           item: ["9. 대장 내시경 검사", "10. 폐암 검사"],
         },
       ],
-      contents: [
-        {
-          text: "",
-        },
-      ],
     };
   },
   methods: {
@@ -67,12 +62,13 @@ export default {
 .row {
   display: flex;
   justify-content: center;
-  margin-top: 2%;
+  margin-top: 1.5%;
 }
 .col1,
 .col2 {
   width: 30%;
   margin-left: 5%;
   margin-right: 5%;
+  font-size: 1.3rem;
 }
 </style>
