@@ -9,6 +9,6 @@ public interface PatientService {
 
     public Patients receipt(Patients patients);
     public boolean checkResidentNo(String residentNo);
-
     public List<Patients> searchPatient(String name);
+    public Patients getPatient(Long patientId);
 }

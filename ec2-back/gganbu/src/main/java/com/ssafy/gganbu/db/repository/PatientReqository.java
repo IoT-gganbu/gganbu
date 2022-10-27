@@ -12,4 +12,6 @@ public interface PatientReqository extends JpaRepository<Patients, Long> {
     public Patients findByResidentNo(String residentNo);
 
     public List<Patients> findAllByName(String name);
+
+    public Patients findByPatientId(Long patientId);
 }

@@ -36,6 +36,16 @@ public class PatientServiceImpl implements PatientService{
         }
     }
 
+    @Override
+    public Patients getPatient(Long patientId) {
+        try {
+            Patients patients = patientReqository.findByPatientId(patientId);
+            return patients;
+        }catch (Exception e) {
+            return null;
+        }
+    }
+
     public Patients receipt(Patients patients){
 
         try{

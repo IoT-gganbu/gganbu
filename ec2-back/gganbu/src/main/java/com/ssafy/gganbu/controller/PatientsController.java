@@ -1,20 +1,25 @@
 package com.ssafy.gganbu.controller;
 
 
+import com.ssafy.gganbu.db.entity.PatientProgressHistory;
 import com.ssafy.gganbu.db.entity.Patients;
+import com.ssafy.gganbu.db.entity.TaskChecktitle;
+import com.ssafy.gganbu.db.repository.HistoryRepository;
 import com.ssafy.gganbu.db.repository.PatientReqository;
+import com.ssafy.gganbu.db.repository.TaskRepository;
+import com.ssafy.gganbu.request.CheckUpReq;
 import com.ssafy.gganbu.request.PatientReq;
 import com.ssafy.gganbu.service.PatientService;
+import com.ssafy.gganbu.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import response.BaseResponseBody;
 
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/patient")
@@ -25,9 +30,17 @@ public class PatientsController {
 
     @Autowired
     PatientService patientService;
-
     @Autowired
     PatientReqository patientReqository;
+
+    @Autowired
+    TaskService taskService;
+
+    @Autowired
+    TaskRepository taskRepository;
+
+    @Autowired
+    HistoryRepository historyRepository;
 
     @PostMapping("/receipt")
     public ResponseEntity<Map<String, Object>> receipt(@RequestBody PatientReq reqData){
@@ -78,9 +91,39 @@ public class PatientsController {
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<Map<String, Object>> searchPatient(@PathVariable String name){
-        Map<String, Object> result = new HashMap<>();
-//        List<Patients> res
-        return null;
+    public ResponseEntity<? extends BaseResponseBody> searchPatient(@PathVariable String name){
+
+        List<Patients> res = new ArrayList<>();
+        try {
+            res = patientService.searchPatient(name);
+        }catch (Exception e){
+            return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
+        }
+        if(res.size() == 0){
+            return ResponseEntity.status(200).body(BaseResponseBody.of("해당회원없음"));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS,res));
+        }
+
     }
+
+    @PostMapping("/checkup")
+    public ResponseEntity<? extends BaseResponseBody> checkUp(@RequestBody CheckUpReq checkUpReq) {
+        PatientProgressHistory history = new PatientProgressHistory();
+        try {
+            Patients patients = patientService.getPatient(checkUpReq.getPatientId());
+            history.setPatient(patients);
+
+            TaskChecktitle taskChecktitle = taskService.getTask(checkUpReq.getTcId());
+            history.setTaskChecktitle(taskChecktitle);
+
+            historyRepository.save(history);
+        }catch (Exception e){
+            return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
+        }
+
+        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS));
+    }
+
+
 }
