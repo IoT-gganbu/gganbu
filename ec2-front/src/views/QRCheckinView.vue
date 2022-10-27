@@ -14,16 +14,4 @@ export default {
 };
 </script>
 
-<style>
-#custom_title {
-  margin-top: 60px;
-  margin-left: 60px;
-  font-size: 100px;
-}
-#custom_title > h2 {
-  font-size: 30px;
-}
-#custom_title > h2:after {
-  width: 130%;
-}
-</style>
+<style></style>

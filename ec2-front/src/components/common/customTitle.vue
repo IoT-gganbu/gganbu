@@ -14,6 +14,9 @@ export default {
 </script>
 
 <style>
+.title {
+  margin: 40px 0 40px 40px;
+}
 .modalTitle {
   font-family: "Pretendard Bold";
   font-size: 35px;
