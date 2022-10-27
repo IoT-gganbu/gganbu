@@ -50,4 +50,18 @@ public class StaffController {
         return ResponseEntity.status(200).body(BaseResponseBody.of("SUCCESS"));
     }
 
+    @GetMapping("/progress/{userId}")
+    public ResponseEntity<? extends BaseResponseBody> progress(@PathVariable Long userId) {
+        System.out.println("StaffController.progress");
+        System.out.println("userId : " + userId);
+        try{
+            Object success = staffService.progress(userId);
+            return ResponseEntity.status(200).body(BaseResponseBody.of("SUCCESS", success));
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(500).body(BaseResponseBody.of("FAIL"));
+        }
+    }
+
 }

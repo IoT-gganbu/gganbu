@@ -7,4 +7,6 @@ public interface StaffService {
     public Staffs login(String id, String password);
 
     public Boolean receipt(String residentNo) throws NoChangeExeption;
+
+    Object progress(Long userId);
 }
