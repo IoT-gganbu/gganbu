@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <!-- <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav> -->
+    <nav-bar type="접수처" department="" professorName="전승준" isLogin="false" />
     <router-view />
   </div>
 </template>
@@ -72,18 +69,5 @@ body {
   font-family: "Pretendard thin";
   src: url("@/assets/font/Pretendard-Thin.otf");
   font-weight: 200;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>
