@@ -1,17 +1,20 @@
 <template>
   <div id="app">
+    <nav-bar type="접수처" department="" professorName="전승준" isLogin="false" />
     <router-view />
   </div>
 </template>
 
 <style>
+body {
+  margin: 0;
+}
 #app {
   font-family: "Pretendard";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin: 0;
 }
 
 @font-face {

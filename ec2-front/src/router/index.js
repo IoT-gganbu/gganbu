@@ -23,6 +23,11 @@ const routes = [
     name: "login",
     component: () => import("../views/LoginView.vue"),
   },
+  {
+    path: "/patientReceiptView",
+    name: "patientReceiptView",
+    component: () => import("../views/PatientReceiptView.vue"),
+  },
 ];
 
 const router = new VueRouter({
