@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PatientReqository extends JpaRepository<Patients, Long> {
-
+    // 나중에 Optional로 변경해야함.
     public Patients findByResidentNo(String residentNo);
 }
