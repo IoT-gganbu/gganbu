@@ -46,24 +46,27 @@ export default {
   border: 3px solid #90b5ff;
   border-radius: 10px;
   height: 100%;
-  margin-top: 10%;
+  margin: 8% 10% 3% 10%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .detail {
   text-align: center;
   text-decoration: none;
+  justify-content: center;
+  margin: 0 10% 0 10%;
 }
 table {
-  width: 100%;
-  text-align: center;
-  text-decoration: none;
-  line-height: 500%;
+  width: 80%;
+  line-height: 400%;
 }
 .name {
-  font: 5rem "Pretendard";
+  font-size: 40px;
+  font-weight: bold;
+  margin: 4% 0 2% 0;
   color: #5780c6;
 }
 td {
-  font-size: 2rem;
+  font-size: 20px;
 }
 .c1 {
   color: #5780c6;
