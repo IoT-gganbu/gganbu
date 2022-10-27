@@ -15,16 +15,30 @@
     <div class="right-body">
       <div class="new-patient">
         <div class="new-patient-btn">
-          <custom-button btnText="추가"></custom-button>
+          <custom-button btnText="추가" @click="showImgModal = true"></custom-button>
         </div>
       </div>
       <patient-card></patient-card>
     </div>
+    <custom-modal class="addPatient" id="addPatient" v-show="showImgModal" @close-modal="showImgModal = false" titleText="환자 등록">
+      <cotent>
+        <add-patient></add-patient>
+      </cotent>
+    </custom-modal>
   </div>
 </template>
 <script>
+import AddPatient from "@/components/patient/addPatient.vue";
 export default {
   name: "PatientReceiptView",
+  components: {
+    AddPatient,
+  },
+  data() {
+    return {
+      showImgModal: false,
+    };
+  },
 };
 </script>
 
@@ -88,5 +102,8 @@ input::-webkit-input-placeholder {
 }
 .new-patient-btn {
   margin-left: 85%;
+}
+.addPatient {
+  height: 130%;
 }
 </style>

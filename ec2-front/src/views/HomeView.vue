@@ -8,7 +8,6 @@
 <script>
 import PatientReceiptView from "@/views/PatientReceiptView.vue";
 
-
 export default {
   name: "HomeView",
   components: {
