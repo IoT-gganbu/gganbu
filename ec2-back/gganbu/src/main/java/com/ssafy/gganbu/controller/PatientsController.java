@@ -45,7 +45,6 @@ public class PatientsController {
     @PostMapping("/receipt")
     public ResponseEntity<Map<String, Object>> receipt(@RequestBody PatientReq reqData){
         Map<String, Object> result = new HashMap<>();
-        System.out.println("aaaaaa");
         System.out.println(reqData.getResidentNo());
         if(!patientService.checkResidentNo(reqData.getResidentNo())){
             result.put("message", FAIL);
@@ -110,11 +109,13 @@ public class PatientsController {
     @PostMapping("/checkup")
     public ResponseEntity<? extends BaseResponseBody> checkUp(@RequestBody CheckUpReq checkUpReq) {
         PatientProgressHistory history = new PatientProgressHistory();
+        Patients patients = patientService.getPatient(checkUpReq.getPatientId());
+        TaskChecktitle taskChecktitle = taskService.getTask(checkUpReq.getTcId());
+        if(historyRepository.existsByTaskChecktitleAndPatient(taskChecktitle, patients)){
+            return ResponseEntity.status(200).body(BaseResponseBody.of("중복 입력"));
+        }
         try {
-            Patients patients = patientService.getPatient(checkUpReq.getPatientId());
             history.setPatient(patients);
-
-            TaskChecktitle taskChecktitle = taskService.getTask(checkUpReq.getTcId());
             history.setTaskChecktitle(taskChecktitle);
 
             historyRepository.save(history);

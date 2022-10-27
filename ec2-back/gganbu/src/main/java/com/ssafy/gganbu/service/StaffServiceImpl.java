@@ -36,11 +36,11 @@ public class StaffServiceImpl implements StaffService {
             throw new NoSuchElementException("no patient found");
         }
         // 이미 isCheckup이 true라면?
-        if(patient.getIsCheckup() == 1){
+        if(patient.getIsCheckup()){
             throw new NoChangeExeption("aleady checked");
         }
         // isCheckup을 true로 변환
-        patient.setIsCheckup(1);
+        patient.setIsCheckup(true);
         patientRepository.save(patient);
         // 추 후에 QR코드 전송방식으로 변경해줘야함.
 
