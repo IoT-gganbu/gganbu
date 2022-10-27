@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service("patientService")
 @RequiredArgsConstructor
 @Transactional
@@ -22,6 +24,18 @@ public class PatientServiceImpl implements PatientService{
         }
         return true;
     }
+
+    @Override
+    public List<Patients> searchPatient(String name) {
+        try {
+            List<Patients> res = patientReqository.findAllByName(name);
+            return res;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public Patients receipt(Patients patients){
 
         try{

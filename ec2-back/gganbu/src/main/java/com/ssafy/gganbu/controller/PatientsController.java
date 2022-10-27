@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 @CrossOrigin(origins = "*")
 @RestController
@@ -58,8 +59,7 @@ public class PatientsController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    public static int getAge(int birthYear, int birthMonth, int birthDay)
-    {
+    public static int getAge(int birthYear, int birthMonth, int birthDay) {
         Calendar current = Calendar.getInstance();
 
         int currentYear  = current.get(Calendar.YEAR);
@@ -75,5 +75,12 @@ public class PatientsController {
         // 현재날짜 5월 25일은 525
         // 두 수를 비교 했을 때 생일이 더 클 경우 생일이 지나지 않은 것이다.
         return age;
+    }
+
+    @GetMapping("/{name}")
+    public ResponseEntity<Map<String, Object>> searchPatient(@PathVariable String name){
+        Map<String, Object> result = new HashMap<>();
+//        List<Patients> res
+        return null;
     }
 }
