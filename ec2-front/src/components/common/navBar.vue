@@ -79,5 +79,6 @@ export default {
   height: 30px;
   width: 30px;
   vertical-align: middle;
+  align-content: center;
 }
 </style>
