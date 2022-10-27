@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import PatientReceiptView from "../views/PatientReceiptView.vue";
 
 Vue.use(VueRouter);
 
@@ -20,9 +19,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
   {
+    path: "/login",
+    name: "login",
+    component: () => import("../views/LoginView.vue"),
+  },
+  {
     path: "/patientReceiptView",
     name: "patientReceiptView",
-    component: PatientReceiptView,
+    component: () => import("../views/PatientReceiptView.vue"),
   },
   {
     path: "/qr",
