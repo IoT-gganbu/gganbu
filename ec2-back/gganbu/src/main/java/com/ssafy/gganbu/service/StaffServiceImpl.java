@@ -1,5 +1,6 @@
 package com.ssafy.gganbu.service;
 
+import com.google.zxing.common.BitMatrix;
 import com.ssafy.gganbu.db.entity.PatientProgressHistory;
 import com.ssafy.gganbu.db.entity.Patients;
 import com.ssafy.gganbu.db.entity.Staffs;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.prefs.NodeChangeEvent;
 
 @Service("StaffService")
 public class StaffServiceImpl implements StaffService {
@@ -25,6 +25,9 @@ public class StaffServiceImpl implements StaffService {
 
     @Autowired
     HistoryRepository historyRepository;
+
+    @Autowired
+    QrService qrService;
     @Override
     public Staffs login(String id, String password) {
         System.out.println("StaffServiceImpl.login");
@@ -33,7 +36,7 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public Boolean receipt(String residentNo) throws NoChangeExeption {
+    public BitMatrix receipt(String residentNo) throws NoChangeExeption {
         System.out.println("StaffServiceImpl.receipt");
         // 나중에 Optional로 변경해야함.
         Patients patient = patientRepository.findByResidentNo(residentNo);
@@ -49,8 +52,9 @@ public class StaffServiceImpl implements StaffService {
         patient.setIsCheckup(true);
         patientRepository.save(patient);
         // 추 후에 QR코드 전송방식으로 변경해줘야함.
-
-        return true;
+        System.out.println("make QR code");
+        BitMatrix qr = qrService.getQrCode(patient.getPatientId().toString());
+        return qr;
     }
 
     @Override
