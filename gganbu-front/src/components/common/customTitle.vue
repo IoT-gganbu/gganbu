@@ -16,20 +16,20 @@ export default {
 <style>
 .modalTitle {
   font-family: "Pretendard Bold";
-  font-size: 35px;
+  font-size: 25px;
   color: #5780c6;
   text-align: left;
   width: fit-content;
-  margin-left: 2rem;
+  margin: 4% 0 5% 5%;
   position: relative;
 }
 
 .modalTitle:after {
   content: "";
-  width: 140%;
+  width: 130%;
   display: block;
   position: absolute;
   margin-top: 5px;
-  border-bottom: 4px solid #90b5ff;
+  border-bottom: 3px solid #90b5ff;
 }
 </style>

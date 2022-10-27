@@ -2,7 +2,7 @@
   <div class="modal-overlay" @click="$emit('close-modal')">
     <div id="modalMain" class="modal" @click.stop>
       <div class="modalTopLine">
-        <i class="fa-solid fa-xmark modalClose" @click="$emit('close-modal')"></i>
+        <i class="fa-solid fa-xs fa-xmark modalClose" @click="$emit('close-modal')"></i>
       </div>
       <h2 class="modalTitle">{{ titleText }}</h2>
       <slot />
@@ -33,8 +33,8 @@ export default {
 .modal {
   text-align: center;
   height: 40%;
-  width: 40%;
-  margin-top: 8%;
+  width: 60%;
+  margin-top: 10%;
   padding: 60px 0;
   background: #ffffff;
   border: 3px solid #90b5ff;
@@ -53,26 +53,27 @@ export default {
 }
 
 .modalClose {
+  margin-top: 1rem;
   margin-right: 1rem;
   cursor: pointer;
 }
 
 .modalTitle {
   font-family: "Pretendard Bold";
-  font-size: 35px;
+  font-size: 25px;
   color: #5780c6;
   text-align: left;
   width: fit-content;
-  margin-left: 2rem;
+  margin: 7% 0 5% 5%;
   position: relative;
 }
 
 .modalTitle:after {
   content: "";
-  width: 140%;
+  width: 130%;
   display: block;
   position: absolute;
   margin-top: 5px;
-  border-bottom: 4px solid #90b5ff;
+  border-bottom: 3px solid #90b5ff;
 }
 </style>
