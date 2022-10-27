@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import response.BaseResponseBody;
 
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 import static java.lang.System.out;
@@ -43,20 +44,17 @@ public class StaffController {
     }
 
     @PutMapping("/receipt")
-    public Object receipt(@RequestBody String residentNo) {
+    public Object receipt(@RequestBody HashMap<String, String> residentNoMap){
         out.println("StaffController.receipt");
-        out.println("residentNo : " + residentNo);
+        out.println("residentNo : " + residentNoMap.get("residentNo"));
         try{
-            BitMatrix qr = staffService.receipt(residentNo);
-            // convert bitmatrix to png
-            MatrixToImageWriter.writeToPath(qr, "png", Path.of("/qr.png"));
-
+            String path  = staffService.receipt(residentNoMap.get("residentNo"));
+            return ResponseEntity.status(200).body(BaseResponseBody.of("SUCCESS", path.toString()));
         }
         catch (Exception e) {
             out.println(e.getMessage());
             return ResponseEntity.status(500).body(BaseResponseBody.of("FAIL"));
         }
-        return ResponseEntity.status(200).body(BaseResponseBody.of("SUCCESS"));
     }
 
     @GetMapping("/progress/{userId}")
