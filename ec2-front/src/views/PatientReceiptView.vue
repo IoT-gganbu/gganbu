@@ -43,6 +43,9 @@ export default {
 </script>
 
 <style scoped>
+input:focus {
+  outline: 2px solid #90b5ff;
+}
 .body {
   display: flex;
   flex-direction: row;
