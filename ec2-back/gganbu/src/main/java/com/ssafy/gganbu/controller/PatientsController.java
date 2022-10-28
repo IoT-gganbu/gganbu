@@ -10,13 +10,19 @@ import com.ssafy.gganbu.db.repository.TaskRepository;
 import com.ssafy.gganbu.request.CheckUpReq;
 import com.ssafy.gganbu.request.PatientReq;
 import com.ssafy.gganbu.service.PatientService;
+import com.ssafy.gganbu.service.QrService;
 import com.ssafy.gganbu.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import response.BaseResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -35,6 +41,9 @@ public class PatientsController {
 
     @Autowired
     TaskService taskService;
+
+    @Autowired
+    QrService qrService;
 
     @Autowired
     TaskRepository taskRepository;
@@ -124,6 +133,24 @@ public class PatientsController {
         }
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS));
+    }
+
+    @GetMapping("/downloadfile/{patientId:.+}")
+    public ResponseEntity<Resource> downloadQr(@PathVariable String patientId, HttpServletRequest request){
+        Resource resource = qrService.loadFileAsResource(patientId);
+        String contentType = null;
+        try {
+            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        } catch (IOException e) {
+            System.out.println("Could not determine file type.");
+        }
+        if(contentType == null){
+            contentType = "application/octet-stream";
+        }
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .contentType(MediaType.parseMediaType(contentType))
+                .body(resource);
     }
 
 
