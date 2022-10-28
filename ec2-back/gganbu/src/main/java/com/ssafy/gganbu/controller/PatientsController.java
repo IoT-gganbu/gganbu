@@ -163,13 +163,27 @@ public class PatientsController {
 
     @GetMapping("/{patientId}")
     public ResponseEntity<? extends BaseResponseBody> getPatientInfo(@PathVariable Long patientId){
-        Patients patients =null;
+        HashMap<String,Object> res = new HashMap<>();
         try {
-            patients = patientService.getPatient(patientId);
+            Patients patients = patientService.getPatient(patientId);
+            res.put("patientId",patients.getPatientId());
+            res.put("gender",patients.getGender());
+            List<TaskChecktitle> tasks = taskService.getAllTask();
+            // 남자의 경우
+            if(patients.getGender()==0){
+                // 자궁경부암, 유방암 검사 제외
+                tasks.remove(5);
+                tasks.remove(5);
+                res.put("task",tasks);
+            }else{
+                res.put("task",tasks);
+            }
+
+            return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS,res));
         }catch (Exception e){
             return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
         }
-        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS,patients));
+
     }
 
 
