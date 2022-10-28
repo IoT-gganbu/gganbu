@@ -37,7 +37,7 @@ public class QrServiceImpl implements QrService {
         }
         // bitMatrix를 png로 변환
         try {
-             path = Path.of("/tmp/gganbu/patient/" + patient.getPatientId()+"/qr.png");
+             path = Path.of("/tmp/gganbu/patient/" + patient.getPatientId()+ "/static/qr.png");
             System.out.println("new Path : " + path);
             MatrixToImageWriter.writeToPath(qr, "png", path);
         } catch (IOException e) {
