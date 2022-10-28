@@ -56,7 +56,7 @@ public class PatientsController {
     public ResponseEntity<Map<String, Object>> receipt(@RequestBody PatientReq reqData){
         Map<String, Object> result = new HashMap<>();
         System.out.println(reqData.getResidentNo());
-        if(!patientService.checkResidentNo(reqData.getResidentNo())){
+        if(patientService.checkResidentNo(reqData.getResidentNo())){
             result.put("message", FAIL);
         }else{
             Patients res = new Patients();
@@ -129,7 +129,8 @@ public class PatientsController {
         Patients patients = patientService.getPatient(checkUpReq.getPatientId());
         TaskChecktitle taskChecktitle = taskService.getTask(checkUpReq.getTcId());
         // 중복 입력시
-        if(historyRepository.existsByTaskChecktitleAndPatient(taskChecktitle, patients)){
+        Boolean check = historyRepository.existsByTaskChecktitleAndPatient(taskChecktitle, patients).orElseThrow(()-> new NoSuchElementException("list not found"));
+        if(check){
             return ResponseEntity.status(200).body(BaseResponseBody.of("중복 입력"));
         }
         try {

@@ -11,8 +11,8 @@ import java.util.Optional;
 public interface PatientReqository extends JpaRepository<Patients, Long> {
     // 나중에 Optional로 변경해야함.
     public Optional<Patients> findByResidentNo(String residentNo);
+    public Optional<Boolean> existsByResidentNo(String residentNo);
+    public Optional<List<Patients>> findAllByName(String name);
 
-    public List<Patients> findAllByName(String name);
-
-    public Patients findByPatientId(Long patientId);
+    public Optional<Patients> findByPatientId(Long patientId);
 }

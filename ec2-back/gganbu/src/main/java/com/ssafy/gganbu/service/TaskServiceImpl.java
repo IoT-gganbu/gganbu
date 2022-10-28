@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service("TaskService")
 public class TaskServiceImpl implements TaskService{
@@ -15,7 +16,7 @@ public class TaskServiceImpl implements TaskService{
     @Override
     public TaskChecktitle getTask(Long tcId) {
         try {
-            TaskChecktitle tc = taskRepository.findByTcId(tcId);
+            TaskChecktitle tc = taskRepository.findByTcId(tcId).orElseThrow(()-> new NoSuchElementException("checktitle not found"));
             return tc;
         }catch (Exception e){
             return null;

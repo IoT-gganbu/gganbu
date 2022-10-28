@@ -41,7 +41,7 @@ public class StaffServiceImpl implements StaffService {
     public String receipt(String residentNo) throws NoChangeExeption, WriterException, IOException {
         System.out.println("StaffServiceImpl.receipt");
         // 나중에 Optional로 변경해야함.
-        Patients patient = patientRepository.findByResidentNo(residentNo);
+        Patients patient = patientRepository.findByResidentNo(residentNo).orElseThrow(()-> new NoSuchElementException("patient not found"));
         // null 체크
         if(patient == null) {
             throw new NoSuchElementException("no patient found");
@@ -68,12 +68,12 @@ public class StaffServiceImpl implements StaffService {
     public Object progress(Long patientId) {
         System.out.println("StaffServiceImpl.progress");
         // userId 기반으로 patient 찾기
-        Patients patient = patientRepository.findByPatientId(patientId);
+        Patients patient = patientRepository.findByPatientId(patientId).orElseThrow(()-> new NoSuchElementException("patient not found"));
         if(patient == null) {
             throw new NoSuchElementException("no patient found");
         }
         // patient 기반으로 progress 찾기
-        List<PatientProgressHistory> list = historyRepository.findByPatientOrderByTaskChecktitleAsc(patient);
+        List<PatientProgressHistory> list = historyRepository.findByPatientOrderByTaskChecktitleAsc(patient).orElseThrow(()-> new NoSuchElementException("check list not found"));
         // 정상출력 확인
 //        for(PatientProgressHistory history : list) {
 //            System.out.println(history.getTaskChecktitle().getTcId());
