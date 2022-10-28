@@ -1,6 +1,6 @@
 <template>
   <div class="processDetail">
-    <img :src="imgs[No].url" class="img" />
+    <div><img :src="imgs[No].url" class="img" /></div>
     <div class="description">{{ descriptions[No].text }}</div>
   </div>
 </template>
@@ -79,12 +79,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .img {
-  width: 180x;
-  height: 120px;
-  float: left;
-  margin-right: 5%;
+  width: 210x;
+  height: 140px;
+  margin-bottom: 10%;
+  margin-top: 10%;
 }
 .description {
   font-size: 20px;
