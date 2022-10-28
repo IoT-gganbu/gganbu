@@ -3,10 +3,12 @@
     <div class="logo">
       <img src="@/assets/img/ssabeulans_logo.png" />
     </div>
-    <div class="type">{{ type }}</div>
-    <div class="right-content" v-if="isLogin == 'true'">
-      <div class="professor" v-if="type == '의료진'">{{ department }}과 {{ professorName }}교수님</div>
-      <button type="button"><img src="@/assets/img/logout.png" /></button>
+    <div class="right-content">
+      <button id="current-place-button" type="button">현재위치 보기</button>
+      <div class="weather-and-time">
+        <div id="weather">맑음 🌞</div>
+        <div id="time">{{ now }}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -14,16 +16,37 @@
 <script>
 export default {
   name: "navBar",
-  props: {
-    type: String,
-    isLogin: {
-      default: "false",
+  props: {},
+  data() {
+    return {
+      now: "00 : 00",
+    };
+  },
+  mounted() {
+    setInterval(this.calcTime, 1000);
+    this.getWeather();
+  },
+  methods: {
+    calcTime() {
+      const time = new Date();
+
+      this.now = time.getHours() + " : " + time.getMinutes();
     },
-    isRobot: {
-      default: "false",
+    getWeather() {
+      const date = new Date();
+      const today = date.getFullYear() + "" + (date.getMonth() + 1) + "" + date.getDate();
+      const link = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=${process.env.VUE_APP_WEATHER_API_KEY}&base_date=${today}&base_time=0630&nx=36.3549777&ny=127.2983403`;
+
+      this.$axios
+        .get(link)
+        .then((response) => {
+          console.log(JSON.stringify(response));
+          // response.data.body.
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
-    department: String,
-    professorName: String,
   },
 };
 </script>
@@ -52,32 +75,29 @@ export default {
 }
 .right-content {
   float: right;
+  vertical-align: middle;
+  margin-right: 10px;
 }
-.right-content-robot {
-  float: right;
-  font-size: 20px;
-  color: #5780c6;
-}
-.professor {
-  padding-top: 20px;
-  padding-right: 50px;
-  color: #5780c6;
-  font-size: 20px;
-  float: left;
-}
-.right-content button {
+#current-place-button {
   background-color: transparent;
   background-position: 0px 0px;
   border: none;
   cursor: pointer;
-  vertical-align: middle;
-  margin-top: 15px;
-  margin-right: 15px;
-  float: right;
+  color: #5780c6;
+  font-size: 16px;
+  margin-top: 20px;
+  margin-right: 20px;
 }
-.right-content button img {
-  height: 30px;
-  width: 30px;
+.weather-and-time {
+  float: right;
+  height: 60px;
   vertical-align: middle;
+  font-weight: bold;
+  font-size: 15px;
+  margin-top: 10px;
+}
+#weather {
+}
+#time {
 }
 </style>

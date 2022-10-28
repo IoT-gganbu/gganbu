@@ -30,10 +30,10 @@ export default {
       processNo: 0,
       processes: [
         {
-          item: ["1. 접수", "2. 기초검사/신체계측"],
+          item: ["1. 접수", "2. 기초검사 / 신체계측"],
         },
         {
-          item: ["3. 채혈, 소변 검사", "4. 흉부 방사선"],
+          item: ["3. 채혈 / 소변 검사", "4. 흉부 방사선"],
         },
         {
           item: ["5. 진찰 및 상담", "6. 자궁 경부암 검사"],
@@ -43,11 +43,6 @@ export default {
         },
         {
           item: ["9. 대장 내시경 검사", "10. 폐암 검사"],
-        },
-      ],
-      contents: [
-        {
-          text: "",
         },
       ],
     };
@@ -67,12 +62,18 @@ export default {
 .row {
   display: flex;
   justify-content: center;
-  margin-top: 2%;
+  margin-top: 1.5%;
+  height: 20%;
 }
 .col1,
 .col2 {
-  width: 30%;
+  width: 50%;
+  margin-bottom: 8%;
   margin-left: 5%;
   margin-right: 5%;
+  font-size: 1.5rem;
+}
+.detail {
+  margin-top: 10%;
 }
 </style>

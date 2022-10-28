@@ -26,7 +26,11 @@ import org.springframework.web.bind.annotation.*;
 import response.BaseResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -162,12 +166,35 @@ public class PatientsController {
             System.out.println("Could not determine file type.");
         }
         if(contentType == null){
-            contentType = "application/octet-stream";
+//            contentType = "application/octet-stream";
+            contentType = "image/png";
         }
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
+    }
+    @GetMapping(value="/image/view/{patientId}", produces= MediaType.IMAGE_PNG_VALUE)
+    public @ResponseBody byte[] getImage(@RequestParam("patientId") String id) throws IOException {
+        FileInputStream fis = null;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        Path path = Paths.get("/tmp/gganbu/patient/" + id + "/qr.png");
+        byte[] fileArray = new byte[0];
+        try {
+            fis = new FileInputStream(path.toString());
+            int readCount = 0;
+            byte[] buffer = new byte[1024];
+            fileArray = null;
+            while ((readCount = fis.read(buffer)) != -1) {
+                baos.write(buffer, 0, readCount);
+            }
+            fileArray = baos.toByteArray();
+            fis.close();
+            baos.close();
+        } catch (IOException e) {
+            System.out.println("파일을 찾을 수 없습니다.");
+        }
+        return fileArray;
     }
 
     @GetMapping("/{patientId}")
@@ -197,4 +224,7 @@ public class PatientsController {
     }
 
 
-}
+    }
+
+
+
