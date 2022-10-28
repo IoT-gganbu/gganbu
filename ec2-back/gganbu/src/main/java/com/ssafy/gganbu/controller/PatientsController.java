@@ -12,6 +12,10 @@ import com.ssafy.gganbu.request.PatientReq;
 import com.ssafy.gganbu.service.PatientService;
 import com.ssafy.gganbu.service.QrService;
 import com.ssafy.gganbu.service.TaskService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -30,6 +34,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
 
+@Api("환자 Controller")
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/patient")
@@ -56,11 +61,11 @@ public class PatientsController {
     HistoryRepository historyRepository;
 
     @PostMapping("/receipt")
-    public ResponseEntity<Map<String, Object>> receipt(@RequestBody PatientReq reqData){
+    @ApiOperation(value ="환자 접수")
+    public ResponseEntity<Map<String, Object>> receipt(@RequestBody @ApiParam(value="수정할회원정보") PatientReq reqData){
         Map<String, Object> result = new HashMap<>();
-        System.out.println("aaaaaa");
         System.out.println(reqData.getResidentNo());
-        if(!patientService.checkResidentNo(reqData.getResidentNo())){
+        if(patientService.checkResidentNo(reqData.getResidentNo())){
             result.put("message", FAIL);
         }else{
             Patients res = new Patients();
@@ -69,12 +74,16 @@ public class PatientsController {
             res.setTel(reqData.getTel());
             String residentNo = reqData.getResidentNo();
             res.setResidentNo(residentNo);
+            // 만나이 저장 변수
             int newage = 0;
+            // 2000년생 이상인 경우
             if(Integer.parseInt(residentNo.substring(7,8))==3 || Integer.parseInt(residentNo.substring(7,8))==4){
                 newage = 2000 + Integer.parseInt(residentNo.substring(0,2));
+            // 1900년생인 경우
             }else{
                 newage = 1900 + Integer.parseInt(residentNo.substring(0,2));
             }
+            // 만나이 구하는 함수
             int age = getAge(newage,
                     Integer.parseInt(residentNo.substring(2,4)), Integer.parseInt(residentNo.substring(4,6)));
             System.out.println(age);
@@ -103,7 +112,9 @@ public class PatientsController {
         return age;
     }
 
-    @GetMapping("/{name}")
+
+    @GetMapping("/search/{name}")
+    @ApiOperation(value ="이름으로 환자 검색")
     public ResponseEntity<? extends BaseResponseBody> searchPatient(@PathVariable String name){
 
         List<Patients> res = new ArrayList<>();
@@ -112,6 +123,7 @@ public class PatientsController {
         }catch (Exception e){
             return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
         }
+        // 해당 회원이 없는 경우
         if(res.size() == 0){
             return ResponseEntity.status(200).body(BaseResponseBody.of("해당회원없음"));
         }else{
@@ -120,16 +132,21 @@ public class PatientsController {
 
     }
 
+    // 해당 검진 절차 완료 여부 입력 함수
     @PostMapping("/checkup")
+    @ApiOperation(value ="각 단계 검진 완료 기록")
     public ResponseEntity<? extends BaseResponseBody> checkUp(@RequestBody CheckUpReq checkUpReq) {
         PatientProgressHistory history = new PatientProgressHistory();
+        Patients patients = patientService.getPatient(checkUpReq.getPatientId());
+        TaskChecktitle taskChecktitle = taskService.getTask(checkUpReq.getTcId());
+        // 중복 입력시
+        Boolean check = historyRepository.existsByTaskChecktitleAndPatient(taskChecktitle, patients).orElseThrow(()-> new NoSuchElementException("list not found"));
+        if(check){
+            return ResponseEntity.status(200).body(BaseResponseBody.of("중복 입력"));
+        }
         try {
-            Patients patients = patientService.getPatient(checkUpReq.getPatientId());
             history.setPatient(patients);
-
-            TaskChecktitle taskChecktitle = taskService.getTask(checkUpReq.getTcId());
             history.setTaskChecktitle(taskChecktitle);
-
             historyRepository.save(history);
         }catch (Exception e){
             return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
@@ -139,6 +156,7 @@ public class PatientsController {
     }
 
     @GetMapping("/downloadfile/{patientId:.+}")
+    @ApiOperation(value ="QR 다운로드")
     public ResponseEntity<Resource> downloadQr(@PathVariable String patientId, HttpServletRequest request){
         Resource resource = qrService.loadFileAsResource(patientId);
         String contentType = null;
@@ -177,7 +195,36 @@ public class PatientsController {
             System.out.println("파일을 찾을 수 없습니다.");
         }
         return fileArray;
+    }
+
+    @GetMapping("/{patientId}")
+    @ApiOperation(value ="QR의 id로 유저 검색")
+    public ResponseEntity<? extends BaseResponseBody> getPatientInfo(@PathVariable Long patientId){
+        HashMap<String,Object> res = new HashMap<>();
+        try {
+            Patients patients = patientService.getPatient(patientId);
+            res.put("patientId",patients.getPatientId());
+            res.put("gender",patients.getGender());
+            List<TaskChecktitle> tasks = taskService.getAllTask();
+            // 남자의 경우
+            if(patients.getGender()==0){
+                // 자궁경부암, 유방암 검사 제외
+                tasks.remove(5);
+                tasks.remove(5);
+                res.put("task",tasks);
+            }else{
+                res.put("task",tasks);
+            }
+
+            return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS,res));
+        }catch (Exception e){
+            return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
+        }
 
     }
 
-}
+
+    }
+
+
+

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service("patientService")
 @RequiredArgsConstructor
@@ -19,16 +20,14 @@ public class PatientServiceImpl implements PatientService{
 
     public boolean checkResidentNo(String residentNo){
         System.out.println("service" + residentNo);
-        if(patientReqository.findByResidentNo(residentNo)!=null){
-            return false;
-        }
-        return true;
+        Boolean check = patientReqository.existsByResidentNo(residentNo).orElseThrow(()-> new NoSuchElementException("patient not found"));
+        return check;
     }
 
     @Override
     public List<Patients> searchPatient(String name) {
         try {
-            List<Patients> res = patientReqository.findAllByName(name);
+            List<Patients> res = patientReqository.findAllByName(name).orElseThrow(()-> new NoSuchElementException("patient not found"));
             return res;
         }catch (Exception e){
             e.printStackTrace();
@@ -39,7 +38,7 @@ public class PatientServiceImpl implements PatientService{
     @Override
     public Patients getPatient(Long patientId) {
         try {
-            Patients patients = patientReqository.findByPatientId(patientId);
+            Patients patients = patientReqository.findByPatientId(patientId).orElseThrow(()-> new NoSuchElementException("patient not found"));
             return patients;
         }catch (Exception e) {
             return null;
