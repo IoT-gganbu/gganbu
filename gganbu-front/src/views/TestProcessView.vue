@@ -8,8 +8,8 @@
       </div>
     </div>
     <custom-modal class="detail" id="detail" v-show="showImgModal" @close-modal="showImgModal = false" :titleText="process">
-      <content>
-        <process-detail :No="processNo"></process-detail>
+      <content class="content">
+        <process-detail :No="processNo" @close-modal="showImgModal = false"></process-detail>
       </content>
     </custom-modal>
   </div>
@@ -74,6 +74,6 @@ export default {
   font-size: 1.5rem;
 }
 .detail {
-  margin-top: 10%;
+  height: 130%;
 }
 </style>
