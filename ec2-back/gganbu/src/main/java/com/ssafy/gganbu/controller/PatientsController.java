@@ -51,6 +51,7 @@ public class PatientsController {
     @Autowired
     HistoryRepository historyRepository;
 
+    // 환자 정보 입력(접수)
     @PostMapping("/receipt")
     public ResponseEntity<Map<String, Object>> receipt(@RequestBody PatientReq reqData){
         Map<String, Object> result = new HashMap<>();
@@ -64,12 +65,16 @@ public class PatientsController {
             res.setTel(reqData.getTel());
             String residentNo = reqData.getResidentNo();
             res.setResidentNo(residentNo);
+            // 만나이 저장 변수
             int newage = 0;
+            // 2000년생 이상인 경우
             if(Integer.parseInt(residentNo.substring(7,8))==3 || Integer.parseInt(residentNo.substring(7,8))==4){
                 newage = 2000 + Integer.parseInt(residentNo.substring(0,2));
+            // 1900년생인 경우
             }else{
                 newage = 1900 + Integer.parseInt(residentNo.substring(0,2));
             }
+            // 만나이 구하는 함수
             int age = getAge(newage,
                     Integer.parseInt(residentNo.substring(2,4)), Integer.parseInt(residentNo.substring(4,6)));
             System.out.println(age);
@@ -98,7 +103,8 @@ public class PatientsController {
         return age;
     }
 
-    @GetMapping("/{name}")
+    // 이름으로 환자정보 가져오는 함수
+    @GetMapping("/search/{name}")
     public ResponseEntity<? extends BaseResponseBody> searchPatient(@PathVariable String name){
 
         List<Patients> res = new ArrayList<>();
@@ -107,6 +113,7 @@ public class PatientsController {
         }catch (Exception e){
             return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
         }
+        // 해당 회원이 없는 경우
         if(res.size() == 0){
             return ResponseEntity.status(200).body(BaseResponseBody.of("해당회원없음"));
         }else{
@@ -115,18 +122,19 @@ public class PatientsController {
 
     }
 
+    // 해당 검진 절차 완료 여부 입력 함수
     @PostMapping("/checkup")
     public ResponseEntity<? extends BaseResponseBody> checkUp(@RequestBody CheckUpReq checkUpReq) {
         PatientProgressHistory history = new PatientProgressHistory();
         Patients patients = patientService.getPatient(checkUpReq.getPatientId());
         TaskChecktitle taskChecktitle = taskService.getTask(checkUpReq.getTcId());
+        // 중복 입력시
         if(historyRepository.existsByTaskChecktitleAndPatient(taskChecktitle, patients)){
             return ResponseEntity.status(200).body(BaseResponseBody.of("중복 입력"));
         }
         try {
             history.setPatient(patients);
             history.setTaskChecktitle(taskChecktitle);
-
             historyRepository.save(history);
         }catch (Exception e){
             return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
@@ -151,6 +159,17 @@ public class PatientsController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .contentType(MediaType.parseMediaType(contentType))
                 .body(resource);
+    }
+
+    @GetMapping("/{patientId}")
+    public ResponseEntity<? extends BaseResponseBody> getPatientInfo(@PathVariable Long patientId){
+        Patients patients =null;
+        try {
+            patients = patientService.getPatient(patientId);
+        }catch (Exception e){
+            return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
+        }
+        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS,patients));
     }
 
 
