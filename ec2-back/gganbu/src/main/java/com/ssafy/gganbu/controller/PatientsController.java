@@ -12,6 +12,10 @@ import com.ssafy.gganbu.request.PatientReq;
 import com.ssafy.gganbu.service.PatientService;
 import com.ssafy.gganbu.service.QrService;
 import com.ssafy.gganbu.service.TaskService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -26,6 +30,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
+@Api("환자 Controller")
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/patient")
@@ -51,9 +56,9 @@ public class PatientsController {
     @Autowired
     HistoryRepository historyRepository;
 
-    // 환자 정보 입력(접수)
     @PostMapping("/receipt")
-    public ResponseEntity<Map<String, Object>> receipt(@RequestBody PatientReq reqData){
+    @ApiOperation(value ="환자 접수")
+    public ResponseEntity<Map<String, Object>> receipt(@RequestBody @ApiParam(value="수정할회원정보") PatientReq reqData){
         Map<String, Object> result = new HashMap<>();
         System.out.println(reqData.getResidentNo());
         if(patientService.checkResidentNo(reqData.getResidentNo())){
@@ -103,8 +108,9 @@ public class PatientsController {
         return age;
     }
 
-    // 이름으로 환자정보 가져오는 함수
+
     @GetMapping("/search/{name}")
+    @ApiOperation(value ="이름으로 환자 검색")
     public ResponseEntity<? extends BaseResponseBody> searchPatient(@PathVariable String name){
 
         List<Patients> res = new ArrayList<>();
@@ -124,6 +130,7 @@ public class PatientsController {
 
     // 해당 검진 절차 완료 여부 입력 함수
     @PostMapping("/checkup")
+    @ApiOperation(value ="각 단계 검진 완료 기록")
     public ResponseEntity<? extends BaseResponseBody> checkUp(@RequestBody CheckUpReq checkUpReq) {
         PatientProgressHistory history = new PatientProgressHistory();
         Patients patients = patientService.getPatient(checkUpReq.getPatientId());
@@ -145,6 +152,7 @@ public class PatientsController {
     }
 
     @GetMapping("/downloadfile/{patientId:.+}")
+    @ApiOperation(value ="QR 다운로드")
     public ResponseEntity<Resource> downloadQr(@PathVariable String patientId, HttpServletRequest request){
         Resource resource = qrService.loadFileAsResource(patientId);
         String contentType = null;
@@ -163,6 +171,7 @@ public class PatientsController {
     }
 
     @GetMapping("/{patientId}")
+    @ApiOperation(value ="QR의 id로 유저 검색")
     public ResponseEntity<? extends BaseResponseBody> getPatientInfo(@PathVariable Long patientId){
         HashMap<String,Object> res = new HashMap<>();
         try {
