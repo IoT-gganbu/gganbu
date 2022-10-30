@@ -20,7 +20,7 @@ export default {
   color: #5780c6;
   text-align: left;
   width: fit-content;
-  margin: 4% 0 5% 5%;
+  margin: 8% 0 8% 5%;
   position: relative;
 }
 
