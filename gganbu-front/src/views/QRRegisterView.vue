@@ -24,7 +24,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .qrCamera {
   display: flex;
   justify-content: center;

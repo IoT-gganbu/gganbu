@@ -26,7 +26,7 @@
           <img src="@/assets/img/controller.png" />
         </div>
         <div class="title">
-          <p>게임</p>
+          <p>즐길거리</p>
         </div>
       </div>
     </div>
