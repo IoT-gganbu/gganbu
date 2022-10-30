@@ -19,6 +19,11 @@ const routes = [
     name: "qr",
     component: () => import("../views/QRRegisterView.vue"),
   },
+  {
+    path: "/cardGame",
+    name: "cardGame",
+    component: () => import("../views/CardGameView.vue"),
+  },
 ];
 
 const router = new VueRouter({
