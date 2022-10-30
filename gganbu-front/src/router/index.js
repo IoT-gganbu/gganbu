@@ -14,6 +14,11 @@ const routes = [
     name: "process",
     component: () => import("../views/TestProcessView.vue"),
   },
+  {
+    path: "/qr",
+    name: "qr",
+    component: () => import("../views/QRRegisterView.vue"),
+  },
 ];
 
 const router = new VueRouter({
