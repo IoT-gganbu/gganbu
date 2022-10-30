@@ -17,7 +17,7 @@
 
 <script>
 import customTitle from "@/components/common/customTitle.vue";
-import processDetail from "@/components/ProcessDetail.vue";
+import processDetail from "@/components/process/ProcessDetail.vue";
 export default {
   components: {
     customTitle,
