@@ -12,10 +12,7 @@ import com.ssafy.gganbu.request.PatientReq;
 import com.ssafy.gganbu.service.PatientService;
 import com.ssafy.gganbu.service.QrService;
 import com.ssafy.gganbu.service.TaskService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -115,6 +112,7 @@ public class PatientsController {
 
     @GetMapping("/search/{name}")
     @ApiOperation(value ="이름으로 환자 검색")
+    @ApiImplicitParam(name = "name", value = "환자 이름", required = true, dataType = "String", paramType = "path", example = "김철수")
     public ResponseEntity<? extends BaseResponseBody> searchPatient(@PathVariable String name){
 
         List<Patients> res = new ArrayList<>();
@@ -157,6 +155,7 @@ public class PatientsController {
 
     @GetMapping("/downloadfile/{patientId:.+}")
     @ApiOperation(value ="QR 다운로드")
+    @ApiImplicitParam(name = "patientId", value = "환자 ID", required = true, dataType = "String", paramType = "path", example = "1")
     public ResponseEntity<Resource> downloadQr(@PathVariable String patientId, HttpServletRequest request){
         Resource resource = qrService.loadFileAsResource(patientId);
         String contentType = null;
@@ -175,6 +174,7 @@ public class PatientsController {
                 .body(resource);
     }
     @GetMapping(value="/image/view/{patientId}", produces= MediaType.IMAGE_PNG_VALUE)
+    @ApiImplicitParam(name = "patientId", value = "환자 ID", required = true, dataType = "String", paramType = "path", example = "1")
     public @ResponseBody byte[] getImage(@RequestParam("patientId") String id) throws IOException {
         FileInputStream fis = null;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -199,6 +199,7 @@ public class PatientsController {
 
     @GetMapping("/{patientId}")
     @ApiOperation(value ="QR의 id로 유저 검색")
+    @ApiImplicitParam(name = "patientId", value = "환자 ID", required = true, dataType = "String", paramType = "path", example = "1")
     public ResponseEntity<? extends BaseResponseBody> getPatientInfo(@PathVariable Long patientId){
         HashMap<String,Object> res = new HashMap<>();
         try {
