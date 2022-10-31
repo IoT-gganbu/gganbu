@@ -1,5 +1,9 @@
 <template>
-  <div id="wrapper"></div>
+  <div class="gameCard">
+    <div class="game">
+      <div id="wrapper"></div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -67,9 +71,7 @@ export default {
                   document.body.appendChild(result);
                   setTimeout(() => {
                     result.innerHTML = "";
-                  }, 1000);
-                  // 모달 닫을 때 실행할 수 있도록 하기
-                  window.location.reload(true);
+                  }, 2000);
                 }
               } else {
                 //색깔이 다르면 1초 후 카드 닫기
@@ -108,11 +110,22 @@ export default {
 </script>
 
 <style>
+.game {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#wrapper {
+  width: 80%;
+  margin-top: 5%;
+}
+
 .card {
   display: inline-block;
   width: 100px;
   height: 150px;
-  margin: 3px 5px 3px 0px;
+  margin: 5px 10px 5px 0px;
   perspective: 21px;
 }
 
