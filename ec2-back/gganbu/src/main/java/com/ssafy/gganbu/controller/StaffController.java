@@ -20,6 +20,7 @@ import java.util.NoSuchElementException;
 import static java.lang.System.out;
 
 @Slf4j
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/staff")
 public class StaffController {

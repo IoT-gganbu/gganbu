@@ -30,7 +30,7 @@ export default {
     calcTime() {
       const time = new Date();
 
-      this.now = time.getHours() + " : " + time.getMinutes();
+      this.now = time.getHours() + " : " + (time.getMinutes() < 10 ? "0" : "") + time.getMinutes();
     },
     getWeather() {
       const date = new Date();
