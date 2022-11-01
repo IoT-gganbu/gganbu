@@ -13,6 +13,8 @@ Vue.component("customModal", customModal);
 Vue.component("navBar", navBar);
 Vue.component("customTitle", customTitle);
 Vue.use(axios);
+Vue.prototype.$axios = axios;
+
 new Vue({
   router,
   store,
