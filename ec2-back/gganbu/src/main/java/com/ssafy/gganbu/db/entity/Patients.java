@@ -34,7 +34,7 @@ public class Patients {
     @ApiModelProperty(example = "전화번호")
     private String tel;
 
-    @Column(name = "resident_no", nullable = false)
+    @Column(name = "resident_no", nullable = false, unique = true)
     @ApiModelProperty(example = "주민번호")
     private String residentNo;
 
