@@ -1,8 +1,13 @@
 <template>
   <div>
-    <div class="box">
-      <pose-estimation />
-      <custom-button btnText="123123" />
+    <custom-button id="backBtn" btnText="돌아가기" />
+    <div class="outside-box">
+      <div class="box-up">
+        <img src="@/assets/img/기초검사.png" />
+      </div>
+      <div class="box-down">
+        <pose-estimation />
+      </div>
     </div>
   </div>
 </template>
@@ -12,12 +17,22 @@ import poseEstimation from "@/components/poseEstimation.vue";
 
 export default {
   components: { poseEstimation },
+  data() {
+    return {
+      isCorrect: false,
+    };
+  },
 };
 </script>
 
 <style>
-.box {
-  width: 85%;
+#backBtn {
+  position: absolute;
+  margin-top: 10px;
+}
+.outside-box {
+  margin-top: 8%;
+  width: 75%;
   height: 600px;
   background: #ffffff;
   border: 2px solid #90b5ff;
@@ -25,6 +40,14 @@ export default {
   border-radius: 20px;
   display: inline-grid;
   align-items: center;
-  /* margin: 9% 1% 0 1%; */
+  padding: 30px;
+  text-align: center;
+  margin: 9% 3% 0 3%;
+}
+.box-up {
+}
+img {
+  width: 100%;
+  object-fit: cover;
 }
 </style>

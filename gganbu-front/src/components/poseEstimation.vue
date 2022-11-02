@@ -1,6 +1,6 @@
 <template>
-  <div v-if="start == false">
-    <button type="button" @click="init()">시작</button>
+  <div>
+    <!-- <custom-button @click="init()" btnText="시작하기" /> -->
     <div><canvas id="canvas"></canvas></div>
     <div id="label-container"></div>
   </div>
@@ -19,8 +19,12 @@ export default {
       webcam: null,
       ctx: null,
       labelContainer: null,
-      maxPredictions: [],
+      maxPredictions: 0,
+      result: [],
     };
+  },
+  mounted() {
+    this.init();
   },
   methods: {
     async init() {
@@ -71,8 +75,9 @@ export default {
       const prediction = await this.model.predict(posenetOutput);
 
       for (let i = 0; i < this.maxPredictions; i++) {
-        const classPrediction = prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-        this.labelContainer.childNodes[i].innerHTML = classPrediction;
+        // const classPrediction = prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+        prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+        // this.labelContainer.childNodes[i].innerHTML = classPrediction;
       }
 
       // finally draw the poses
