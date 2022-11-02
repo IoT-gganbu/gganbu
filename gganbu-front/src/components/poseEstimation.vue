@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <div>Teachable Machine Pose Model</div>
+  <div v-if="start == false">
     <button type="button" @click="init()">시작</button>
     <div><canvas id="canvas"></canvas></div>
     <div id="label-container"></div>
@@ -11,7 +10,9 @@
 import * as tmPose from "@teachablemachine/pose";
 
 export default {
-  props: {},
+  props: {
+    start: Boolean,
+  },
   data() {
     return {
       model: null,
@@ -21,13 +22,9 @@ export default {
       maxPredictions: [],
     };
   },
-  mounted() {
-    // this.init();
-  },
   methods: {
     async init() {
       const URL = "https://teachablemachine.withgoogle.com/models/k1fCLdzxV/";
-      //   let model, webcam, ctx, labelContainer, maxPredictions;
       const modelURL = URL + "model.json";
       const metadataURL = URL + "metadata.json";
 
@@ -38,10 +35,10 @@ export default {
       this.maxPredictions = this.model.getTotalClasses();
 
       // Convenience function to setup a webcam
-      const sizeW = 400;
-      const sizeH = 300;
-      const flip = true; // whether to flip the webcam
-      this.webcam = new tmPose.Webcam(sizeW, sizeH, flip); // width, height, flip
+      const sizeW = 350; // 결과창 width
+      const sizeH = 250; // 결과창 height
+      const flip = true; // 카메라 뒤집기
+      this.webcam = new tmPose.Webcam(sizeW, sizeH, flip);
       await this.webcam.setup(); // request access to the webcam
       await this.webcam.play();
       window.requestAnimationFrame(this.loop);
@@ -58,12 +55,14 @@ export default {
       }
     },
 
+    /* 루프 돌면서 pose estimation 하는 함수 */
     async loop() {
       this.webcam.update(); // update the webcam frame
       await this.predict();
       window.requestAnimationFrame(this.loop);
     },
 
+    /* 모델과 웹캠에서 받아온 프레임을 비교해서 pose 예측하는 함수 */
     async predict() {
       // Prediction #1: run input through posenet
       // estimatePose can take in an image, video or canvas html element
@@ -80,6 +79,7 @@ export default {
       this.drawPose(pose);
     },
 
+    /* pose를 영상 위에 그리는 함수 */
     drawPose(pose) {
       if (this.webcam.canvas) {
         this.ctx.drawImage(this.webcam.canvas, 0, 0);

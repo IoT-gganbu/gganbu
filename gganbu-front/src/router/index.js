@@ -4,15 +4,10 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 const routes = [
-  // {
-  //   path: "/",
-  //   name: "Home",
-  //   component: () => import("../views/HomeView.vue"),
-  // },
   {
     path: "/",
     name: "Home",
-    component: () => import("../views/poseGame.vue"),
+    component: () => import("../views/HomeView.vue"),
   },
   {
     path: "/process",
@@ -28,6 +23,11 @@ const routes = [
     path: "/cardGame",
     name: "cardGame",
     component: () => import("../views/CardGameView.vue"),
+  },
+  {
+    path: "/poseGame",
+    name: "poseGame",
+    component: () => import("../views/PoseGameView.vue"),
   },
 ];
 
