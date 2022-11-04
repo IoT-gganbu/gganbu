@@ -4,6 +4,9 @@ import com.ssafy.gganbu.db.entity.Patients;
 import com.ssafy.gganbu.db.repository.PatientReqository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +44,18 @@ public class PatientServiceImpl implements PatientService{
             Patients patients = patientReqository.findByPatientId(patientId).orElseThrow(()-> new NoSuchElementException("patient not found"));
             return patients;
         }catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Page<Patients> searchPatientWithPage(String name, int page, int size) {
+        try {
+            Pageable pageable = PageRequest.of(page, size);
+            Page<Patients> res = patientReqository.findAllByName(name, pageable).orElseThrow(()-> new NoSuchElementException("patient not found"));
+            return res;
+        }catch (Exception e){
+            e.printStackTrace();
             return null;
         }
     }

@@ -14,16 +14,16 @@ import javax.persistence.Column;
 @Builder
 @ApiModel(value = "환자 Request", description = "환자 등록을 위한 Request")
 public class PatientReq {
-    @ApiModelProperty(example = "이름")
+    @ApiModelProperty(value = "환자 이름", required = true, example = "김철수")
     private String name;
 
-    @ApiModelProperty(example = "성별")
+    @ApiModelProperty(value = "환자 성별", required = true, example = "0")
     private Integer gender;
 
-    @ApiModelProperty(example = "전화번호")
+    @ApiModelProperty(value = "환자 전화번호", required = true, example = "010-1234-1234")
     private String tel;
 
-    @ApiModelProperty(example = "주민 번호")
+    @ApiModelProperty(value = "환자 주민번호", required = true, example = "990909-9999999")
     private String residentNo;
 
 }

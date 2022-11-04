@@ -12,9 +12,8 @@ import lombok.*;
 @Builder
 @ApiModel(value = "검진 Request", description = "검진 완료 등록을 위한 Request")
 public class CheckUpReq {
-    @ApiModelProperty(example = "환자 id")
+    @ApiModelProperty(value = "환자 id", required = true, example = "1")
     private Long patientId;
-
-    @ApiModelProperty(example = "완료된 검진 번호")
+    @ApiModelProperty(value = "검사 id", required = true, example = "1")
     private Long tcId;
 }
