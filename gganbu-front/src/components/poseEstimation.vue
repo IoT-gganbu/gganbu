@@ -1,8 +1,7 @@
 <template>
   <div>
-    <!-- <custom-button @click="init()" btnText="시작하기" /> -->
-    <div><canvas id="canvas"></canvas></div>
-    <div id="label-container"></div>
+    <canvas id="canvas" />
+    <div id="label-container" />
   </div>
 </template>
 
@@ -21,12 +20,16 @@ export default {
       labelContainer: null,
       maxPredictions: 0,
       result: [],
+      classPrediction: [],
     };
   },
   mounted() {
     this.init();
   },
   methods: {
+    returnData() {
+      this.$emit("predictionData", this.classPrediction);
+    },
     async init() {
       const URL = "https://teachablemachine.withgoogle.com/models/k1fCLdzxV/";
       const modelURL = URL + "model.json";
@@ -39,8 +42,8 @@ export default {
       this.maxPredictions = this.model.getTotalClasses();
 
       // Convenience function to setup a webcam
-      const sizeW = 350; // 결과창 width
-      const sizeH = 250; // 결과창 height
+      const sizeW = 412; // 결과창 width
+      const sizeH = 275; // 결과창 height
       const flip = true; // 카메라 뒤집기
       this.webcam = new tmPose.Webcam(sizeW, sizeH, flip);
       await this.webcam.setup(); // request access to the webcam
@@ -75,8 +78,8 @@ export default {
       const prediction = await this.model.predict(posenetOutput);
 
       for (let i = 0; i < this.maxPredictions; i++) {
+        this.classPrediction = prediction[i].className + ": " + prediction[i].probability.toFixed(2);
         // const classPrediction = prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-        prediction[i].className + ": " + prediction[i].probability.toFixed(2);
         // this.labelContainer.childNodes[i].innerHTML = classPrediction;
       }
 
@@ -100,4 +103,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#canvas {
+  width: 100%;
+  height: 275px;
+  object-fit: cover;
+  border-radius: 5px;
+  border: 2px solid #90b5ff;
+}
+</style>
