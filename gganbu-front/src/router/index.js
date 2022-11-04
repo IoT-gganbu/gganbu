@@ -24,6 +24,11 @@ const routes = [
     name: "cardGame",
     component: () => import("../views/CardGameView.vue"),
   },
+  {
+    path: "/pre",
+    name: "pre",
+    component: () => import("../views/PreCheckView.vue"),
+  },
 ];
 
 const router = new VueRouter({
