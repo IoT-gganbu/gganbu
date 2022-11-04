@@ -24,6 +24,11 @@ const routes = [
     name: "cardGame",
     component: () => import("../views/CardGameView.vue"),
   },
+  {
+    path: "/poseGame",
+    name: "poseGame",
+    component: () => import("../views/PoseGameView.vue"),
+  },
 ];
 
 const router = new VueRouter({

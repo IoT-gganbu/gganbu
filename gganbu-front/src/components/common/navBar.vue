@@ -31,11 +31,12 @@ export default {
     calcTime() {
       const time = new Date();
 
-      this.now = time.getHours() + " : " + (time.getMinutes() < 10 ? "0" : "") + time.getMinutes();
+      this.now = (time.getHours() < 10 ? "0" : "") + time.getHours() + " : " + (time.getMinutes() < 10 ? "0" : "") + time.getMinutes();
     },
     getWeather() {
       const date = new Date();
-      const today = date.getFullYear() + "" + (date.getMonth() < 9 ? "0" : "") + (date.getMonth() + 1) + "" + (date.getDate() < 10 ? "0" : "") + date.getDate() - 1;
+
+      const today = date.getFullYear() + "" + (date.getMonth() < 9 ? "0" : "") + (date.getMonth() + 1) + "" + (date.getDate() < 10 ? "0" : "") + date.getDate();
       const link = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${process.env.VUE_APP_WEATHER_API_KEY}&base_date=${today}&base_time=0500&nx=66&ny=100&dataType=JSON`;
 
       this.$axios
