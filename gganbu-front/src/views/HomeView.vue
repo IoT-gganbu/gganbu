@@ -1,6 +1,6 @@
 <template>
   <div class="homeview">
-    <div class="choiceBox">
+    <router-link to="/process" class="choiceBox">
       <div class="boxIn">
         <div class="icon">
           <img src="@/assets/img/information-outline.png" class="img" />
@@ -9,7 +9,7 @@
           <p>건강검진<br />절차 안내</p>
         </div>
       </div>
-    </div>
+    </router-link>
     <div class="choiceBox">
       <div class="boxIn">
         <div class="icon">
@@ -34,7 +34,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {},
+};
 </script>
 
 <style scoped>
@@ -51,6 +53,7 @@ export default {};
   display: inline-grid;
   align-items: center;
   margin: 9% 1% 0 1%;
+  text-decoration: none;
 }
 .choiceBox:hover {
   background-color: #90b5ff;

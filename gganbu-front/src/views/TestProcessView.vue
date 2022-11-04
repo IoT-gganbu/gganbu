@@ -1,6 +1,10 @@
 <template>
   <div>
-    <custom-title titleText="건강검진 절차 안내"></custom-title>
+    <div class="title">
+      <router-link to="/"><custom-button id="btn" btnText="◀" /></router-link>
+      <router-view />
+      <custom-title id="title" titleText="건강검진 절차 안내"></custom-title>
+    </div>
     <div class="body">
       <div class="row" v-for="(data, idx) in processes" :key="idx">
         <custom-button class="col1" :btnText="data.item[0]" @click="showModal(idx, 0)"></custom-button>
@@ -59,6 +63,20 @@ export default {
 </script>
 
 <style scoped>
+.title {
+  height: 80px;
+  /* width: 100%; */
+}
+#btn {
+  margin-top: 3%;
+  margin-left: 5%;
+  padding: 0.5rem 0.5rem;
+  float: left;
+}
+#title {
+  float: left;
+  width: 200px;
+}
 .row {
   display: flex;
   justify-content: center;
