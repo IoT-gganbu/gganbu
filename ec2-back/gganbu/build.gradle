@@ -41,6 +41,8 @@ dependencies {
 	implementation group: 'com.google.zxing', name: 'core', version: '3.3.0'
 // https://mvnrepository.com/artifact/com.google.zxing/javase
 	implementation 'com.google.zxing:javase:3.3.0'
+// https://mvnrepository.com/artifact/edu.wpi.rail/jrosbridge
+	implementation 'edu.wpi.rail:jrosbridge:0.2.0'
 
 
 
