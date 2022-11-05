@@ -6,7 +6,7 @@
     <div class="right-content">
       <button id="current-place-button" type="button">현재위치 보기</button>
       <div class="weather-and-time">
-        <div id="weather">맑음 🌞</div>
+        <div id="weather">{{ weather }}</div>
         <div id="time">{{ now }}</div>
       </div>
     </div>
@@ -20,6 +20,7 @@ export default {
   data() {
     return {
       now: "00 : 00",
+      weather: "맑음 🌞",
     };
   },
   mounted() {
@@ -30,18 +31,46 @@ export default {
     calcTime() {
       const time = new Date();
 
-      this.now = time.getHours() + " : " + (time.getMinutes() < 10 ? "0" : "") + time.getMinutes();
+      this.now = (time.getHours() < 10 ? "0" : "") + time.getHours() + " : " + (time.getMinutes() < 10 ? "0" : "") + time.getMinutes();
     },
     getWeather() {
       const date = new Date();
-      const today = date.getFullYear() + "" + (date.getMonth() + 1) + "" + date.getDate();
-      const link = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=${process.env.VUE_APP_WEATHER_API_KEY}&base_date=${today}&base_time=0630&nx=36.3549777&ny=127.2983403`;
+
+      const today = date.getFullYear() + "" + (date.getMonth() < 9 ? "0" : "") + (date.getMonth() + 1) + "" + (date.getDate() < 10 ? "0" : "") + date.getDate();
+      const link = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${process.env.VUE_APP_WEATHER_API_KEY}&base_date=${today}&base_time=0500&nx=66&ny=100&dataType=JSON`;
 
       this.$axios
         .get(link)
         .then((response) => {
-          console.log(JSON.stringify(response));
-          // response.data.body.
+          var getSKY = JSON.stringify(response.data.response.body.items.item[5].fcstValue).replaceAll('"', ""); // 하늘상태(SKY) 코드 : 맑음(1), 구름많음(3), 흐림(4)
+          var getPTY = JSON.stringify(response.data.response.body.items.item[6].fcstValue).replaceAll('"', ""); // 강수형태(PTY) 코드 : 없음(0), 비(1), 비/눈(2), 눈(3), 소나기(4)
+
+          switch (getSKY) {
+            case "1":
+              this.weather = "맑음 🌞";
+              break;
+            case "3":
+              this.weather = "구름많음 ⛅";
+              break;
+            case "4":
+              this.weather = "흐림 🌂";
+              break;
+          }
+
+          switch (getPTY) {
+            case "1":
+              this.weather = "비 ☔";
+              break;
+            case "2":
+              this.weather = "비/눈 ☔";
+              break;
+            case "3":
+              this.weather = "눈 ⛄";
+              break;
+            case "4":
+              this.weather = "소나기 ☔";
+              break;
+          }
         })
         .catch((error) => {
           console.log(error);
