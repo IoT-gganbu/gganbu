@@ -34,6 +34,11 @@ const routes = [
     name: "pre",
     component: () => import("../views/PreCheckView.vue"),
   },
+  {
+    path: "/prestart",
+    name: "prestart",
+    component: () => import("../views/CheckStartView.vue"),
+  },
 ];
 
 const router = new VueRouter({

@@ -2,22 +2,28 @@
   <div>
     <div class="box">
       <div class="boxIn"><p id="text">성함을 말씀해주세요</p></div>
-      <button id="btn-read" @click="play()">읽기</button>
+      <!-- <button v-on:click="getData">말하기</button> -->
+      <button @click="getData()">fugdhsf</button>
       <div>박찬</div>
     </div>
   </div>
 </template>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <script>
+import axios from "axios";
 export default {
   data() {
-    return {};
+    return {
+      res: [],
+      cnt: 0,
+    };
   },
-  created() {
-    this.play();
-  },
+
   mounted() {
     this.play();
+    this.getData();
   },
 
   methods: {
@@ -43,13 +49,23 @@ export default {
 
     play() {
       const text = document.getElementById("text").innerHTML;
-      // console.log(text);
+      console.log(text);
       this.speak(text, {
         rate: 1,
         pitch: 1.2,
         lang: "ko-KR",
       });
     },
+    async getData() {
+      await axios.get(this.$store.state.baseurl + "record/save/").then((response) => {
+        this.res.push(response.data);
+        console.log(this.res);
+      });
+    },
+
+    // saveData(request) {
+    //   this.res = request;
+    // },
   },
 };
 </script>
