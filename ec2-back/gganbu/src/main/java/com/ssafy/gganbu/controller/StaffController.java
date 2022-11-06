@@ -21,7 +21,7 @@ import static java.lang.System.out;
 
 @Slf4j
 @RestController
-@RequestMapping("/staff")
+@RequestMapping("/api/staff")
 public class StaffController {
 
 
