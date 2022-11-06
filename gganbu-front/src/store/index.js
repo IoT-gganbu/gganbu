@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    test: "tes1231231244t",
+    qrCodeData: "",
   },
   getters: {},
   mutations: {},

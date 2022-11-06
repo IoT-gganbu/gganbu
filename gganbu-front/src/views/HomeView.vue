@@ -10,33 +10,31 @@
         </div>
       </div>
     </router-link>
-    <div class="choiceBox">
+    <router-link to="/examination" class="choiceBox">
       <div class="boxIn">
         <div class="icon">
           <img src="@/assets/img/stethoscope.png" class="img" />
         </div>
         <div class="title">
-          <p>건강검진<br />진행 상황</p>
+          <p>건강검진<br />진척도</p>
         </div>
       </div>
-    </div>
-    <div class="choiceBox">
+    </router-link>
+    <router-link to="/gameChoice" class="choiceBox">
       <div class="boxIn">
         <div class="icon">
           <img src="@/assets/img/controller.png" />
         </div>
         <div class="title">
-          <p>게임</p>
+          <p>즐길 거리</p>
         </div>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 
 <script>
-export default {
-  data() {},
-};
+export default {};
 </script>
 
 <style scoped>

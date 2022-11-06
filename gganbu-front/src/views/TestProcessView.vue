@@ -2,7 +2,6 @@
   <div>
     <div class="title">
       <router-link to="/"><custom-button id="btn" btnText="◀" /></router-link>
-      <router-view />
       <custom-title id="title" titleText="건강검진 절차 안내"></custom-title>
     </div>
     <div class="body">
