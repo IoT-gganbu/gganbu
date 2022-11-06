@@ -69,7 +69,7 @@ def tracking(request):
         if os.path.exists(filePath):
             for file in os.scandir(filePath):
                 os.remove(file.path)
-            return 'removw_files'
+            return 'remove_files'
         else:
             return 'Directory Not Found'
 

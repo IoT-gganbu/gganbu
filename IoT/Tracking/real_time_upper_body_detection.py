@@ -155,7 +155,9 @@ video_src = 0 # 비디오 파일과 카메라 선택 ---②
 cap = cv2.VideoCapture(video_src)
 fps = cap.get(cv2.CAP_PROP_FPS) # 프레임 수 구하기
 delay = int(1000/fps)
+print(fps)
 win_name = 'Tracking APIs'
+fail_count = 0;
 while cap.isOpened():
     ret, frame = cap.read()
     frame = imutils.resize(frame, width=1000)
@@ -175,11 +177,20 @@ while cap.isOpened():
         if ok: # 추적 성공
             cv2.rectangle(img_draw, (int(x), int(y)), (int(x + w), int(y + h)), \
                           (0,255,0), 2, 1)
+            fail_count = 0;
             print("추적성공")
         else : # 추적 실패
             cv2.putText(img_draw, "Tracking fail.", (100,80), \
                         cv2.FONT_HERSHEY_SIMPLEX, 0.75,(0,0,255),2,cv2.LINE_AA)
             print("추적 실패")
+            # 3초 동안 tracking 실패하면 종료하는 로직
+            # 이게 장고에 올라가면 return 값을 어떻게 줄지 알아야한다....
+            fail_count += 1
+            if(fail_count >= 90): 
+                print(fail_count)
+                break
+
+
     trackerName = tracker.__class__.__name__
     cv2.putText(img_draw, str(trackerIdx) + ":"+trackerName , (100,20), \
                  cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0,255,0),2,cv2.LINE_AA)
@@ -192,6 +203,7 @@ while cap.isOpened():
 
         isFirst = False
         roi = boxPos  # 초기 객체 위치 설정
+        print(roi)
         # 이 부분에 ROI를 상반신 탐지한 박스로 넣어줘야한다.
         if roi[2] and roi[3]:         # 위치 설정 값 있는 경우
             tracker = trackers[trackerIdx]()    #트랙커 객체 생성 ---⑤
@@ -201,6 +213,7 @@ while cap.isOpened():
         if bbox is not None:
             tracker = trackers[trackerIdx]() # 선택한 숫자의 트랙커 객체 생성 ---⑦
             isInit = tracker.init(frame, bbox) # 이전 추적 위치로 추적 위치 초기화
+            # 여기 init이 처음 영상 들어올때 박스위치로 초기화인지 아니면 모델 바꾸기 직전의 마지막 박스 위치인지..
     elif key == 27 : 
         break
 else:
