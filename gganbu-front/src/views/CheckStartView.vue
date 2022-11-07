@@ -2,7 +2,7 @@
   <div>
     <div class="box">
       <div class="boxIn"><p id="text">문진을 시작하시겠습니까?</p></div>
-      <router-link :to="{ name: 'pre' }" class="link"><div class="start">시작</div></router-link>
+      <router-link :to="{ name: 'pre' }" class="link"><custom-button btnText="시작"></custom-button></router-link>
     </div>
   </div>
 </template>

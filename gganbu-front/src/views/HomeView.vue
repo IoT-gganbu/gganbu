@@ -16,11 +16,7 @@
           <img src="@/assets/img/stethoscope.png" class="img" />
         </div>
         <div class="title">
-<<<<<<< HEAD
           <p class="textp">건강검진<br />진행 상황</p>
-=======
-          <p>건강검진<br />진척도</p>
->>>>>>> 391c28d25c491531c99c1c20301c239c1436d0bf
         </div>
       </div>
     </router-link>
@@ -30,11 +26,8 @@
           <img src="@/assets/img/controller.png" />
         </div>
         <div class="title">
-<<<<<<< HEAD
           <p class="textp">게임</p>
-=======
           <p>즐길 거리</p>
->>>>>>> 391c28d25c491531c99c1c20301c239c1436d0bf
         </div>
       </div>
     </router-link>
