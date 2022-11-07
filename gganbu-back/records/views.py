@@ -16,7 +16,7 @@ def recordSave(request) :
 @api_view(['GET'])
 def recognize_from_microphone(request):
     # This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
-    speech_config = speechsdk.SpeechConfig(subscription=os.environ.get('SPEECH_KEY'), region=os.environ.get('SPEECH_REGION'))
+    speech_config = speechsdk.SpeechConfig(subscription='d2dca5cef15a464b9b00046592d1baf6', region='koreacentral')
     speech_config.speech_recognition_language="ko-KR"
 
     audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)
