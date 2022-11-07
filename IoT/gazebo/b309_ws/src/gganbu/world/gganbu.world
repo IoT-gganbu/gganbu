@@ -64,10 +64,10 @@
       <pose frame=''>-0.169067 10.0803 0 0 -0 0</pose>
     </model>
     <state world_name='default'>
-      <sim_time>10628 838000000</sim_time>
-      <real_time>6407 184170285</real_time>
-      <wall_time>1667720115 334053946</wall_time>
-      <iterations>6227074</iterations>
+      <sim_time>11296 397000000</sim_time>
+      <real_time>60 181155219</real_time>
+      <wall_time>1667806503 905461878</wall_time>
+      <iterations>42655</iterations>
       <model name='AdjTable'>
         <pose frame=''>-10.094 19.5931 0 0 -0 0</pose>
         <scale>1 1 1</scale>
@@ -279,53 +279,53 @@
         </link>
       </model>
       <model name='Chair'>
-        <pose frame=''>-11.4407 17 -0 0 -0 0.50352</pose>
+        <pose frame=''>-11.4407 17 -1e-06 -1e-06 -1e-06 0.50352</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>-11.4407 17 -0 0 -0 2.07432</pose>
+          <pose frame=''>-11.4407 17 -1e-06 -1e-06 1e-06 2.07432</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 -0 0.353879 1.46685 0.814891 0</acceleration>
-          <wrench>0 -0 0.353879 0 -0 0</wrench>
+          <acceleration>-0 0 -0.672016 1.95409 -0.840025 -3.14159</acceleration>
+          <wrench>-0 0 -0.672016 0 -0 0</wrench>
         </link>
       </model>
       <model name='Chair_0'>
-        <pose frame=''>-8.83706 15.889 0.000108 0 0.000607 -0.002562</pose>
+        <pose frame=''>-8.83701 15.889 9.6e-05 -0 0.000543 -0.002585</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>-8.83706 15.889 0.000108 0.000607 -0 1.56824</pose>
+          <pose frame=''>-8.83701 15.889 9.6e-05 0.000543 0 1.56821</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 -0 0 -0 -0 -0</acceleration>
-          <wrench>-0 -0 0 0 -0 0</wrench>
+          <acceleration>0 -0 -0 -1e-06 0 2e-06</acceleration>
+          <wrench>0 -0 -0 0 -0 0</wrench>
         </link>
       </model>
       <model name='Chair_0_clone'>
-        <pose frame=''>-8.79824 20.2447 -0 0 -0 -0.00011</pose>
+        <pose frame=''>-8.79824 20.2447 -9e-06 1e-06 6e-06 -0.00011</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>-8.79824 20.2447 -0 0 -0 1.57069</pose>
+          <pose frame=''>-8.79824 20.2447 -9e-06 6e-06 -1e-06 1.57069</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 -1e-06 0.541109 2.45574 -0.624948 1e-06</acceleration>
-          <wrench>-0 -1e-06 0.541109 0 -0 0</wrench>
+          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
       </model>
       <model name='Chair_1'>
-        <pose frame=''>8.31414 20.3768 -0 0 -1e-06 3.14032</pose>
+        <pose frame=''>8.31414 20.3768 -0 0 -0 3.14032</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>8.31414 20.3768 -0 -1e-06 -0 -1.57206</pose>
+          <pose frame=''>8.31414 20.3768 -0 0 -0 -1.57206</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 -0 -9.30795 0.114577 -0.137032 0</acceleration>
-          <wrench>0 -0 -9.30795 0 -0 0</wrench>
+          <acceleration>-0 1e-06 0.811504 -2.74451 -1.43947 0</acceleration>
+          <wrench>-0 1e-06 0.811504 0 -0 0</wrench>
         </link>
       </model>
       <model name='Chair_1_clone'>
-        <pose frame=''>8.29049 15.915 -0 0 -0 3.14032</pose>
+        <pose frame=''>8.29049 15.915 -1e-06 3e-06 -0 3.14032</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>8.29049 15.915 -0 0 -0 -1.57207</pose>
+          <pose frame=''>8.29049 15.915 -1e-06 0 -3e-06 -1.57207</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 -0 18.7506 -1.14389 0.426803 -3.14159</acceleration>
-          <wrench>0 -0 18.7506 0 -0 0</wrench>
+          <acceleration>1e-06 -0 -1.5933 -2.2756 0.961115 -1e-06</acceleration>
+          <wrench>1e-06 -0 -1.5933 0 -0 0</wrench>
         </link>
       </model>
       <model name='Chair_1_clone_0'>
@@ -334,28 +334,28 @@
         <link name='body'>
           <pose frame=''>5.81808 2.45937 -1e-06 -1e-06 1e-06 -1.57207</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 -1e-06 -0.672003 2.1525 1.44007 0</acceleration>
-          <wrench>0 -1e-06 -0.672003 0 -0 0</wrench>
+          <acceleration>0 -1e-06 -0.672004 2.1525 1.44008 -0</acceleration>
+          <wrench>0 -1e-06 -0.672004 0 -0 0</wrench>
         </link>
       </model>
       <model name='Chair_1_clone_0_clone'>
-        <pose frame=''>5.83434 -11.3852 -8e-06 -0 2e-06 3.13501</pose>
+        <pose frame=''>5.83434 -11.3852 -0 0 -0 3.13501</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>5.83434 -11.3852 -8e-06 2e-06 -0 -1.57738</pose>
+          <pose frame=''>5.83434 -11.3852 -0 0 -0 -1.57738</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 -9.8 0 -0 0</acceleration>
-          <wrench>0 0 -9.8 0 -0 0</wrench>
+          <acceleration>0 0 18.7332 -1.23451 0.145323 0</acceleration>
+          <wrench>0 0 18.7332 0 -0 0</wrench>
         </link>
       </model>
       <model name='Chair_2'>
-        <pose frame=''>-6.31336 2.45574 -0 0 -0 0</pose>
+        <pose frame=''>-6.31336 2.45574 -0 -1e-06 -1e-06 0</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>-6.31336 2.45574 -0 0 -0 1.5708</pose>
+          <pose frame=''>-6.31336 2.45574 -0 -1e-06 1e-06 1.5708</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 -9.8 0 -0 0</acceleration>
-          <wrench>0 0 -9.8 0 -0 0</wrench>
+          <acceleration>-0 0 -8.40019 -0.326446 0.38942 0</acceleration>
+          <wrench>-0 0 -8.40019 0 -0 0</wrench>
         </link>
       </model>
       <model name='Chair_2_clone'>
@@ -364,68 +364,78 @@
         <link name='body'>
           <pose frame=''>-6.33571 -11.6685 -0 0 -0 1.57045</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 -0 0.654765 2.07801 1.44208 0</acceleration>
-          <wrench>0 -0 0.654765 0 -0 0</wrench>
+          <acceleration>0 -0 0.518391 1.49926 1.44215 0</acceleration>
+          <wrench>0 -0 0.518391 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='Chair_2_clone_clone'>
+        <pose frame=''>-6.33834 -16.3752 0.000463 -0 0.002606 -0.000515</pose>
+        <scale>1 1 1</scale>
+        <link name='body'>
+          <pose frame=''>-6.33834 -16.3752 0.000463 0.002606 -0 1.57028</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-0 0 -3e-06 1e-06 -1e-06 -3e-06</acceleration>
+          <wrench>-0 0 -3e-06 0 -0 0</wrench>
         </link>
       </model>
       <model name='Chair_3'>
-        <pose frame=''>3.97612 -15.204 -0 0 -0 1.57079</pose>
+        <pose frame=''>3.97612 -15.204 -1e-05 1e-06 -0 1.57079</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>3.97612 -15.204 -0 0 -0 -3.14159</pose>
+          <pose frame=''>3.97612 -15.204 -1e-05 0 -1e-06 -3.14159</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0.599754 1.69885 1.29754 -3.14159</acceleration>
-          <wrench>0 0 0.599754 0 -0 0</wrench>
+          <acceleration>0 0 -9.8 -0 -0 -0</acceleration>
+          <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
       </model>
       <model name='Chair_3_clone'>
-        <pose frame=''>1.53036 -5.40954 -1e-06 0 1e-06 1.57079</pose>
+        <pose frame=''>1.53036 -5.40954 -0 1e-06 2e-06 1.57079</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>1.53036 -5.40954 -1e-06 1e-06 -0 3.14159</pose>
+          <pose frame=''>1.53036 -5.40954 -0 2e-06 -1e-06 3.14159</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 -0.362868 -2.17658 0.629417 -1e-06</acceleration>
-          <wrench>0 0 -0.362868 0 -0 0</wrench>
+          <acceleration>-0 -1e-06 15.8096 -0.61631 1.09681 0</acceleration>
+          <wrench>-0 -1e-06 15.8096 0 -0 0</wrench>
         </link>
       </model>
       <model name='Chair_3_clone_0'>
-        <pose frame=''>-1.90466 -5.41783 0.000452 -2e-06 0.002542 1.55725</pose>
+        <pose frame=''>-1.90466 -5.41603 5e-05 -0 0.000281 1.55713</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>-1.90466 -5.41783 0.000452 0.002542 2e-06 3.12805</pose>
+          <pose frame=''>-1.90466 -5.41603 5e-05 0.000281 0 3.12792</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0.919466 -2.84481 0.03086 -1.63896 0.809931 0.981987</acceleration>
-          <wrench>-0.919466 -2.84481 0.03086 0 -0 0</wrench>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='Chair_clone_clone'>
-        <pose frame=''>11.1301 19.1637 -0 0 0 -2.63808</pose>
+        <pose frame=''>11.1301 19.1637 0 0 1e-06 -2.63808</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>11.1301 19.1637 -0 0 -0 -1.06728</pose>
+          <pose frame=''>11.1301 19.1637 0 1e-06 -0 -1.06728</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 0 0.582354 2.2872 -1.02378 -3.14159</acceleration>
-          <wrench>-0 0 0.582354 0 -0 0</wrench>
+          <acceleration>0 -0 0.998558 2.65877 1.29432 -3.14159</acceleration>
+          <wrench>0 -0 0.998558 0 -0 0</wrench>
         </link>
       </model>
       <model name='Chair_clone_clone_0'>
-        <pose frame=''>10.9488 16.7965 -0 0 -0 2.07431</pose>
+        <pose frame=''>10.9488 16.7965 -1e-06 2e-06 1e-06 2.07431</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>10.9488 16.7965 -0 0 -0 -2.63807</pose>
+          <pose frame=''>10.9488 16.7965 -1e-06 1e-06 -2e-06 -2.63807</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0.758086 -2.47782 1.5075 0</acceleration>
-          <wrench>0 0 0.758086 0 -0 0</wrench>
+          <acceleration>0 1e-06 -0.722702 -3.00222 1.09723 0</acceleration>
+          <wrench>0 1e-06 -0.722702 0 -0 0</wrench>
         </link>
       </model>
       <model name='Chair_clone_clone_1'>
-        <pose frame=''>-2.32363 -10.5924 -0 -0 -0 -1.06728</pose>
+        <pose frame=''>-2.32363 -10.5924 -0 -1e-06 -1e-06 -1.06728</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>-2.32363 -10.5924 -0 0 -0 0.50352</pose>
+          <pose frame=''>-2.32363 -10.5924 -0 -1e-06 1e-06 0.50352</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 0 -9.1786 0.081494 0.210343 -0</acceleration>
-          <wrench>-0 0 -9.1786 0 -0 0</wrench>
+          <acceleration>1e-06 0 -0.672003 -2.30148 1.18757 -0</acceleration>
+          <wrench>1e-06 0 -0.672003 0 -0 0</wrench>
         </link>
       </model>
       <model name='Chair_clone_clone_1_clone'>
@@ -434,8 +444,8 @@
         <link name='body'>
           <pose frame=''>2.07855 -11.3756 -0 0 -0 -1.06728</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-1e-06 -0 18.3184 -1.08712 -0.671206 3.14159</acceleration>
-          <wrench>-1e-06 -0 18.3184 0 -0 0</wrench>
+          <acceleration>-0 1e-06 0.806648 1.45358 -0.564315 3.14159</acceleration>
+          <wrench>-0 1e-06 0.806648 0 -0 0</wrench>
         </link>
       </model>
       <model name='FemaleVisitor'>
@@ -466,6 +476,126 @@
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='HospitalRobotCharger'>
+        <pose frame=''>-12.4944 0.620921 -5e-06 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='body'>
+          <pose frame=''>-12.4944 0.620921 -5e-06 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <wrench>0 0 -9.8 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='HospitalRobotCharger_0'>
+        <pose frame=''>-1.47724 -21.5986 0 0 1e-06 1.5708</pose>
+        <scale>1 1 1</scale>
+        <link name='body'>
+          <pose frame=''>-1.47724 -21.5986 0 0 1e-06 1.5708</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <wrench>0 0 -9.8 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='HospitalRobotCharger_clone'>
+        <pose frame=''>-12.3879 -13.2795 -8e-06 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='body'>
+          <pose frame=''>-12.3879 -13.2795 -8e-06 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <wrench>0 0 -9.8 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='HospitalRobotCharger_clone_0'>
+        <pose frame=''>-0.038763 -6.24035 -8e-06 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='body'>
+          <pose frame=''>-0.038763 -6.24035 -8e-06 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <wrench>0 0 -9.8 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='HospitalRobotCharger_clone_1'>
+        <pose frame=''>-12.566 14.5693 -7e-06 -0 -0 -4.9e-05</pose>
+        <scale>1 1 1</scale>
+        <link name='body'>
+          <pose frame=''>-12.566 14.5693 -7e-06 -0 -0 -4.9e-05</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <wrench>0 0 -9.8 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='HospitalRobotCharger_clone_2'>
+        <pose frame=''>-12.4746 21.7288 -6e-06 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='body'>
+          <pose frame=''>-12.4746 21.7288 -6e-06 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <wrench>0 0 -9.8 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='HospitalRobotCharger_clone_clone'>
+        <pose frame=''>-7.007 -16.2025 -7e-06 -0 3e-06 -3.14159</pose>
+        <scale>1 1 1</scale>
+        <link name='body'>
+          <pose frame=''>-7.007 -16.2025 -7e-06 -0 3e-06 -3.14159</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <wrench>0 0 -9.8 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='HospitalRobotCharger_clone_clone_clone'>
+        <pose frame=''>12.0281 -13.3641 1e-06 0 0 -3.14159</pose>
+        <scale>1 1 1</scale>
+        <link name='body'>
+          <pose frame=''>12.0281 -13.3641 1e-06 0 0 -3.14159</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <wrench>0 0 -9.8 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='HospitalRobotCharger_clone_clone_clone_0'>
+        <pose frame=''>-0.44512 -6.21725 1e-06 -1e-06 0 -3.14158</pose>
+        <scale>1 1 1</scale>
+        <link name='body'>
+          <pose frame=''>-0.44512 -6.21725 1e-06 -1e-06 0 -3.14158</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-1e-06 -6e-06 -2.51509 2.47169 -0.523577 0</acceleration>
+          <wrench>-1e-06 -6e-06 -2.51509 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='HospitalRobotCharger_clone_clone_clone_clone'>
+        <pose frame=''>12.0815 0.573948 -8e-06 -0 -0 -3.14159</pose>
+        <scale>1 1 1</scale>
+        <link name='body'>
+          <pose frame=''>12.0815 0.573948 -8e-06 -0 -0 -3.14159</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <wrench>0 0 -9.8 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='HospitalRobotCharger_clone_clone_clone_clone_clone'>
+        <pose frame=''>12.065 14.6313 -8e-06 0 -0 3.14159</pose>
+        <scale>1 1 1</scale>
+        <link name='body'>
+          <pose frame=''>12.065 14.6313 -8e-06 0 -0 3.14159</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <wrench>0 0 -9.8 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='HospitalRobotCharger_clone_clone_clone_clone_clone_0'>
+        <pose frame=''>12.0028 21.7354 -1e-06 -1e-06 0 3.14159</pose>
+        <scale>1 1 1</scale>
+        <link name='body'>
+          <pose frame=''>12.0028 21.7354 -1e-06 -1e-06 0 3.14159</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
       </model>
       <model name='MaleVisitorOnPhone'>
@@ -539,130 +669,130 @@
         </link>
       </model>
       <model name='MonitorAndKeyboard'>
-        <pose frame=''>-10.0491 19.7741 0.810564 0 3e-06 1.5708</pose>
+        <pose frame=''>-10.0491 19.7741 0.810564 -1e-06 -0 1.5708</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>-10.0491 19.7741 0.810564 0 3e-06 1.5708</pose>
+          <pose frame=''>-10.0491 19.7741 0.810564 -1e-06 -0 1.5708</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 -9.8 0 -0 0</acceleration>
-          <wrench>0 0 -9.8 0 -0 0</wrench>
+          <acceleration>-0 0 0.206334 0.189147 0.229872 0</acceleration>
+          <wrench>-0 0 0.206334 0 -0 0</wrench>
         </link>
       </model>
       <model name='MonitorAndKeyboard_clone'>
-        <pose frame=''>-10.0235 16.5114 0.810564 -1e-06 1e-06 -1.57078</pose>
+        <pose frame=''>-10.0235 16.5114 0.810564 -0 3e-06 -1.57078</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>-10.0235 16.5114 0.810564 -1e-06 1e-06 -1.57078</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 -0 -0 0 -0 0</acceleration>
-          <wrench>0 -0 -0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='MonitorAndKeyboard_clone_0'>
-        <pose frame=''>9.64887 19.8613 0.810564 0 -0 1.5708</pose>
-        <scale>1 1 1</scale>
-        <link name='body'>
-          <pose frame=''>9.64887 19.8613 0.810564 0 -0 1.5708</pose>
+          <pose frame=''>-10.0235 16.5114 0.810564 -0 3e-06 -1.57078</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 -9.8 0 -0 0</acceleration>
           <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
       </model>
-      <model name='MonitorAndKeyboard_clone_1'>
-        <pose frame=''>-1.16254 -10.9418 0.810564 0 2e-06 1.5708</pose>
+      <model name='MonitorAndKeyboard_clone_0'>
+        <pose frame=''>9.64887 19.8613 0.810564 0 4e-06 1.5708</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>-1.16254 -10.9418 0.810564 0 2e-06 1.5708</pose>
+          <pose frame=''>9.64887 19.8613 0.810564 0 4e-06 1.5708</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 -0 19.5367 -0.00506 -2.8e-05 0</acceleration>
+          <wrench>0 -0 19.5367 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='MonitorAndKeyboard_clone_1'>
+        <pose frame=''>-1.16254 -10.9418 0.810564 0 -0 1.5708</pose>
+        <scale>1 1 1</scale>
+        <link name='body'>
+          <pose frame=''>-1.16254 -10.9418 0.810564 0 -0 1.5708</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 -9.8 0 -0 0</acceleration>
           <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
       </model>
       <model name='MonitorAndKeyboard_clone_1_clone'>
-        <pose frame=''>0.659639 -10.9201 0.810554 0 1e-06 1.5708</pose>
+        <pose frame=''>0.659639 -10.9201 0.810564 0 1e-06 1.5708</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>0.659639 -10.9201 0.810554 0 1e-06 1.5708</pose>
+          <pose frame=''>0.659639 -10.9201 0.810564 0 1e-06 1.5708</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 -9.8 0 -0 0</acceleration>
-          <wrench>0 0 -9.8 0 -0 0</wrench>
+          <acceleration>0 -0 -0.116012 0.639688 -0.011235 0</acceleration>
+          <wrench>0 -0 -0.116012 0 -0 0</wrench>
         </link>
       </model>
       <model name='MonitorAndKeyboard_clone_1_clone_clone'>
-        <pose frame=''>3.27708 -16.724 0.810564 2e-06 3e-06 4e-06</pose>
+        <pose frame=''>3.27708 -16.724 0.810564 -1e-06 1e-06 4e-06</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>3.27708 -16.724 0.810564 2e-06 3e-06 4e-06</pose>
+          <pose frame=''>3.27708 -16.724 0.810564 -1e-06 1e-06 4e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0.197231 0.135026 -0.232748 0</acceleration>
+          <wrench>0 0 0.197231 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='MonitorAndKeyboard_clone_1_clone_clone_clone'>
+        <pose frame=''>-10.5073 -14.7369 0.810554 1e-06 -0 4e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='body'>
+          <pose frame=''>-10.5073 -14.7369 0.810554 1e-06 -0 4e-06</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 -9.8 0 -0 0</acceleration>
           <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
       </model>
-      <model name='MonitorAndKeyboard_clone_1_clone_clone_clone'>
-        <pose frame=''>-10.5073 -14.7369 0.810564 0 -0 4e-06</pose>
-        <scale>1 1 1</scale>
-        <link name='body'>
-          <pose frame=''>-10.5073 -14.7369 0.810564 0 -0 4e-06</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 -0 19.4947 0.073169 -0.232546 0</acceleration>
-          <wrench>-0 -0 19.4947 0 -0 0</wrench>
-        </link>
-      </model>
       <model name='MonitorAndKeyboard_clone_clone'>
-        <pose frame=''>9.61154 16.5069 0.810554 1e-06 1e-06 -1.57078</pose>
+        <pose frame=''>9.61154 16.5069 0.810554 -1e-06 -0 -1.57078</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>9.61154 16.5069 0.810554 1e-06 1e-06 -1.57078</pose>
+          <pose frame=''>9.61154 16.5069 0.810554 -1e-06 -0 -1.57078</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 -9.8 0 -0 0</acceleration>
           <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
       </model>
       <model name='MonitorAndKeyboard_clone_clone_0'>
-        <pose frame=''>-7.57863 2.87781 0.810564 1e-06 -1e-06 -1.57078</pose>
+        <pose frame=''>-7.57863 2.87781 0.810564 0 1e-06 -1.57078</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>-7.57863 2.87781 0.810564 1e-06 -1e-06 -1.57078</pose>
+          <pose frame=''>-7.57863 2.87781 0.810564 0 1e-06 -1.57078</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 -0.4976 -0.745801 -0.215053 0</acceleration>
-          <wrench>0 0 -0.4976 0 -0 0</wrench>
+          <acceleration>-0 -0 -0.168831 1.46707 -0.053081 0</acceleration>
+          <wrench>-0 -0 -0.168831 0 -0 0</wrench>
         </link>
       </model>
       <model name='MonitorAndKeyboard_clone_clone_1'>
-        <pose frame=''>-7.57467 -11.4911 0.810555 0 4e-06 -1.57078</pose>
+        <pose frame=''>-7.57467 -11.4911 0.810564 0 0 -1.57078</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>-7.57467 -11.4911 0.810555 0 4e-06 -1.57078</pose>
+          <pose frame=''>-7.57467 -11.4911 0.810564 0 0 -1.57078</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 -9.8 0 -0 0</acceleration>
-          <wrench>0 0 -9.8 0 -0 0</wrench>
+          <acceleration>0 -0 -9.43954 0.054905 0.106562 0</acceleration>
+          <wrench>0 -0 -9.43954 0 -0 0</wrench>
         </link>
       </model>
       <model name='MonitorAndKeyboard_clone_clone_clone'>
-        <pose frame=''>7.10759 -11.1011 0.810564 0 -0 -1.57078</pose>
+        <pose frame=''>7.10759 -11.1011 0.810554 -1e-06 -0 -1.57078</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>7.10759 -11.1011 0.810564 0 -0 -1.57078</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 -1e-06 19.7895 1.95989 0.283254 1e-06</acceleration>
-          <wrench>-0 -1e-06 19.7895 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='MonitorAndKeyboard_clone_clone_clone_clone'>
-        <pose frame=''>6.9921 3.21016 0.810555 1e-06 -0 -1.57078</pose>
-        <scale>1 1 1</scale>
-        <link name='body'>
-          <pose frame=''>6.9921 3.21016 0.810555 1e-06 -0 -1.57078</pose>
+          <pose frame=''>7.10759 -11.1011 0.810554 -1e-06 -0 -1.57078</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 -9.8 0 -0 0</acceleration>
           <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
       </model>
+      <model name='MonitorAndKeyboard_clone_clone_clone_clone'>
+        <pose frame=''>6.9921 3.21016 0.810564 0 -0 -1.57078</pose>
+        <scale>1 1 1</scale>
+        <link name='body'>
+          <pose frame=''>6.9921 3.21016 0.810564 0 -0 -1.57078</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-0 0 -9.4216 0.048374 -0.059221 0</acceleration>
+          <wrench>-0 0 -9.4216 0 -0 0</wrench>
+        </link>
+      </model>
       <model name='MopCart3'>
-        <pose frame=''>0.251752 3.61326 -6.2e-05 -1e-06 -1e-06 2.5e-05</pose>
+        <pose frame=''>0.251752 3.61326 -5.9e-05 -1e-06 -1e-06 2.5e-05</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>0.251752 3.61326 -6.2e-05 -1e-06 -1e-06 2.5e-05</pose>
+          <pose frame=''>0.251752 3.61326 -5.9e-05 -1e-06 -1e-06 2.5e-05</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 -9.8 0 -0 0</acceleration>
           <wrench>0 0 -9.8 0 -0 0</wrench>
@@ -1009,10 +1139,10 @@
         </link>
       </model>
       <model name='StorageRack'>
-        <pose frame=''>-12.2562 5.72386 -9e-06 0 1e-06 -1.5708</pose>
+        <pose frame=''>-12.2562 5.72386 -9e-06 1e-06 1e-06 -1.5708</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>-12.2562 5.72386 -9e-06 0 1e-06 -1.5708</pose>
+          <pose frame=''>-12.2562 5.72386 -9e-06 1e-06 1e-06 -1.5708</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 -9.8 0 -0 0</acceleration>
           <wrench>0 0 -9.8 0 -0 0</wrench>
@@ -1024,18 +1154,18 @@
         <link name='link'>
           <pose frame=''>1.43016 3.60433 -0 0 0 -0.010496</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-1.2e-05 -1e-06 -1.55608 0.304734 1.18113 -1e-06</acceleration>
-          <wrench>-1.2e-05 -1e-06 -1.55608 0 -0 0</wrench>
+          <acceleration>-0 -0 17.5665 -2.9914 -0.088573 -3.14159</acceleration>
+          <wrench>-0 -0 17.5665 0 -0 0</wrench>
         </link>
       </model>
       <model name='StorageRackCoverOpen_0'>
-        <pose frame=''>-12.2049 7.1145 -0 0 -0 1.5708</pose>
+        <pose frame=''>-12.2049 7.1145 -6e-06 0 3e-06 1.5708</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>-12.2049 7.1145 -0 0 -0 1.5708</pose>
+          <pose frame=''>-12.2049 7.1145 -6e-06 0 3e-06 1.5708</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>5e-06 -1.3e-05 12.7047 -0.043262 0.275042 3.14159</acceleration>
-          <wrench>5e-06 -1.3e-05 12.7047 0 -0 0</wrench>
+          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
       </model>
       <model name='StorageRackCoverOpen_0_clone'>
@@ -1054,18 +1184,18 @@
         <link name='link'>
           <pose frame=''>-12.1923 -9.15913 -0 0 -0 1.5708</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 -1e-06 18.4633 2.21881 -1.18302 0</acceleration>
-          <wrench>-0 -1e-06 18.4633 0 -0 0</wrench>
+          <acceleration>-0 -0 19.0085 1.31965 -1.19372 -0</acceleration>
+          <wrench>-0 -0 19.0085 0 -0 0</wrench>
         </link>
       </model>
       <model name='StorageRackCoverOpen_1'>
-        <pose frame=''>-1.6225 -16.3388 -1e-05 0 -0 0</pose>
+        <pose frame=''>-1.6225 -16.3388 -0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>-1.6225 -16.3388 -1e-05 0 -0 0</pose>
+          <pose frame=''>-1.6225 -16.3388 -0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 -9.8 0 -0 0</acceleration>
-          <wrench>0 0 -9.8 0 -0 0</wrench>
+          <acceleration>0 -0 19.5999 8.2e-05 1.4e-05 0</acceleration>
+          <wrench>0 -0 19.5999 0 -0 0</wrench>
         </link>
       </model>
       <model name='StorageRackCoverOpen_2'>
@@ -1074,28 +1204,28 @@
         <link name='link'>
           <pose frame=''>11.6986 -7.96517 -1e-06 -1e-06 -1e-06 -1.5708</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 -1e-06 -9.69606 -0.061659 -0.030898 0</acceleration>
-          <wrench>-0 -1e-06 -9.69606 0 -0 0</wrench>
+          <acceleration>-0 -1e-06 -9.68925 -0.065701 -0.032923 0</acceleration>
+          <wrench>-0 -1e-06 -9.68925 0 -0 0</wrench>
         </link>
       </model>
       <model name='StorageRackCoverOpen_2_clone'>
-        <pose frame=''>11.7404 -9.37931 -0 0 -0 -1.5708</pose>
+        <pose frame=''>11.7404 -9.37931 -0 0 0 -1.5708</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>11.7404 -9.37931 -0 0 -0 -1.5708</pose>
+          <pose frame=''>11.7404 -9.37931 -0 0 0 -1.5708</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 1e-05 3.5918 -1.91935 0.165302 1e-06</acceleration>
-          <wrench>0 1e-05 3.5918 0 -0 0</wrench>
+          <acceleration>0 0 0.857361 3.14159 0.257526 3.14159</acceleration>
+          <wrench>0 0 0.857361 0 -0 0</wrench>
         </link>
       </model>
       <model name='StorageRackCoverOpen_3'>
-        <pose frame=''>11.6877 5.95331 -6e-06 0 3e-06 -1.5708</pose>
+        <pose frame=''>11.6877 5.95331 -0 0 0 -1.5708</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>11.6877 5.95331 -6e-06 0 3e-06 -1.5708</pose>
+          <pose frame=''>11.6877 5.95331 -0 0 0 -1.5708</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 -9.8 0 -0 0</acceleration>
-          <wrench>0 0 -9.8 0 -0 0</wrench>
+          <acceleration>-1e-06 2.1e-05 13.1883 -2.44329 0.015829 4e-06</acceleration>
+          <wrench>-1e-06 2.1e-05 13.1883 0 -0 0</wrench>
         </link>
       </model>
       <model name='StorageRackCoverOpen_3_clone'>
@@ -1104,8 +1234,8 @@
         <link name='link'>
           <pose frame=''>11.6919 4.58113 -0 0 0 -1.5708</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>1e-06 -9e-06 4.31803 -1.9334 1.07753 3.14159</acceleration>
-          <wrench>1e-06 -9e-06 4.31803 0 -0 0</wrench>
+          <acceleration>-4e-06 1.2e-05 13.0091 0.505267 -0.297756 3.14159</acceleration>
+          <wrench>-4e-06 1.2e-05 13.0091 0 -0 0</wrench>
         </link>
       </model>
       <model name='StorageRackCovered'>
@@ -1114,8 +1244,8 @@
         <link name='link'>
           <pose frame=''>-12.3093 4.28267 -0 0 -0 1.57284</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 -0 0.768861 -3.1363 -0.555233 3.14159</acceleration>
-          <wrench>-0 -0 0.768861 0 -0 0</wrench>
+          <acceleration>-0 -0 0.712547 -3.13668 -0.744663 3.14159</acceleration>
+          <wrench>-0 -0 0.712547 0 -0 0</wrench>
         </link>
       </model>
       <model name='StorageRackCovered_0'>
@@ -1124,8 +1254,8 @@
         <link name='link'>
           <pose frame=''>-0.276568 -16.2894 -0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 0 0.851251 -2.86352 -9e-06 -1e-06</acceleration>
-          <wrench>-0 0 0.851251 0 -0 0</wrench>
+          <acceleration>-0 0 0.833229 -2.80289 -8e-06 -1e-06</acceleration>
+          <wrench>-0 0 0.833229 0 -0 0</wrench>
         </link>
       </model>
       <model name='StorageRackCovered_clone'>
@@ -1134,78 +1264,78 @@
         <link name='link'>
           <pose frame=''>-12.258 -4.85825 -0 0 -0 1.57284</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 -0 0.756717 -3.13638 -0.596082 3.14159</acceleration>
-          <wrench>-0 -0 0.756717 0 -0 0</wrench>
+          <acceleration>-0 -0 0.866262 -3.13563 -0.227587 3.14159</acceleration>
+          <wrench>-0 -0 0.866262 0 -0 0</wrench>
         </link>
       </model>
       <model name='StorageRackCovered_clone_0'>
-        <pose frame=''>-12.2323 -6.26042 -0 0 -0 1.57284</pose>
+        <pose frame=''>-12.2323 -6.26042 -9e-06 1e-06 1e-06 1.57284</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>-12.2323 -6.26042 -0 0 -0 1.57284</pose>
+          <pose frame=''>-12.2323 -6.26042 -9e-06 1e-06 1e-06 1.57284</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 -0 0.712082 -3.13669 -0.74623 3.14159</acceleration>
-          <wrench>-0 -0 0.712082 0 -0 0</wrench>
+          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
       </model>
       <model name='StorageRack_0'>
-        <pose frame=''>-2.95838 -16.3162 1e-06 0 1e-06 -0.008152</pose>
+        <pose frame=''>-2.95838 -16.3162 -4e-06 1e-06 -5e-06 -0.008152</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>-2.95838 -16.3162 1e-06 0 1e-06 -0.008152</pose>
+          <pose frame=''>-2.95838 -16.3162 -4e-06 1e-06 -5e-06 -0.008152</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-1.8e-05 1e-06 8.06462 0.377909 1.45412 4e-06</acceleration>
-          <wrench>-1.8e-05 1e-06 8.06462 0 -0 0</wrench>
+          <acceleration>9e-06 2e-06 -8.51135 0.376841 -0.767563 -1e-06</acceleration>
+          <wrench>9e-06 2e-06 -8.51135 0 -0 0</wrench>
         </link>
       </model>
       <model name='StorageRack_1'>
-        <pose frame=''>11.7544 -5.18024 -8e-06 0 -3e-06 -1.5708</pose>
+        <pose frame=''>11.7544 -5.18024 -0 0 0 -1.5708</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>11.7544 -5.18024 -8e-06 0 -3e-06 -1.5708</pose>
+          <pose frame=''>11.7544 -5.18024 -0 0 0 -1.5708</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 -9.8 0 -0 0</acceleration>
-          <wrench>0 0 -9.8 0 -0 0</wrench>
+          <acceleration>-9e-06 2.5e-05 11.4818 0.223829 -0.814162 3.14159</acceleration>
+          <wrench>-9e-06 2.5e-05 11.4818 0 -0 0</wrench>
         </link>
       </model>
       <model name='StorageRack_1_clone'>
-        <pose frame=''>11.7632 -6.54913 -0 0 0 -1.5708</pose>
+        <pose frame=''>11.7632 -6.54913 -8e-06 0 -3e-06 -1.5708</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>11.7632 -6.54913 -0 0 0 -1.5708</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 6e-06 4.03913 -1.61095 0.00229 1e-06</acceleration>
-          <wrench>0 6e-06 4.03913 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='StorageRack_1_clone_0'>
-        <pose frame=''>11.753 8.78122 -1e-06 1e-06 -0 -1.5708</pose>
-        <scale>1 1 1</scale>
-        <link name='link'>
-          <pose frame=''>11.753 8.78122 -1e-06 1e-06 -0 -1.5708</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 -0 -0.795731 -3.14159 -0.46484 -3.14159</acceleration>
-          <wrench>-0 -0 -0.795731 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='StorageRack_1_clone_1'>
-        <pose frame=''>11.7398 7.39841 -0 0 0 -1.5708</pose>
-        <scale>1 1 1</scale>
-        <link name='link'>
-          <pose frame=''>11.7398 7.39841 -0 0 0 -1.5708</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 -0 19.5999 1.4e-05 -0.000144 0</acceleration>
-          <wrench>-0 -0 19.5999 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='StorageRack_clone'>
-        <pose frame=''>-12.2485 -10.5788 -1e-05 0 0 -1.5708</pose>
-        <scale>1 1 1</scale>
-        <link name='link'>
-          <pose frame=''>-12.2485 -10.5788 -1e-05 0 0 -1.5708</pose>
+          <pose frame=''>11.7632 -6.54913 -8e-06 0 -3e-06 -1.5708</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 -9.8 0 -0 0</acceleration>
           <wrench>0 0 -9.8 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='StorageRack_1_clone_0'>
+        <pose frame=''>11.753 8.78122 -0 0 0 -1.5708</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>11.753 8.78122 -0 0 0 -1.5708</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0.784055 3.14159 0.504118 3.14159</acceleration>
+          <wrench>0 0 0.784055 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='StorageRack_1_clone_1'>
+        <pose frame=''>11.7398 7.39841 -2e-06 1e-06 -4e-06 -1.5708</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>11.7398 7.39841 -2e-06 1e-06 -4e-06 -1.5708</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>1e-06 -7e-06 -8.98879 -0.481231 0.241155 3e-06</acceleration>
+          <wrench>1e-06 -7e-06 -8.98879 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='StorageRack_clone'>
+        <pose frame=''>-12.2485 -10.5788 -1e-06 0 -1e-06 -1.5708</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>-12.2485 -10.5788 -1e-06 0 -1e-06 -1.5708</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-1e-06 3e-06 -2.63075 1.93298 0.236944 -4e-06</acceleration>
+          <wrench>-1e-06 3e-06 -2.63075 0 -0 0</wrench>
         </link>
       </model>
       <model name='SurgicalTrolley'>
@@ -1219,43 +1349,43 @@
         </link>
       </model>
       <model name='Toilet'>
-        <pose frame=''>0.294056 -1.47292 0.000387 0 -0 0</pose>
+        <pose frame=''>0.294056 -1.47292 0.000386 -1e-06 1e-06 0</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>0.294056 -1.47292 0.000387 0 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-7.1e-05 -0.000171 0.230073 0.441493 -0.182446 0</acceleration>
-          <wrench>-7.1e-05 -0.000171 0.230073 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='Toilet_0'>
-        <pose frame=''>-0.77744 -1.45495 0.000377 -0 -0 -3.14159</pose>
-        <scale>1 1 1</scale>
-        <link name='body'>
-          <pose frame=''>-0.77744 -1.45495 0.000377 -0 -0 -3.14159</pose>
+          <pose frame=''>0.294056 -1.47292 0.000386 -1e-06 1e-06 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 -9.8 0 -0 0</acceleration>
           <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
       </model>
-      <model name='VendingMachine'>
-        <pose frame=''>-12.3842 26.4748 -2e-06 -3e-06 -4e-06 1e-06</pose>
+      <model name='Toilet_0'>
+        <pose frame=''>-0.77744 -1.45495 0.000377 0 -0 -3.14159</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>-12.3842 26.4748 -2e-06 -3e-06 -4e-06 1e-06</pose>
+          <pose frame=''>-0.77744 -1.45495 0.000377 0 -0 -3.14159</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 -9.8 -0 -0 -0</acceleration>
+          <wrench>0 0 -9.8 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='VendingMachine'>
+        <pose frame=''>-12.3842 26.4748 -1e-05 0 -1e-06 1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='body'>
+          <pose frame=''>-12.3842 26.4748 -1e-05 0 -1e-06 1e-06</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 -9.8 0 -0 0</acceleration>
           <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
       </model>
       <model name='VendingMachine_0'>
-        <pose frame=''>11.8028 26.494 0 -3e-06 -6e-06 3.14159</pose>
+        <pose frame=''>11.8028 26.494 2e-06 5e-06 -1e-06 3.14159</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose frame=''>11.8028 26.494 0 -3e-06 -6e-06 3.14159</pose>
+          <pose frame=''>11.8028 26.494 2e-06 5e-06 -1e-06 3.14159</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>1e-06 -5e-06 -6.83769 1.20552 -0.813997 -2e-06</acceleration>
-          <wrench>1e-06 -5e-06 -6.83769 0 -0 0</wrench>
+          <acceleration>8e-06 -9e-06 -3.45259 -0.457311 1.318 3.14159</acceleration>
+          <wrench>8e-06 -9e-06 -3.45259 0 -0 0</wrench>
         </link>
       </model>
       <model name='VisitorKidSit'>
@@ -1529,22 +1659,22 @@
         </link>
       </model>
       <model name='aws_robomaker_residential_Trash_01'>
-        <pose frame=''>0.306328 -2.29589 0.000894 1e-06 -0 0</pose>
+        <pose frame=''>0.306328 -2.29589 0.000904 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>0.306328 -2.29589 0.000894 1e-06 -0 0</pose>
+          <pose frame=''>0.306328 -2.29589 0.000904 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 -9.8 0 -0 0</acceleration>
-          <wrench>0 0 -0.98 0 -0 0</wrench>
+          <acceleration>-0.000283 0.000614 19.0913 -0.674662 -0.318079 2.4e-05</acceleration>
+          <wrench>-2.8e-05 6.1e-05 1.90913 0 -0 0</wrench>
         </link>
       </model>
       <model name='aws_robomaker_residential_Trash_01_0'>
-        <pose frame=''>-0.689354 -0.635673 0.000894 0 -0 0</pose>
+        <pose frame=''>-0.689354 -0.635673 0.000903 1e-06 -1e-06 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>-0.689354 -0.635673 0.000894 0 -0 0</pose>
+          <pose frame=''>-0.689354 -0.635673 0.000903 1e-06 -1e-06 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <acceleration>0 0 -9.8 -0 -0 -0</acceleration>
           <wrench>0 0 -0.98 0 -0 0</wrench>
         </link>
       </model>
@@ -1587,7 +1717,7 @@
     </model>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose frame=''>-3.02669 29.1779 6.2532 0 0.5178 -1.30563</pose>
+        <pose frame=''>-4.51633 26.2965 4.83042 0 0.5018 -1.42609</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
@@ -8054,6 +8184,619 @@
         <kinematic>0</kinematic>
       </link>
       <pose frame=''>-1.90804 -5.42669 -0 1e-06 1e-06 1.57079</pose>
+    </model>
+    <model name='HospitalRobotCharger'>
+      <link name='body'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>-12.4258 0.641249 0 0 -0 0</pose>
+    </model>
+    <model name='HospitalRobotCharger_clone'>
+      <link name='body'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>-12.3879 -13.2795 2e-06 0 -0 0</pose>
+    </model>
+    <model name='HospitalRobotCharger_clone_clone'>
+      <link name='body'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>-7.007 -16.2025 -8e-06 0 -1e-06 0</pose>
+    </model>
+    <model name='Chair_2_clone_clone'>
+      <link name='body'>
+        <pose frame=''>0 0 0 0 -0 1.5708</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://Chair/meshes/Chair.obj</uri>
+              <scale>0.00817 0.00817 0.00817</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://Chair/meshes/Chair.obj</uri>
+              <scale>0.00817 0.00817 0.00817</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>-6.34312 -16.3752 -0 0 0 -0.00035</pose>
+    </model>
+    <model name='HospitalRobotCharger_0'>
+      <link name='body'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>-1.66343 -21.4586 0 0 -0 0</pose>
+    </model>
+    <model name='HospitalRobotCharger_clone_clone_clone'>
+      <link name='body'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>12.0397 -13.3259 2e-06 -0 -0 -3.14159</pose>
+    </model>
+    <model name='HospitalRobotCharger_clone_0'>
+      <link name='body'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>0.000572 -6.2897 2e-06 0 -0 0</pose>
+    </model>
+    <model name='HospitalRobotCharger_clone_clone_clone_0'>
+      <link name='body'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>-0.445121 -6.21392 -8e-06 -0 -0 -3.14159</pose>
+    </model>
+    <model name='HospitalRobotCharger_clone_clone_clone_clone'>
+      <link name='body'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>12.1287 0.65753 2e-06 0 0 -3.14159</pose>
+    </model>
+    <model name='HospitalRobotCharger_clone_clone_clone_clone_clone'>
+      <link name='body'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>12.065 14.6313 2e-06 0 -0 3.14159</pose>
+    </model>
+    <model name='HospitalRobotCharger_clone_clone_clone_clone_clone_0'>
+      <link name='body'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>12.0028 21.7354 2e-06 0 -0 3.14159</pose>
+    </model>
+    <model name='HospitalRobotCharger_clone_1'>
+      <link name='body'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>-12.5664 14.5621 2e-06 0 -0 0</pose>
+    </model>
+    <model name='HospitalRobotCharger_clone_2'>
+      <link name='body'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://HospitalRobotCharger/meshes/HospitalRobotCharger.obj</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>-12.4746 21.7288 2e-06 0 -0 0</pose>
     </model>
   </world>
 </sdf>
