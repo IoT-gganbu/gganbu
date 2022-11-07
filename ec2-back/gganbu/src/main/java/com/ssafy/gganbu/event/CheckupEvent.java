@@ -1,15 +1,15 @@
 package com.ssafy.gganbu.event;
 
+import com.ssafy.gganbu.model.SocketVO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+@Data
 public class CheckupEvent {
-    private String name;
+    private SocketVO socketVO;
 
-    public CheckupEvent(String name) {
-        this.name = name;
+    public CheckupEvent(SocketVO socketVO) {
+        this.socketVO = socketVO;
     }
 
-    public String getName() {
-        return name;
-    }}
+}
