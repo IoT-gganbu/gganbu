@@ -10,6 +10,11 @@ const routes = [
     component: () => import("../views/HomeView.vue"),
   },
   {
+    path: "/location",
+    name: "location",
+    component: () => import("../views/CurrentLocationView.vue"),
+  },
+  {
     path: "/process",
     name: "process",
     component: () => import("../views/TestProcessView.vue"),
@@ -18,6 +23,21 @@ const routes = [
     path: "/qr",
     name: "qr",
     component: () => import("../views/QRRegisterView.vue"),
+  },
+  {
+    path: "/examination",
+    name: "examination",
+    component: () => import("../views/ExaminationProgressView.vue"),
+  },
+  {
+    path: "/qr",
+    name: "qr",
+    component: () => import("../views/QRRegisterView.vue"),
+  },
+  {
+    path: "/gameChoice",
+    name: "gameChoice",
+    component: () => import("../views/GameChoiceView.vue"),
   },
   {
     path: "/cardGame",
