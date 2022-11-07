@@ -30,11 +30,6 @@ const routes = [
     component: () => import("../views/ExaminationProgressView.vue"),
   },
   {
-    path: "/qr",
-    name: "qr",
-    component: () => import("../views/QRRegisterView.vue"),
-  },
-  {
     path: "/gameChoice",
     name: "gameChoice",
     component: () => import("../views/GameChoiceView.vue"),
