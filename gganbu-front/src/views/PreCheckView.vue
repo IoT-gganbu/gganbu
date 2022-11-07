@@ -1,10 +1,13 @@
 <template>
   <div>
     <div class="box">
-      <div class="boxIn"><p id="text">성함을 말씀해주세요</p></div>
-      <!-- <button v-on:click="getData">말하기</button> -->
-      <button @click="getData()">fugdhsf</button>
-      <div>박찬</div>
+      <div class="boxIn">
+        <p id="text" :value="[question, cnt]">{{ question[cnt] }}</p>
+        <p id="finish" v-if="isFinished">문진이 완료되었습니다</p>
+      </div>
+      <div v-if="!isLoading"></div>
+      <spinner-view v-if="isLoading"></spinner-view>
+      <!-- <div :value="res">{{ res }}</div> -->
     </div>
   </div>
 </template>
@@ -16,14 +19,29 @@ import axios from "axios";
 export default {
   data() {
     return {
+      question: [
+        "인플루엔자 예방접종을 매년 하십니까?",
+        "지금까지 다섯갑 이상의 담배를 피운 적이 있습니까?",
+        "한 달에 몇번 세잔 이상의 음주를 하십니까?",
+        "부모, 형제, 자매 중에 당뇨를 앓은 경우가 있습니까?",
+      ],
       res: [],
       cnt: 0,
+      isLoading: false,
+      isFinished: false,
     };
   },
 
   mounted() {
     this.play();
-    this.getData();
+  },
+
+  watch: {
+    cnt() {
+      setTimeout(() => {
+        this.play();
+      }, 1000);
+    },
   },
 
   methods: {
@@ -47,19 +65,41 @@ export default {
       window.speechSynthesis.speak(speechMsg);
     },
 
-    play() {
+    async play() {
       const text = document.getElementById("text").innerHTML;
+
       console.log(text);
-      this.speak(text, {
+      await this.speak(text, {
         rate: 1,
         pitch: 1.2,
         lang: "ko-KR",
       });
+      setTimeout(() => {
+        this.getData();
+      }, 3500);
     },
     async getData() {
+      if (this.question.length == this.cnt) {
+        console.log("finish");
+        this.isFinished = true;
+        this.sendMail();
+        return "finish";
+      }
+      this.isLoading = true;
       await axios.get(this.$store.state.baseurl + "record/save/").then((response) => {
+        this.isLoading = false;
         this.res.push(response.data);
-        console.log(this.res);
+        console.log(response.data);
+        this.cnt += 1;
+      });
+    },
+
+    sendMail() {
+      const headers = {
+        "Content-Type": "application/x-www-form-urlencoded",
+      };
+      axios.post(this.$store.state.baseurl + "record/mail", { data: this.res }, { headers: headers }).then((response) => {
+        console.log(response);
       });
     },
 
@@ -73,7 +113,7 @@ export default {
 <style>
 .box {
   width: 80%;
-  height: 600px;
+  height: 650px;
   background: #ffffff;
   border: 2px solid #90b5ff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

@@ -67,7 +67,13 @@ export default {
                   let end = new Date(); //끝시간 재기
                   const result = document.createElement("div");
                   result.innerHTML = "축하합니다." + (end - start) / 1000 + "초 걸렸습니다.";
-                  result.style.fontSize = "20px";
+                  result.style.width = "100vw";
+                  result.style.fontSize = "28px";
+                  result.style.margin = "auto";
+                  result.style.backgroundColor = "rgba(255,255,255,0.7)";
+                  result.style.textAlign = "center";
+                  result.style.position = "absolute";
+                  result.style.top = "45vh";
                   document.body.appendChild(result);
                   setTimeout(() => {
                     result.innerHTML = "";

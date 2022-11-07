@@ -6,7 +6,7 @@
           <img src="@/assets/img/information-outline.png" class="img" />
         </div>
         <div class="title">
-          <p>건강검진<br />절차 안내</p>
+          <p class="textp">건강검진<br />절차 안내</p>
         </div>
       </div>
     </div>
@@ -16,7 +16,7 @@
           <img src="@/assets/img/stethoscope.png" class="img" />
         </div>
         <div class="title">
-          <p>건강검진<br />진행 상황</p>
+          <p class="textp">건강검진<br />진행 상황</p>
         </div>
       </div>
     </div>
@@ -26,7 +26,7 @@
           <img src="@/assets/img/controller.png" />
         </div>
         <div class="title">
-          <p>게임</p>
+          <p class="textp">게임</p>
         </div>
       </div>
     </div>
@@ -63,7 +63,7 @@ export default {};
   margin: 0 10% 0 10%;
 }
 .img {
-  margin-top: 20px;
+  margin-top: 0px;
 }
 
 .title {
@@ -71,6 +71,10 @@ export default {};
   width: 100%;
   color: #5780c6;
   font-weight: bold;
-  margin-left: -20px;
+  margin: auto 0 auto -20px;
+}
+
+.textp {
+  margin: 0;
 }
 </style>
