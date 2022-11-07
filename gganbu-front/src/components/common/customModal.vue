@@ -19,7 +19,7 @@ export default {
 </script>
 
 <style scoped>
-.modal-overlay {
+.modal-overlay1 {
   position: fixed;
   top: 0;
   bottom: 0;

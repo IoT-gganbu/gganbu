@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar">
+  <div class="navi">
     <router-link to="/" class="logo">
       <img src="@/assets/img/ssabeulans_logo.png" />
     </router-link>
@@ -81,16 +81,16 @@ export default {
 </script>
 
 <style>
-.navbar {
+.navi {
   width: 100%;
-  height: 60px;
+  height: 70px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   background-color: white;
 }
 .logo {
   float: left;
   margin-left: 15px;
-  line-height: 60px;
+  line-height: 70px;
 }
 .logo img {
   width: 200px;
@@ -99,7 +99,7 @@ export default {
 }
 .type {
   float: left;
-  padding-top: 26px;
+  padding-top: 20px;
   margin-right: 100px;
   color: #5780c6;
 }
@@ -125,9 +125,5 @@ export default {
   font-weight: bold;
   font-size: 15px;
   margin-top: 10px;
-}
-#weather {
-}
-#time {
 }
 </style>

@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="title">
-      <router-link to="/"><custom-button id="btn" btnText="◀" /></router-link>
+      <!-- <router-link to="/"><custom-button id="btn" btnText="◀" /></router-link> -->
       <custom-title id="title" titleText="건강검진 절차 안내"></custom-title>
     </div>
-    <div class="body">
-      <div class="row" v-for="(data, idx) in processes" :key="idx">
+    <div class="content">
+      <div class="rows" v-for="(data, idx) in processes" :key="idx">
         <custom-button class="col1" :btnText="data.item[0]" @click="showModal(idx, 0)"></custom-button>
         <custom-button class="col2" :btnText="data.item[1]" @click="showModal(idx, 1)"></custom-button>
       </div>
@@ -76,7 +76,7 @@ export default {
   float: left;
   width: 200px;
 }
-.row {
+.rows {
   display: flex;
   justify-content: center;
   margin-top: 1.5%;
@@ -85,7 +85,7 @@ export default {
 .col1,
 .col2 {
   width: 50%;
-  margin-bottom: 8%;
+  margin-bottom: 5%;
   margin-left: 5%;
   margin-right: 5%;
   font-size: 1.5rem;
