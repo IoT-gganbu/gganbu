@@ -36,7 +36,7 @@ export default {
   },
   mounted() {
     setInterval(this.startGame, 2000);
-    setInterval(this.showData, 1000);
+    setInterval(this.showData, 2000);
   },
   methods: {
     showData(data) {
@@ -52,6 +52,11 @@ export default {
     startGame() {
       this.imageIndex = (this.imageIndex + 1) % this.images.length;
     },
+  },
+  beforeDestroy() {
+    console.log("1231321");
+    clearInterval(this.startGame);
+    clearInterval(this.showData);
   },
 };
 </script>
