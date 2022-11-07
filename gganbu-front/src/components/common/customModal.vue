@@ -32,7 +32,7 @@ export default {
 
 .modal {
   text-align: center;
-  height: 50%;
+  height: 65%;
   width: 80%;
   margin-top: 8%;
   padding: 60px 0;

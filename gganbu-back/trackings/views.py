@@ -138,14 +138,6 @@ def tracking(request):
         # 
         print('ROI 못찾겠다')
 
-    # Creates the environment of 
-    # the picture and shows it
-    # plt.subplot(1, 1, 1)
-    # plt.imshow(img_rgb)
-    # plt.show()
-
-
-
     # 트랙커 객체 생성자 함수 리스트 ---①
     trackers = [
         # cv2.legacy.TrackerBoosting_create,
@@ -168,6 +160,8 @@ def tracking(request):
     fps = cap.get(cv2.CAP_PROP_FPS) # 프레임 수 구하기
     delay = int(1000/fps)
     win_name = 'Tracking APIs'
+    returnState = 0
+    failCount = 0
     while cap.isOpened():
         ret, frame = cap.read()
         frame = imutils.resize(frame, width=1000)
@@ -188,20 +182,22 @@ def tracking(request):
                 cv2.rectangle(img_draw, (int(x), int(y)), (int(x + w), int(y + h)), \
                             (0,255,0), 2, 1)
                 print("추적성공")
+                failCount = 0
             else : # 추적 실패
                 cv2.putText(img_draw, "Tracking fail.", (100,80), \
                             cv2.FONT_HERSHEY_SIMPLEX, 0.75,(0,0,255),2,cv2.LINE_AA)
                 print("추적 실패")
+                failCount += 1
+                if(failCount >= 60):
+                    returnState = 1
+                    break
         trackerName = tracker.__class__.__name__
         cv2.putText(img_draw, str(trackerIdx) + ":"+trackerName , (100,20), \
                     cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0,255,0),2,cv2.LINE_AA)
 
         cv2.imshow(win_name, img_draw)
         key = cv2.waitKey(delay) & 0xff
-        # 스페이스 바 또는 비디오 파일 최초 실행 ---④
-        # if key == ord(' ') or (video_src != 0 and isFirst): 
         if isFirst: 
-
             isFirst = False
             roi = boxPos  # 초기 객체 위치 설정
             # 이 부분에 ROI를 상반신 탐지한 박스로 넣어줘야한다.
@@ -219,3 +215,5 @@ def tracking(request):
         print( "Could not open video")
     cap.release()
     cv2.destroyAllWindows()
+    if(returnState == 1):
+        return Response(False)
