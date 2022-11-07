@@ -7,6 +7,8 @@ import com.ssafy.gganbu.db.entity.TaskChecktitle;
 import com.ssafy.gganbu.db.repository.HistoryRepository;
 import com.ssafy.gganbu.db.repository.PatientReqository;
 import com.ssafy.gganbu.db.repository.TaskRepository;
+import com.ssafy.gganbu.event.CheckupEvent;
+import com.ssafy.gganbu.model.SocketVO;
 import com.ssafy.gganbu.request.CheckUpReq;
 import com.ssafy.gganbu.request.PatientReq;
 import com.ssafy.gganbu.service.PatientService;
@@ -14,6 +16,7 @@ import com.ssafy.gganbu.service.QrService;
 import com.ssafy.gganbu.service.TaskService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
@@ -58,12 +61,15 @@ public class PatientsController {
     @Autowired
     HistoryRepository historyRepository;
 
+    @Autowired
+    ApplicationEventPublisher eventPublisher;
+
     @PostMapping("/receipt")
     @ApiOperation(value = "환자 접수")
     public ResponseEntity<Map<String, Object>> receipt(@RequestBody @ApiParam(value = "수정할회원정보") PatientReq reqData) {
         Map<String, Object> result = new HashMap<>();
-        System.out.println(reqData.getResidentNo());
-        if (patientService.checkResidentNo(reqData.getResidentNo())) {
+        System.out.println(reqData.toString());
+        if(patientService.checkResidentNo(reqData.getResidentNo())){
             result.put("message", FAIL);
         } else {
             Patients res = new Patients();
@@ -169,7 +175,11 @@ public class PatientsController {
             history.setPatient(patients);
             history.setTaskChecktitle(taskChecktitle);
             historyRepository.save(history);
-        } catch (Exception e) {
+            // 이벤트 발생
+            eventPublisher.publishEvent(new CheckupEvent(new SocketVO(patients.getPatientId()+"", taskChecktitle.getTcId()+"")));
+        }catch (Exception e){
+            System.out.println("error");
+            System.out.println(e.getMessage());
             return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
         }
 
