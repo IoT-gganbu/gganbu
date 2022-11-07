@@ -147,14 +147,17 @@ def tracking(request):
 
 
     # 트랙커 객체 생성자 함수 리스트 ---①
-    trackers = [cv2.legacy.TrackerBoosting_create,
-                cv2.legacy.TrackerMIL_create,
+    trackers = [
+        # cv2.legacy.TrackerBoosting_create,
+        #         cv2.legacy.TrackerMIL_create,
                 cv2.legacy.TrackerKCF_create,
-                cv2.legacy.TrackerTLD_create,
-                cv2.legacy.TrackerMedianFlow_create,
+                # cv2.legacy.TrackerTLD_create,
+                # cv2.legacy.TrackerMedianFlow_create,
                 # cv2.legacy.TrackerGOTURN_create, #버그로 오류 발생
-                cv2.legacy.TrackerCSRT_create,
-                cv2.legacy.TrackerMOSSE_create]
+                # cv2.legacy.TrackerCSRT_create,
+                # cv2.legacy.TrackerMOSSE_create
+                # 
+                ]
     trackerIdx = 0  # 트랙커 생성자 함수 선택 인덱스
     tracker = None
     isFirst = True
