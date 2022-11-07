@@ -10,6 +10,7 @@ export const api = createApi();
 export default new Vuex.Store({
   state: {
     baseurl: "http://127.0.0.1:8000/",
+
     qrCodeData: "",
   },
   getters: {},

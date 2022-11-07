@@ -16,7 +16,7 @@
           <img src="@/assets/img/stethoscope.png" class="img" />
         </div>
         <div class="title">
-          <p>건강검진<br />진척도</p>
+          <p class="textp">건강검진<br />진행 상황</p>
         </div>
       </div>
     </router-link>
