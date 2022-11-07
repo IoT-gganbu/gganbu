@@ -1,5 +1,5 @@
 FROM node:16.16.0 as build
-WORKDIR /var/jenkins_home/workspace/deploytest/ec2-front
+WORKDIR /var/jenkins_home/workspace/gganbu/ec2-front
 COPY package*.json ./
 RUN ["npm", "install"]
 COPY . .
@@ -12,7 +12,7 @@ RUN rm /etc/nginx/conf.d/default.conf
 RUN mkdir /app
 WORKDIR /app
 RUN mkdir ./build
-COPY --from=build /var/jenkins_home/workspace/deploytest/ec2-front/build ./build
+COPY --from=build /var/jenkins_home/workspace/gganbu/ec2-front/build ./build
 COPY ./nginx.conf /etc/nginx/conf.d
 #COPY --from=build /var/jenkins_home/workspace/deploytest1/FE/lo-fi/deploy_conf/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
