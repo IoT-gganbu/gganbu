@@ -4,8 +4,11 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.ssafy.gganbu.db.entity.Staffs;
 import com.ssafy.gganbu.exception.NoChangeExeption;
+import com.ssafy.gganbu.request.ResidentNoReq;
 import com.ssafy.gganbu.request.StaffLoginReq;
 import com.ssafy.gganbu.service.StaffService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,6 +23,7 @@ import java.util.NoSuchElementException;
 import static java.lang.System.out;
 
 @Slf4j
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/staff")
 public class StaffController {
@@ -44,11 +48,11 @@ public class StaffController {
     }
 
     @PutMapping("/receipt")
-    public Object receipt(@RequestBody HashMap<String, String> residentNoMap){
+    public Object receipt(@RequestBody ResidentNoReq residentNoReq) {
         out.println("StaffController.receipt");
-        out.println("residentNo : " + residentNoMap.get("residentNo"));
+        out.println("residentNo : " + residentNoReq.getResidentNo());
         try{
-            String path  = staffService.receipt(residentNoMap.get("residentNo"));
+            String path  = staffService.receipt(residentNoReq.getResidentNo());
             return ResponseEntity.status(200).body(BaseResponseBody.of("SUCCESS", path.toString()));
         }
         catch (Exception e) {
@@ -58,6 +62,7 @@ public class StaffController {
     }
 
     @GetMapping("/progress/{userId}")
+    @ApiImplicitParam(name = "userId", value = "사용자 ID", required = true, dataType = "String", paramType = "path", example = "1")
     public ResponseEntity<? extends BaseResponseBody> progress(@PathVariable Long userId) {
         out.println("StaffController.progress");
         out.println("userId : " + userId);

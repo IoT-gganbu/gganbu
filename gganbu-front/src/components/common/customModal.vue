@@ -1,6 +1,6 @@
 <template>
-  <div class="modal-overlay" @click="$emit('close-modal')">
-    <div id="modalMain" class="modal" @click.stop>
+  <div class="modal-overlay1" @click="$emit('close-modal')">
+    <div id="modalMain" class="modal1" @click.stop>
       <div class="modalTopLine">
         <i class="fa-solid fa-xs fa-xmark modalClose" @click="$emit('close-modal')"></i>
       </div>
@@ -19,7 +19,7 @@ export default {
 </script>
 
 <style scoped>
-.modal-overlay {
+.modal-overlay1 {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -30,7 +30,7 @@ export default {
   background-color: rgba(211, 211, 211, 0.4);
 }
 
-.modal {
+.modal1 {
   text-align: center;
   height: 50%;
   width: 80%;

@@ -1,15 +1,18 @@
 <template>
   <div>
-    <custom-title titleText="건강검진 절차 안내"></custom-title>
-    <div class="body">
-      <div class="row" v-for="(data, idx) in processes" :key="idx">
+    <div class="title">
+      <!-- <router-link to="/"><custom-button id="btn" btnText="◀" /></router-link> -->
+      <custom-title id="title" titleText="건강검진 절차 안내"></custom-title>
+    </div>
+    <div class="content">
+      <div class="rows" v-for="(data, idx) in processes" :key="idx">
         <custom-button class="col1" :btnText="data.item[0]" @click="showModal(idx, 0)"></custom-button>
         <custom-button class="col2" :btnText="data.item[1]" @click="showModal(idx, 1)"></custom-button>
       </div>
     </div>
     <custom-modal class="detail" id="detail" v-show="showImgModal" @close-modal="showImgModal = false" :titleText="process">
-      <content>
-        <process-detail :No="processNo"></process-detail>
+      <content class="content">
+        <process-detail :No="processNo" @close-modal="showImgModal = false"></process-detail>
       </content>
     </custom-modal>
   </div>
@@ -59,7 +62,21 @@ export default {
 </script>
 
 <style scoped>
-.row {
+.title {
+  height: 80px;
+  /* width: 100%; */
+}
+#btn {
+  margin-top: 3%;
+  margin-left: 5%;
+  padding: 0.5rem 0.5rem;
+  float: left;
+}
+#title {
+  float: left;
+  width: 200px;
+}
+.rows {
   display: flex;
   justify-content: center;
   margin-top: 1.5%;
@@ -68,12 +85,12 @@ export default {
 .col1,
 .col2 {
   width: 50%;
-  margin-bottom: 8%;
+  margin-bottom: 5%;
   margin-left: 5%;
   margin-right: 5%;
   font-size: 1.5rem;
 }
 .detail {
-  margin-top: 10%;
+  height: 130%;
 }
 </style>
