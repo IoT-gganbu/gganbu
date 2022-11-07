@@ -59,6 +59,17 @@ def sendMail(request) :
     contents = request.data.getlist('data[]')
     print(len(contents))
     print(contents[0]+" "+ contents[1])
+    for i in range(len(contents)):
+        if contents[i].find('.')!=-1:
+            contents[i] = contents[i].replace('.','')
+        if contents[i].find('X')!=-1:
+            contents[i] = contents[i].replace('X','')
+        if contents[i].find('네')!=-1 or contents[i].find('예')!=-1 or contents[i].find('내')!=-1:
+            contents[i] = '네'
+        if contents[i].find('아니')!=-1:
+            contents[i] = '아니오'
+        
+        
     # 3. MIME 형태의 이메일 메세지 작성
     message = EmailMessage()
     message.set_content('인플루엔자 예방접종을 매년 하십니까?\n'+contents[0]+"\n지금까지 평생 다섯갑 이상의 담배를 피운 적이 있습니까?\n"
