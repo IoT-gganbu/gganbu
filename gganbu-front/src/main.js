@@ -17,7 +17,6 @@ Vue.component("customModal", customModal);
 Vue.component("navBar", navBar);
 Vue.component("customTitle", customTitle);
 Vue.component("SpinnerView", SpinnerView);
-Vue.use(axios);
 Vue.use(BootstrapVue);
 Vue.prototype.$axios = axios;
 

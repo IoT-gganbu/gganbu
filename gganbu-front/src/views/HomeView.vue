@@ -1,6 +1,6 @@
 <template>
   <div class="homeview">
-    <div class="choiceBox">
+    <router-link to="/process" class="choiceBox">
       <div class="boxIn">
         <div class="icon">
           <img src="@/assets/img/information-outline.png" class="img" />
@@ -9,27 +9,35 @@
           <p class="textp">건강검진<br />절차 안내</p>
         </div>
       </div>
-    </div>
-    <div class="choiceBox">
+    </router-link>
+    <router-link to="/examination" class="choiceBox">
       <div class="boxIn">
         <div class="icon">
           <img src="@/assets/img/stethoscope.png" class="img" />
         </div>
         <div class="title">
+<<<<<<< HEAD
           <p class="textp">건강검진<br />진행 상황</p>
+=======
+          <p>건강검진<br />진척도</p>
+>>>>>>> 391c28d25c491531c99c1c20301c239c1436d0bf
         </div>
       </div>
-    </div>
-    <div class="choiceBox">
+    </router-link>
+    <router-link to="/gameChoice" class="choiceBox">
       <div class="boxIn">
         <div class="icon">
           <img src="@/assets/img/controller.png" />
         </div>
         <div class="title">
+<<<<<<< HEAD
           <p class="textp">게임</p>
+=======
+          <p>즐길 거리</p>
+>>>>>>> 391c28d25c491531c99c1c20301c239c1436d0bf
         </div>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 
@@ -51,6 +59,7 @@ export default {};
   display: inline-grid;
   align-items: center;
   margin: 9% 1% 0 1%;
+  text-decoration: none;
 }
 .choiceBox:hover {
   background-color: #90b5ff;

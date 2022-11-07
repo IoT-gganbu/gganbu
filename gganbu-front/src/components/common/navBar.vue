@@ -1,10 +1,10 @@
 <template>
   <div class="navbar">
-    <div class="logo">
+    <router-link to="/" class="logo">
       <img src="@/assets/img/ssabeulans_logo.png" />
-    </div>
+    </router-link>
     <div class="right-content">
-      <button id="current-place-button" type="button">현재위치 보기</button>
+      <router-link to="/location"><button id="current-place-button" type="button">현재위치 보기</button></router-link>
       <div class="weather-and-time">
         <div id="weather">{{ weather }}</div>
         <div id="time">{{ now }}</div>

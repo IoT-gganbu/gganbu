@@ -2,7 +2,7 @@
   <div class="processDetail">
     <div><img :src="imgs[No].url" class="img" /></div>
     <div class="description">{{ descriptions[No].text }}</div>
-    <div class="back"><custom-button btnText="돌아가기" @click="$emit('close-modal')"></custom-button></div>
+    <div class="back"><custom-button id="backBtn" btnText="돌아가기" @click="$emit('close-modal')"></custom-button></div>
   </div>
 </template>
 
@@ -100,5 +100,8 @@ export default {
 }
 .back {
   margin-top: 20%;
+}
+#backBtn {
+  width: 70%;
 }
 </style>
