@@ -44,7 +44,7 @@ export default {
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-top: 10%;
+  margin-top: 8%;
 }
 .name {
   width: 30%;
@@ -57,19 +57,21 @@ table {
   border-collapse: collapse;
 }
 .head {
-  font: 2rem "Pretendard";
   color: #5780c6;
+  height: 40px;
 }
 .body {
-  font: 2rem "Pretendard";
-  color: #90b5ff;
+  color: #667080;
 }
 td {
   border-bottom: 0.5px solid #919aa9;
 }
 th {
-  background-color: #90b5ff;
+  background-color: #c1d6ff;
   border-bottom: 2px solid #919aa9;
+}
+tr {
+  height: 40px;
 }
 .noResult {
   text-align: center;

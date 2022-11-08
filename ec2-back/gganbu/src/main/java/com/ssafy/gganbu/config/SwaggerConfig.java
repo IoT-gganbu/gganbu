@@ -24,6 +24,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
     public Docket swagger() {
 
         return new Docket(DocumentationType.SWAGGER_2)
+
                 .host(serverAddress)
                 .ignoredParameterTypes(java.sql.Date.class)
                 .forCodeGeneration(true)

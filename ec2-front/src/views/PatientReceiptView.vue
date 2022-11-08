@@ -43,6 +43,9 @@ export default {
 </script>
 
 <style scoped>
+input:focus {
+  outline: 2px solid #90b5ff;
+}
 .body {
   display: flex;
   flex-direction: row;
@@ -55,7 +58,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 40%;
-  margin-right: 5%;
+  text-align: center;
 }
 .right-body {
   display: flex;
@@ -64,11 +67,11 @@ export default {
 }
 .input {
   background: #ffffff;
-  border: 1px solid #90b5ff;
+  border: 2px solid #90b5ff;
   border-radius: 3px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  width: 70%;
-  height: 80%;
+  width: 80%;
+  height: 95%;
 }
 input::-webkit-input-placeholder {
   background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnRdQ3uLA3uuoM-wXkg-x8fFh_RWxwoWT5KDI745hSV4ldIdm3nus-HDaIXy23oBXemfc&usqp=CAU);
@@ -101,7 +104,7 @@ input::-webkit-input-placeholder {
   width: 100%;
 }
 .new-patient-btn {
-  margin-left: 85%;
+  margin-left: 80%;
 }
 .addPatient {
   height: 130%;
