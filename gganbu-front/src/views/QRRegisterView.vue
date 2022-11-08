@@ -10,6 +10,7 @@
       <p>
         접수 시 문자로 제공받은<br />
         QR 코드를 화면에 인식시켜주세요.
+        {{ qrcodeResult }}
       </p>
     </div>
   </div>
@@ -20,6 +21,11 @@ import qrcodeCapture from "@/components/qrcodeCapture.vue";
 export default {
   components: {
     qrcodeCapture,
+  },
+  computed: {
+    qrcodeResult() {
+      return this.$store.state.patientId;
+    },
   },
 };
 </script>
