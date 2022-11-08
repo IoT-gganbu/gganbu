@@ -14,12 +14,8 @@
     "bootstrap": "^5.2.2",
     "bootstrap-vue": "^2.23.1",
     "core-js": "^3.8.3",
-<<<<<<< HEAD:kkanbu-front/package.json
-    "vue": "^2.6.14",
-=======
     "vue": "^2.7.13",
     "vue-qrcode-reader": "^3.1.0",
->>>>>>> develop:gganbu-front/package.json
     "vue-router": "^3.5.1",
     "vuex": "^3.6.2"
   },
