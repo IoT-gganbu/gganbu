@@ -4,6 +4,7 @@ module.exports = defineConfig({
 });
 
 // module.exports = {
+//   transpileDependencies: true,
 //   devServer: {
 //     proxy: {
 //       "/": {

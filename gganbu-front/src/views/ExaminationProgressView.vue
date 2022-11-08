@@ -132,7 +132,6 @@ export default {
 }
 .col1,
 .col2 {
-  animation: blink-effect 1s step-end infinite;
   height: 90px;
   width: 40%;
   font-size: 1.3rem;

@@ -11,11 +11,8 @@
     </div>
   </div>
 </template>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
@@ -86,7 +83,7 @@ export default {
         return "finish";
       }
       this.isLoading = true;
-      await axios.get(this.$store.state.baseurl + "record/save/").then((response) => {
+      await this.$axios.get(this.$store.state.baseurl + "record/save/").then((response) => {
         this.isLoading = false;
         this.res.push(response.data);
         console.log(response.data);
@@ -98,7 +95,7 @@ export default {
       const headers = {
         "Content-Type": "application/x-www-form-urlencoded",
       };
-      axios.post(this.$store.state.baseurl + "record/mail", { data: this.res }, { headers: headers }).then((response) => {
+      this.$axios.post(this.$store.state.baseurl + "record/mail", { data: this.res }, { headers: headers }).then((response) => {
         console.log(response);
       });
     },

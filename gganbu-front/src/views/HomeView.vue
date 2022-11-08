@@ -10,7 +10,7 @@
         </div>
       </div>
     </router-link>
-    <router-link to="/examination" class="choiceBox">
+    <router-link to="/qr" class="choiceBox">
       <div class="boxIn">
         <div class="icon">
           <img src="@/assets/img/stethoscope.png" class="img" />

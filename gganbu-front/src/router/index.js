@@ -54,6 +54,11 @@ const routes = [
     name: "prestart",
     component: () => import("../views/CheckStartView.vue"),
   },
+  {
+    path: "/error",
+    name: "error",
+    component: () => import("../views/errorView.vue"),
+  },
 ];
 
 const router = new VueRouter({
