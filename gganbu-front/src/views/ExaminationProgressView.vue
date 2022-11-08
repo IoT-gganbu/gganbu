@@ -96,6 +96,11 @@ export default {
       document.querySelector(this.process[idx]);
     },
   },
+  created() {
+    if (this.$store.state.patientId != null) {
+      console.log("12");
+    }
+  },
 };
 </script>
 

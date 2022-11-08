@@ -27,6 +27,13 @@ export default {
       return this.$store.state.patientId;
     },
   },
+  watch: {
+    moveNextPage() {
+      if (this.$store.state.patientId != null) {
+        this.$router.push("/examination");
+      }
+    },
+  },
 };
 </script>
 
