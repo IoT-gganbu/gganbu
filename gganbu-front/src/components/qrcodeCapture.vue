@@ -7,7 +7,6 @@
 </template>
 
 <script>
-// import { createApi } from "@/api";
 import { QrcodeStream } from "vue-qrcode-reader";
 
 export default {
@@ -19,7 +18,7 @@ export default {
   },
   methods: {
     onDecode(result) {
-      this.$axios.get("http://localhost:8080/api/patient/" + result).then(function (response) {
+      this.$axios.get("http://127.0.0.1:8080/api/patient/" + result).then(function (response) {
         console.log(response);
       });
       this.$store.state.patientId = result;

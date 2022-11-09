@@ -16,7 +16,8 @@
           <img src="@/assets/img/stethoscope.png" class="img" />
         </div>
         <div class="title">
-          <p class="textp">건강검진<br />진행 상황</p>
+          <p v-if="patientId == ''" class="textp">건강검진<br />시작하기</p>
+          <p v-else class="textp">건강검진<br />진행 상황</p>
         </div>
       </div>
     </router-link>
@@ -34,7 +35,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      patientId: this.$store.state.patientId,
+    };
+  },
+};
 </script>
 
 <style scoped>

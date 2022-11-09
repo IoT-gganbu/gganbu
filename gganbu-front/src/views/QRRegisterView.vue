@@ -10,7 +10,6 @@
       <p>
         접수 시 문자로 제공받은<br />
         QR 코드를 화면에 인식시켜주세요.
-        {{ qrcodeResult }}
       </p>
     </div>
   </div>
@@ -28,8 +27,17 @@ export default {
     },
   },
   watch: {
-    moveNextPage() {
-      if (this.$store.state.patientId != null) {
+    qrcodeResult: function () {
+      this.moveNextProgress();
+    },
+  },
+  mounted() {
+    this.moveNextProgress();
+  },
+  methods: {
+    moveNextProgress() {
+      if (this.$store.state.patientId != "") {
+        // this.$router.push("/prestart");
         this.$router.push("/examination");
       }
     },

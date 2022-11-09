@@ -33,10 +33,6 @@
 
 <script>
 import customTitle from "@/components/common/customTitle.vue";
-// import processDetail from "@/components/ProcessDetail.vue";
-// import arrowDown from "@/assets/img/examination/arrow_down.png";
-// import arrowUp from "@/assets/img/examination/arrow_up";
-// import arrowRight from "@/assets/img/examination/arrow_right.png";
 
 export default {
   components: {
@@ -89,17 +85,14 @@ export default {
     };
   },
   mounted() {
-    this.currentProgress(0);
+    this.nextProgress();
   },
   methods: {
-    currentProgress(idx) {
-      document.querySelector(this.process[idx]);
+    nextProgress() {
+      this.$axios.get("http://localhost:8080/api/progress/" + this.$store.state.patientId).then(function (response) {
+        console.log(response);
+      });
     },
-  },
-  created() {
-    if (this.$store.state.patientId != null) {
-      console.log("12");
-    }
   },
 };
 </script>
@@ -137,6 +130,7 @@ export default {
 }
 .col1,
 .col2 {
+  /* animation: blink-effect 2s step-end infinite; */
   height: 90px;
   width: 40%;
   font-size: 1.3rem;
@@ -163,10 +157,10 @@ export default {
   margin: 0% 0% 0 1%;
 }
 .arrow1 {
-  padding-right: 70px;
+  padding-right: 30px;
 }
 .arrow2 {
-  padding-left: 70px;
+  padding-left: 30px;
 }
 .arrow_img {
   width: 30px;
