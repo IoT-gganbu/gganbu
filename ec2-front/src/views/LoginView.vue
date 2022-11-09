@@ -14,14 +14,53 @@
           <input type="password" id="logInpageInput" @keyup.enter="loginMember()" placeholder="비밀번호를 입력하세요." class="logInPwInput" />
         </div>
         <customButton btnText="로그인" class="idPwSearch" @click="loginMember()"></customButton>
-        <customButton btnText="아이디/비밀번호 찾기" class="idPwSearch" @click="findIdpwShowModal = true"></customButton>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+export default {
+  data() {
+    return {
+      loginAlram: false,
+    };
+  },
+  methods: {
+    //로그인
+    loginMember() {
+      let login_id = document.getElementById("logInInput").value;
+      let login_pw = document.getElementById("logInpageInput").value;
+      axios
+        .post(this.$store.state.baseurl + "staff/login", {
+          id: login_id,
+          password: login_pw,
+        })
+        // 토큰을 세션스토리지에 저장해놓기
+        .then((response) => {
+          if (response.data.message == "FAIL") {
+            // this.loginWarningShow = true;
+            // this.loginAlram = true;
+            console.log("fail");
+          } else if (response.data.message == "SUCCESS") {
+            console.log(response.data.data);
+            sessionStorage.setItem("name", response.data.data.name);
+            sessionStorage.setItem("task", response.data.data.task);
+            this.$store.state.memberStore.isLogin = true;
+
+            if (this.$store.state.memberStore.isLogin && sessionStorage.getItem("task") == 0) {
+              this.$router.push("/patientReceiptView");
+            } else if (this.$store.state.memberStore.isLogin && sessionStorage.getItem("task") != 0) {
+              this.$router.push("/qr");
+            }
+            console.log("success");
+          }
+        });
+      // console.log(login_id, login_pw);
+    },
+  },
+};
 </script>
 
 <style scoped>

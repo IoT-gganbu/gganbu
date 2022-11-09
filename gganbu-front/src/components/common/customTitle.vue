@@ -1,6 +1,6 @@
 <template>
   <div class="title">
-    <h2 class="modalTitle">{{ titleText }}</h2>
+    <h2 class="modalTitle">{{ name }}{{ titleText }}</h2>
     <slot />
   </div>
 </template>
@@ -9,6 +9,7 @@
 export default {
   props: {
     titleText: String,
+    name: String,
   },
 };
 </script>
