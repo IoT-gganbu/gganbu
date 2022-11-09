@@ -38,7 +38,7 @@ import java.util.*;
 @Api("환자 Controller")
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/patient")
+@RequestMapping("/api/patient")
 public class PatientsController {
 
     private static final String SUCCESS = "SUCCESS";
@@ -253,6 +253,7 @@ public class PatientsController {
 
             return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS, res));
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
         }
 
