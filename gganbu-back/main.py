@@ -1,15 +1,60 @@
-from django.shortcuts import render
+from fastapi import FastAPI
+import azure.cognitiveservices.speech as speechsdk
 import os
 import cv2
 import imutils
 from matplotlib import pyplot as plt
-from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
+import time
+import smtplib
+from email.message import EmailMessage
+from pydantic import BaseModel
 
-@api_view(['GET'])
-def tracking(request):
-    
+
+app = FastAPI()
+
+global isWaiting
+isWaiting = False
+
+class Item(BaseModel):
+    data: str
+
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
+
+@app.get("/record/save")
+def recognize_from_microphone():
+    # This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
+    speech_config = speechsdk.SpeechConfig(subscription='d2dca5cef15a464b9b00046592d1baf6', region='koreacentral')
+    speech_config.speech_recognition_language="ko-KR"
+
+    audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)
+    speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
+
+    print("Speak into your microphone.")
+    speech_recognition_result = speech_recognizer.recognize_once_async().get()
+
+    if speech_recognition_result.reason == speechsdk.ResultReason.RecognizedSpeech:
+        print("Recognized: {}".format(speech_recognition_result.text))
+        return speech_recognition_result.text
+    elif speech_recognition_result.reason == speechsdk.ResultReason.NoMatch:
+        print("No speech could be recognized: {}".format(speech_recognition_result.no_match_details))
+        return "FAIL"
+    elif speech_recognition_result.reason == speechsdk.ResultReason.Canceled:
+        cancellation_details = speech_recognition_result.cancellation_details
+        print("Speech Recognition canceled: {}".format(cancellation_details.reason))
+        
+        if cancellation_details.reason == speechsdk.CancellationReason.Error:
+            print("Error details: {}".format(cancellation_details.error_details))
+            print("Did you set the speech resource key and region values?")
+            return "FAIL"
+    return "FAIL"
+
+@app.get("/tracking")
+def tracking():
+    # haar_upper_body_cascade = cv2.CascadeClassifier("data/haarcascade_upperbody.xml")
+    print(os.getcwd())
+    print(os.path.exists("data/haarcascade_upperbody.xml"))
     casacade = cv2.CascadeClassifier("data/haarcascade_upperbody.xml")
 
     video_capture = cv2.VideoCapture(0)
@@ -114,6 +159,7 @@ def tracking(request):
                 # cv2.legacy.TrackerMOSSE_create
                 ]
     trackerIdx = 0  # 트랙커 생성자 함수 선택 인덱스(우리한테는 필요가 없다.)
+
     tracker = None
     isFirst = True
 
@@ -125,6 +171,9 @@ def tracking(request):
     returnState = 0 # 장고 리턴값을 유형별로 분기해서 나누어 주어야 한다.(while문이 끝나고 각각의 상태별로 리턴값을 보내줘야한다. ex)1-트래킹중 대상물체 인식실패가 3초 넘은 경우 )
     failCount = 0 
     while cap.isOpened():
+        global isWaiting
+        if isWaiting:
+            break
         ret, frame = cap.read()
         frame = imutils.resize(frame, width=1000)
         if not ret:
@@ -149,6 +198,7 @@ def tracking(request):
                 if(failCount >= 60):
                     returnState = 1
                     break
+
         trackerName = tracker.__class__.__name__
         cv2.putText(img_draw, str(trackerIdx) + ":"+trackerName , (100,20), \
                     cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0,255,0),2,cv2.LINE_AA)
@@ -175,3 +225,18 @@ def tracking(request):
     cv2.destroyAllWindows()
     if(returnState == 1):
         return Response(False)
+    isWaiting = True
+    
+@app.get("/gganbu")
+def checkGGanbu() :
+    while(True):
+        gganbu = recognize_from_microphone()
+        print(gganbu)
+        if (gganbu.find("간부")!=-1) or (gganbu.find("깜부")!=-1) or (gganbu.find("안부")!=-1) or (gganbu.find("깐부")!=-1):
+            global isWaiting
+            isWaiting = True
+            break
+    time.sleep(0.5)
+    isWaiting = False
+    return True
+
