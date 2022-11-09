@@ -9,9 +9,6 @@
 import * as tmPose from "@teachablemachine/pose";
 
 export default {
-  props: {
-    start: Boolean,
-  },
   data() {
     return {
       model: null,
@@ -25,6 +22,9 @@ export default {
   },
   mounted() {
     this.init();
+  },
+  destroyed() {
+    this.webcam = null;
   },
   methods: {
     returnData() {
@@ -64,7 +64,7 @@ export default {
 
     /* 루프 돌면서 pose estimation 하는 함수 */
     async loop() {
-      this.webcam.update(); // update the webcam frame
+      this.webcam.update; // update the webcam frame
       await this.predict();
       window.requestAnimationFrame(this.loop);
     },
@@ -89,7 +89,7 @@ export default {
 
     /* pose를 영상 위에 그리는 함수 */
     drawPose(pose) {
-      if (this.webcam.canvas) {
+      if (this.webcam) {
         this.ctx.drawImage(this.webcam.canvas, 0, 0);
         // draw the keypoints and skeleton
         if (pose) {

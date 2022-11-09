@@ -3,6 +3,7 @@ package com.ssafy.gganbu.service;
 import com.ssafy.gganbu.db.entity.Patients;
 import com.ssafy.gganbu.db.repository.PatientReqository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service("patientService")
+@Slf4j
 @RequiredArgsConstructor
 @Transactional
 public class PatientServiceImpl implements PatientService{
@@ -69,6 +71,5 @@ public class PatientServiceImpl implements PatientService{
             e.printStackTrace();
             return null;
         }
-
     }
 }

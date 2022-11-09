@@ -4,7 +4,7 @@
       <!-- <router-link to="/"><custom-button id="btn" btnText="◀" /></router-link> -->
       <custom-title id="title" titleText="건강검진 절차 안내"></custom-title>
     </div>
-    <div class="content">
+    <div class="body">
       <div class="rows" v-for="(data, idx) in processes" :key="idx">
         <custom-button class="col1" :btnText="data.item[0]" @click="showModal(idx, 0)"></custom-button>
         <custom-button class="col2" :btnText="data.item[1]" @click="showModal(idx, 1)"></custom-button>
