@@ -3,11 +3,7 @@ package com.ssafy.gganbu.db.entity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -29,5 +25,9 @@ public class PatientProgressHistory {
     @JoinColumn(name = "tc_id")
     @ApiModelProperty(example = "검진목록 id")
     private TaskChecktitle taskChecktitle;
+
+    // 이동전(0), 이동중(1), 대기중(2), 검사중(3), 검사완료(4)
+    @Column(name = "patient_status", nullable = false, columnDefinition = "Integer default 0")
+    private Integer patientStatus;
 
 }
