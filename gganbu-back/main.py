@@ -1,15 +1,56 @@
-from django.shortcuts import render
+from fastapi import FastAPI
+import azure.cognitiveservices.speech as speechsdk
 import os
 import cv2
 import imutils
 from matplotlib import pyplot as plt
-from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
+import time
+import smtplib
+from email.message import EmailMessage
+from pydantic import BaseModel
 
-# Create your views here.
-@api_view(['GET'])
-def tracking(request):
+app = FastAPI()
+
+global isWaiting
+isWaiting = False
+
+class Item(BaseModel):
+    data: str
+
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
+
+@app.get("/record/save")
+def recognize_from_microphone():
+    # This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
+    speech_config = speechsdk.SpeechConfig(subscription='d2dca5cef15a464b9b00046592d1baf6', region='koreacentral')
+    speech_config.speech_recognition_language="ko-KR"
+
+    audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)
+    speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
+
+    print("Speak into your microphone.")
+    speech_recognition_result = speech_recognizer.recognize_once_async().get()
+
+    if speech_recognition_result.reason == speechsdk.ResultReason.RecognizedSpeech:
+        print("Recognized: {}".format(speech_recognition_result.text))
+        return speech_recognition_result.text
+    elif speech_recognition_result.reason == speechsdk.ResultReason.NoMatch:
+        print("No speech could be recognized: {}".format(speech_recognition_result.no_match_details))
+        return "FAIL"
+    elif speech_recognition_result.reason == speechsdk.ResultReason.Canceled:
+        cancellation_details = speech_recognition_result.cancellation_details
+        print("Speech Recognition canceled: {}".format(cancellation_details.reason))
+        
+        if cancellation_details.reason == speechsdk.CancellationReason.Error:
+            print("Error details: {}".format(cancellation_details.error_details))
+            print("Did you set the speech resource key and region values?")
+            return "FAIL"
+    return "FAIL"
+
+@app.get("/tracking")
+def tracking():
     # haar_upper_body_cascade = cv2.CascadeClassifier("data/haarcascade_upperbody.xml")
     print(os.getcwd())
     print(os.path.exists("data/haarcascade_upperbody.xml"))
@@ -147,14 +188,16 @@ def tracking(request):
 
 
     # 트랙커 객체 생성자 함수 리스트 ---①
-    trackers = [cv2.legacy.TrackerBoosting_create,
-                cv2.legacy.TrackerMIL_create,
+    trackers = [
+                # cv2.legacy.TrackerBoosting_create,
+                # cv2.legacy.TrackerMIL_create,
                 cv2.legacy.TrackerKCF_create,
-                cv2.legacy.TrackerTLD_create,
-                cv2.legacy.TrackerMedianFlow_create,
+                # cv2.legacy.TrackerTLD_create,
+                # cv2.legacy.TrackerMedianFlow_create,
                 # cv2.legacy.TrackerGOTURN_create, #버그로 오류 발생
-                cv2.legacy.TrackerCSRT_create,
-                cv2.legacy.TrackerMOSSE_create]
+                # cv2.legacy.TrackerCSRT_create,
+                # cv2.legacy.TrackerMOSSE_create
+                ]
     trackerIdx = 0  # 트랙커 생성자 함수 선택 인덱스
     tracker = None
     isFirst = True
@@ -166,6 +209,9 @@ def tracking(request):
     delay = int(1000/fps)
     win_name = 'Tracking APIs'
     while cap.isOpened():
+        global isWaiting
+        if isWaiting:
+            break
         ret, frame = cap.read()
         frame = imutils.resize(frame, width=1000)
         if not ret:
@@ -184,11 +230,11 @@ def tracking(request):
             if ok: # 추적 성공
                 cv2.rectangle(img_draw, (int(x), int(y)), (int(x + w), int(y + h)), \
                             (0,255,0), 2, 1)
-                print("추적성공")
+                # print("추적성공")
             else : # 추적 실패
                 cv2.putText(img_draw, "Tracking fail.", (100,80), \
                             cv2.FONT_HERSHEY_SIMPLEX, 0.75,(0,0,255),2,cv2.LINE_AA)
-                print("추적 실패")
+                # print("추적 실패")
         trackerName = tracker.__class__.__name__
         cv2.putText(img_draw, str(trackerIdx) + ":"+trackerName , (100,20), \
                     cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0,255,0),2,cv2.LINE_AA)
@@ -216,3 +262,18 @@ def tracking(request):
         print( "Could not open video")
     cap.release()
     cv2.destroyAllWindows()
+    isWaiting = True
+    
+@app.get("/gganbu")
+def checkGGanbu() :
+    while(True):
+        gganbu = recognize_from_microphone()
+        print(gganbu)
+        if (gganbu.find("간부")!=-1) or (gganbu.find("깜부")!=-1) or (gganbu.find("안부")!=-1) or (gganbu.find("깐부")!=-1):
+            global isWaiting
+            isWaiting = True
+            break
+    time.sleep(0.5)
+    isWaiting = False
+    return True
+
