@@ -38,11 +38,11 @@ import java.util.*;
 @Api("환자 Controller")
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/patient")
+@RequestMapping("/api/patient")
 public class PatientsController {
 
-    private static final String SUCCESS = "SUCCESS";
-    private static final String FAIL = "FAIL";
+    public static final String SUCCESS = "SUCCESS";
+    public static final String FAIL = "FAIL";
 
     @Autowired
     PatientService patientService;
@@ -140,9 +140,9 @@ public class PatientsController {
     @ApiOperation(value = "이름으로 환자 검색 + 페이징 처리")
     @ApiImplicitParams(
             {
-                    @ApiImplicitParam(name = "name", value = "환자 이름", required = true, dataType = "String", paramType = "path", example = "김철수"),
-                    @ApiImplicitParam(name = "page", value = "페이지 번호", required = true, dataType = "int", paramType = "path", example = "1"),
-                    @ApiImplicitParam(name = "size", value = "페이지 사이즈", required = true, dataType = "int", paramType = "path", example = "10")
+                    @ApiImplicitParam(name = "name", value = "환자 이름", required = true, dataType = "String", paramType = "query", example = "김철수"),
+                    @ApiImplicitParam(name = "page", value = "페이지 번호", required = true, dataType = "int", paramType = "query", example = "1"),
+                    @ApiImplicitParam(name = "size", value = "페이지 사이즈", required = true, dataType = "int", paramType = "query", example = "10")
             }
     )
 
@@ -175,6 +175,8 @@ public class PatientsController {
             history.setPatient(patients);
             history.setTaskChecktitle(taskChecktitle);
             historyRepository.save(history);
+            // 만약 해당 검진이 마지막검진이라면 전체 삭제하는 로직이 필요하다.
+
             // 이벤트 발생
             eventPublisher.publishEvent(new CheckupEvent(new SocketVO(patients.getPatientId()+"", taskChecktitle.getTcId()+"")));
         }catch (Exception e){
@@ -227,6 +229,13 @@ public class PatientsController {
             baos.close();
         } catch (IOException e) {
             System.out.println("파일을 찾을 수 없습니다.");
+        } finally {
+            if (fis != null) {
+                fis.close();
+            }
+            if (baos != null) {
+                baos.close();
+            }
         }
         return fileArray;
     }
@@ -240,6 +249,7 @@ public class PatientsController {
             Patients patients = patientService.getPatient(patientId);
             res.put("patientId", patients.getPatientId());
             res.put("gender", patients.getGender());
+            res.put("name", patients.getName());
             List<TaskChecktitle> tasks = taskService.getAllTask();
             // 남자의 경우
             if (patients.getGender() == 0) {
@@ -253,6 +263,7 @@ public class PatientsController {
 
             return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS, res));
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
         }
 

@@ -13,13 +13,15 @@ export default {
   name: "qrCodeCapture",
   data() {
     return {
-      qrCodeData: "",
+      qrcode: String,
     };
   },
-
   methods: {
     onDecode(result) {
-      this.qrCodeData = result;
+      this.$axios.get("http://127.0.0.1:8080/api/patient/" + result).then(function (response) {
+        console.log(response);
+      });
+      this.$store.state.patientId = result;
     },
   },
   components: {

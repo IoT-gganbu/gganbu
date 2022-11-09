@@ -35,8 +35,10 @@ export default {
     };
   },
   mounted() {
-    setInterval(this.startGame, 2000);
-    setInterval(this.showData, 2000);
+    // setInterval(this.startGame, 2000);
+    // setInterval(this.showData, 2000);
+    this.startGame();
+    this.showData();
   },
   methods: {
     showData(data) {
