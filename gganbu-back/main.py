@@ -5,9 +5,6 @@ import cv2
 import imutils
 from matplotlib import pyplot as plt
 import time
-import smtplib
-from email.message import EmailMessage
-from pydantic import BaseModel
 
 
 app = FastAPI()
@@ -15,8 +12,6 @@ app = FastAPI()
 global isWaiting
 isWaiting = False
 
-class Item(BaseModel):
-    data: str
 
 @app.get("/")
 async def root():
@@ -224,7 +219,7 @@ def tracking():
     cap.release()
     cv2.destroyAllWindows()
     if(returnState == 1):
-        return Response(False)
+        return False
     isWaiting = True
     
 @app.get("/gganbu")
