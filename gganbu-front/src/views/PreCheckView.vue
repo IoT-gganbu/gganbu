@@ -7,6 +7,7 @@
       </div>
       <div v-if="!isLoading"></div>
       <spinner-view v-if="isLoading"></spinner-view>
+      <router-link :to="{ name: 'pre' }" class="link"><custom-button btnText="안내시작" v-if="isFinished"></custom-button></router-link>
       <!-- <div :value="res">{{ res }}</div> -->
     </div>
   </div>
