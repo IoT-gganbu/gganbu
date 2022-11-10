@@ -63,24 +63,16 @@ def recognize_from_microphone():
 
 @app.get("/tracking")
 def tracking():
-    # haar_upper_body_cascade = cv2.CascadeClassifier("data/haarcascade_upperbody.xml")
-    print(os.getcwd())
-    print(os.path.exists("data/haarcascade_upperbody.xml"))
     casacade = cv2.CascadeClassifier("data/haarcascade_upperbody.xml")
 
     video_capture = cv2.VideoCapture(0)
-
-    # video_width = video_capture.get(3)
-    # video_height = video_capture.get(4)
     img_counter = 0
     while True:
         img_counter = 0
         ret, frame = video_capture.read()
-
-        # frame = imutils.resize(frame, width=1000) # resize original video for better viewing performance
         frame = imutils.resize(frame, width=1000)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) # convert video to grayscale
-        rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        # rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
         box = casacade.detectMultiScale(
             gray,
@@ -112,17 +104,6 @@ def tracking():
     video_capture.release()
     cv2.destroyAllWindows()
 
-    # 캡쳐한 사진 삭제 함수
-    # def DeleteFiles(filePath):
-    #     if os.path.exists(filePath):
-    #         for file in os.scandir(filePath):
-    #             os.remove(file.path)
-    #         return 'remove_files'
-    #     else:
-    #         return 'Directory Not Found'
-
-    # DeleteFiles('frame_data')
-
     # 여기부터는 이미 캡쳐한거에서 상반신 박스그리기
     # Opening image
     img = cv2.imread("frame_data/opencv_frame_0.png")
@@ -131,8 +112,8 @@ def tracking():
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     
     found = casacade.detectMultiScale(
-            gray,
-            # rgb,
+            img_gray,
+            # img_rgb,
             scaleFactor = 1.1,
             minNeighbors = 3,
             minSize = (200, 200), # Min size for valid detection, changes according to video size or body size in the video.
@@ -171,12 +152,9 @@ def tracking():
                 # cv2.legacy.TrackerMOSSE_create
                 ]
     trackerIdx = 0  # 트랙커 생성자 함수 선택 인덱스(우리한테는 필요가 없다.)
-
     tracker = None
     isFirst = True
-
-    video_src = 0 # 비디오 파일과 카메라 선택 ---②
-    cap = cv2.VideoCapture(video_src)
+    cap = cv2.VideoCapture(0)
     fps = cap.get(cv2.CAP_PROP_FPS) # 프레임 수 구하기
     delay = int(1000/fps)
     win_name = 'Tracking APIs'
@@ -185,6 +163,7 @@ def tracking():
     while cap.isOpened():
         global isWaiting
         if isWaiting:
+            print("음성인식 종료로 인해 트래킹도 종료")
             break
         ret, frame = cap.read()
         frame = imutils.resize(frame, width=1000)
@@ -244,11 +223,11 @@ def tracking():
     
 @app.get("/gganbu")
 def checkGGanbu() :
-    while(True):
+    global isWaiting
+    while(isWaiting == False):
         gganbu = recognize_from_microphone()
         print(gganbu)
         if (gganbu.find("간부")!=-1) or (gganbu.find("깜부")!=-1) or (gganbu.find("안부")!=-1) or (gganbu.find("깐부")!=-1):
-            global isWaiting
             isWaiting = True
             break
     time.sleep(0.5)
