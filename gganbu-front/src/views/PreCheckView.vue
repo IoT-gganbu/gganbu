@@ -84,7 +84,7 @@ export default {
         return "finish";
       }
       this.isLoading = true;
-      await this.$axios.get(this.$store.state.baseurl + "record/save/").then((response) => {
+      await this.$axios.get(this.$store.state.baseurl + "record/save").then((response) => {
         this.isLoading = false;
         this.res.push(response.data);
         console.log(response.data);

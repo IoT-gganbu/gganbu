@@ -91,6 +91,6 @@ export default {
   font-size: 1.5rem;
 }
 .detail {
-  height: 130%;
+  height: 100%;
 }
 </style>
