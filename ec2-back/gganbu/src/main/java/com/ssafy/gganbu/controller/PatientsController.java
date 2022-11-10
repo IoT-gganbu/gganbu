@@ -7,6 +7,8 @@ import com.ssafy.gganbu.db.entity.TaskChecktitle;
 import com.ssafy.gganbu.db.repository.HistoryRepository;
 import com.ssafy.gganbu.db.repository.PatientReqository;
 import com.ssafy.gganbu.db.repository.TaskRepository;
+import com.ssafy.gganbu.event.CheckupEvent;
+import com.ssafy.gganbu.model.SocketVO;
 import com.ssafy.gganbu.request.CheckUpReq;
 import com.ssafy.gganbu.request.PatientReq;
 import com.ssafy.gganbu.service.PatientService;
@@ -14,6 +16,7 @@ import com.ssafy.gganbu.service.QrService;
 import com.ssafy.gganbu.service.TaskService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
@@ -35,11 +38,11 @@ import java.util.*;
 @Api("환자 Controller")
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/patient")
+@RequestMapping("/api/patient")
 public class PatientsController {
 
-    private static final String SUCCESS = "SUCCESS";
-    private static final String FAIL = "FAIL";
+    public static final String SUCCESS = "SUCCESS";
+    public static final String FAIL = "FAIL";
 
     @Autowired
     PatientService patientService;
@@ -58,12 +61,15 @@ public class PatientsController {
     @Autowired
     HistoryRepository historyRepository;
 
+    @Autowired
+    ApplicationEventPublisher eventPublisher;
+
     @PostMapping("/receipt")
     @ApiOperation(value = "환자 접수")
     public ResponseEntity<Map<String, Object>> receipt(@RequestBody @ApiParam(value = "수정할회원정보") PatientReq reqData) {
         Map<String, Object> result = new HashMap<>();
-        System.out.println(reqData.getResidentNo());
-        if (patientService.checkResidentNo(reqData.getResidentNo())) {
+        System.out.println(reqData.toString());
+        if(patientService.checkResidentNo(reqData.getResidentNo())){
             result.put("message", FAIL);
         } else {
             Patients res = new Patients();
@@ -134,9 +140,9 @@ public class PatientsController {
     @ApiOperation(value = "이름으로 환자 검색 + 페이징 처리")
     @ApiImplicitParams(
             {
-                    @ApiImplicitParam(name = "name", value = "환자 이름", required = true, dataType = "String", paramType = "path", example = "김철수"),
-                    @ApiImplicitParam(name = "page", value = "페이지 번호", required = true, dataType = "int", paramType = "path", example = "1"),
-                    @ApiImplicitParam(name = "size", value = "페이지 사이즈", required = true, dataType = "int", paramType = "path", example = "10")
+                    @ApiImplicitParam(name = "name", value = "환자 이름", required = true, dataType = "String", paramType = "query", example = "김철수"),
+                    @ApiImplicitParam(name = "page", value = "페이지 번호", required = true, dataType = "int", paramType = "query", example = "1"),
+                    @ApiImplicitParam(name = "size", value = "페이지 사이즈", required = true, dataType = "int", paramType = "query", example = "10")
             }
     )
 
@@ -169,7 +175,13 @@ public class PatientsController {
             history.setPatient(patients);
             history.setTaskChecktitle(taskChecktitle);
             historyRepository.save(history);
-        } catch (Exception e) {
+            // 만약 해당 검진이 마지막검진이라면 전체 삭제하는 로직이 필요하다.
+
+            // 이벤트 발생
+            eventPublisher.publishEvent(new CheckupEvent(new SocketVO(patients.getPatientId()+"", taskChecktitle.getTcId()+"")));
+        }catch (Exception e){
+            System.out.println("error");
+            System.out.println(e.getMessage());
             return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
         }
 
@@ -217,6 +229,13 @@ public class PatientsController {
             baos.close();
         } catch (IOException e) {
             System.out.println("파일을 찾을 수 없습니다.");
+        } finally {
+            if (fis != null) {
+                fis.close();
+            }
+            if (baos != null) {
+                baos.close();
+            }
         }
         return fileArray;
     }
@@ -230,6 +249,7 @@ public class PatientsController {
             Patients patients = patientService.getPatient(patientId);
             res.put("patientId", patients.getPatientId());
             res.put("gender", patients.getGender());
+            res.put("name", patients.getName());
             List<TaskChecktitle> tasks = taskService.getAllTask();
             // 남자의 경우
             if (patients.getGender() == 0) {
@@ -243,6 +263,7 @@ public class PatientsController {
 
             return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS, res));
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
         }
 

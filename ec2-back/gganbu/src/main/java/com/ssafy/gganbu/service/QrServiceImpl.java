@@ -20,7 +20,7 @@ public class QrServiceImpl implements QrService {
     public BitMatrix getQrCode(String url) throws WriterException {
         BitMatrix bitMatrix = null;
         try {
-            bitMatrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, 200, 200);
+            bitMatrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, 400, 400);
         } catch (WriterException e) {
             throw new WriterException("fail to create QR code");
         }

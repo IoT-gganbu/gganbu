@@ -30,11 +30,6 @@ const routes = [
     component: () => import("../views/ExaminationProgressView.vue"),
   },
   {
-    path: "/qr",
-    name: "qr",
-    component: () => import("../views/QRRegisterView.vue"),
-  },
-  {
     path: "/gameChoice",
     name: "gameChoice",
     component: () => import("../views/GameChoiceView.vue"),
@@ -58,6 +53,11 @@ const routes = [
     path: "/prestart",
     name: "prestart",
     component: () => import("../views/CheckStartView.vue"),
+  },
+  {
+    path: "/error",
+    name: "error",
+    component: () => import("../views/errorView.vue"),
   },
 ];
 

@@ -21,6 +21,27 @@ export default {
   components: {
     qrcodeCapture,
   },
+  computed: {
+    qrcodeResult() {
+      return this.$store.state.patientId;
+    },
+  },
+  watch: {
+    qrcodeResult: function () {
+      this.moveNextProgress();
+    },
+  },
+  mounted() {
+    this.moveNextProgress();
+  },
+  methods: {
+    moveNextProgress() {
+      if (this.$store.state.patientId != "") {
+        // this.$router.push("/prestart");
+        this.$router.push("/examination");
+      }
+    },
+  },
 };
 </script>
 
