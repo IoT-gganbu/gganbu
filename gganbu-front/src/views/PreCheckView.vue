@@ -95,6 +95,7 @@ export default {
       const headers = {
         "Content-Type": "application/json",
       };
+      console.log(this.res);
       this.$axios.post(this.$store.state.baseurl + "email", { data: this.res }, { headers: headers }).then((response) => {
         console.log(response);
       });
