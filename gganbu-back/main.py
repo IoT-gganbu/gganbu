@@ -58,6 +58,7 @@ def tracking():
     # video_height = video_capture.get(4)
     img_counter = 0
     while True:
+        img_counter = 0
         ret, frame = video_capture.read()
 
         # frame = imutils.resize(frame, width=1000) # resize original video for better viewing performance
@@ -114,8 +115,8 @@ def tracking():
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     
     found = casacade.detectMultiScale(
-            # gray,
-            rgb,
+            gray,
+            # rgb,
             scaleFactor = 1.1,
             minNeighbors = 3,
             minSize = (200, 200), # Min size for valid detection, changes according to video size or body size in the video.
@@ -183,14 +184,15 @@ def tracking():
             if ok: # 추적 성공
                 cv2.rectangle(img_draw, (int(x), int(y)), (int(x + w), int(y + h)), \
                             (0,255,0), 2, 1)
-                print("추적성공")
+                # print("추적성공")
                 failCount = 0
             else : # 추적 실패
                 cv2.putText(img_draw, "Tracking fail.", (100,80), \
                             cv2.FONT_HERSHEY_SIMPLEX, 0.75,(0,0,255),2,cv2.LINE_AA)
-                print("추적 실패")
+                # print("추적 실패")
                 failCount += 1
                 if(failCount >= 60):
+                    print("일정 시간 추적 실패로 종료")
                     returnState = 1
                     break
 
@@ -218,9 +220,11 @@ def tracking():
         print( "Could not open video")
     cap.release()
     cv2.destroyAllWindows()
+    isWaiting = True
     if(returnState == 1):
         return False
-    isWaiting = True
+    time.sleep(2)
+    isWaiting = False
     
 @app.get("/gganbu")
 def checkGGanbu() :

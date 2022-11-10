@@ -8,12 +8,14 @@ import customButton from "@/components/common/customButton";
 import navBar from "@/components/common/navBar";
 import customTitle from "@/components/common/customTitle";
 import SpinnerView from "@/components/common/SpinnerView";
+import Spinner from "vue-simple-spinner";
 Vue.config.productionTip = false;
 Vue.component("customButton", customButton);
 Vue.component("customModal", customModal);
 Vue.component("navBar", navBar);
 Vue.component("customTitle", customTitle);
 Vue.component("SpinnerView", SpinnerView);
+Vue.component("loadingSpinner", Spinner);
 
 Vue.prototype.$axios = axios;
 

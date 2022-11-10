@@ -59,6 +59,11 @@ const routes = [
     name: "error",
     component: () => import("../views/errorView.vue"),
   },
+  {
+    path: "/loading",
+    name: "loading",
+    component: () => import("../views/LoadingView.vue"),
+  },
 ];
 
 const router = new VueRouter({
