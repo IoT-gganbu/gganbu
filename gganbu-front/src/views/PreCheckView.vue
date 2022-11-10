@@ -93,9 +93,10 @@ export default {
 
     sendMail() {
       const headers = {
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/json",
       };
-      this.$axios.post(this.$store.state.baseurl + "record/mail", { data: this.res }, { headers: headers }).then((response) => {
+      console.log(this.res);
+      this.$axios.post(this.$store.state.baseurl + "email", { data: this.res }, { headers: headers }).then((response) => {
         console.log(response);
       });
     },
