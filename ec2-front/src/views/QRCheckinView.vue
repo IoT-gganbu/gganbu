@@ -29,22 +29,22 @@ export default {
 
   methods: {
     async onDecode(result) {
-      let pid = 0;
-      // await this.$axios.get(this.$store.state.baseurl + "staff/progress/" + result).then(function (response) {
-      //   console.log(response);
-      pid = 1;
-      // });
-      await this.$axios
-        .post(`${this.$store.state.baseurl}patient/checkup/${pid}`, {
-          patientId: pid,
-          tcId: 2,
-        })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error.response);
-        });
+      // let pid = 0;
+      await this.$axios.get(`${this.$store.state.baseurl}/staff/progress/${result}`).then((response) => {
+        console.log(response);
+        // pid = 1;
+      });
+      // await this.$axios
+      //   .post(`${this.$store.state.baseurl}patient/checkup/${pid}`, {
+      //     patientId: pid,
+      //     tcId: 2,
+      //   })
+      //   .then((response) => {
+      //     console.log(response);
+      //   })
+      //   .catch((error) => {
+      //     console.log(error.response);
+      //   });
       this.$store.state.patientId = result;
       await this.$axios.get;
     },
