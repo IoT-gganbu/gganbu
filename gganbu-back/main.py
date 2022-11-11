@@ -95,13 +95,11 @@ def tracking():
                 img_counter += 1
 
             if img_counter > 0:
-                flag = False
                 break
 
             cv2.imshow('Video', frame) # Display video
             # stop script when "q" key is pressed
             if cv2.waitKey(1) & 0xFF == ord('q'):
-                flag = False
                 break
 
         # Release capture

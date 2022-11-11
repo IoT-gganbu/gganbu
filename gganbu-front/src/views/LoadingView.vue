@@ -7,12 +7,16 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
       tracking: false,
       voice: false,
     };
+  },
+  created() {
+    this.connectSpringSocket();
   },
   mounted() {
     // 트래킹이랑 깐부 인식을 언제 켜야하지
@@ -29,6 +33,7 @@ export default {
     // }
   },
   methods: {
+    ...mapActions(["connectSpringSocket"]),
     startTracking() {
       console.log(this.tracking + "트래킹 시작 전입니다");
       this.$store.state.tracking = true;
