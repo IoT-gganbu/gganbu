@@ -78,7 +78,7 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public Object progress(Long patientId) {
+    public Long progress(Long patientId) {
         log.info("StaffServiceImpl.progress");
         // userId 기반으로 patient 찾기
         Patients patient = patientRepository.findByPatientId(patientId).orElseThrow(()-> new NoSuchElementException("patient not found"));
