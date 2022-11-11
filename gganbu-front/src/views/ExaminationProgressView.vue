@@ -89,7 +89,7 @@ export default {
   },
   methods: {
     nextProgress() {
-      this.$axios.get("http://localhost:8080/api/progress/" + this.$store.state.patientId).then(function (response) {
+      this.$axios.get("http://localhost:8080/api/staff/progress/" + this.$store.state.patientId).then(function (response) {
         console.log(response);
       });
     },

@@ -37,8 +37,8 @@ export default {
   methods: {
     moveNextProgress() {
       if (this.$store.state.patientId != "") {
-        // this.$router.push("/prestart");
-        this.$router.push("/examination");
+        this.$router.push("/prestart");
+        // this.$router.push("/examination");
       }
     },
   },

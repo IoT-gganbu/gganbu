@@ -140,7 +140,6 @@ def tracking():
                     boxPos = (x, y, width, height)
                     flag = False
                     break
-
         else:
             # 여기에서 roi를 못찾았다면 다시 화면 캡쳐하는 곳으로 돌아가기
             # 
@@ -224,7 +223,7 @@ def tracking():
     isWaiting = True
     if(returnState == 1):
         return False
-    time.sleep(2)
+    time.sleep(3)
     isWaiting = False
     
 @app.get("/gganbu")
