@@ -6,7 +6,7 @@
           <input placeholder="Search" class="input" />
         </div>
         <div class="search-btn">
-          <custom-button btnText="검색"></custom-button>
+          <custom-button btnText="검색" :v-bind="searchName" @click="searchPatient(searchName)"></custom-button>
         </div>
       </div>
       <!-- <div class="patient-list">검수자 리스트</div> -->
@@ -21,24 +21,49 @@
       <patient-card></patient-card>
     </div>
     <custom-modal class="addPatient" id="addPatient" v-show="showImgModal" @close-modal="showImgModal = false" titleText="환자 등록">
-      <cotent>
+      <content>
         <add-patient></add-patient>
-      </cotent>
+      </content>
     </custom-modal>
   </div>
 </template>
 <script>
 import AddPatient from "@/components/patient/addPatient.vue";
+import PatientCard from "@/components/patient/patientCard.vue";
 export default {
   name: "PatientReceiptView",
   components: {
     AddPatient,
+    PatientCard,
   },
   data() {
     return {
       showImgModal: false,
+      searchName: "",
     };
   },
+  mounted() {
+    // this.getPatientList();
+  },
+  methods: {
+    getAllPatientList() {
+      this.$axios.get(`${this.$store.state.baseurl}/patient/searchAllPatient`).then((response) => {
+        console.log(response);
+      });
+    },
+    searchPatient(searchName) {
+      console.log(this.searchName);
+      this.$axios
+        .get(`${this.$store.state.baseurl}/patient/search/${searchName}`)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+  mutations: {},
 };
 </script>
 

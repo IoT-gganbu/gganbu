@@ -3,6 +3,7 @@ import { api } from "@/store";
 const memberStore = {
   state: {
     isLogin: false,
+    memberList: [],
   },
   getters: {
     isLogin(state) {
@@ -17,6 +18,9 @@ const memberStore = {
       state.isLogin = false;
       sessionStorage.removeItem("access-token");
       api.defaults.headers["access-token"] = "";
+    },
+    MEMBER_LIST(state) {
+      state.memberList = state;
     },
   },
   actions: {},
