@@ -2,6 +2,8 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import axios from "axios";
+
 import customModal from "@/components/common/customModal";
 import customButton from "@/components/common/customButton";
 
@@ -20,6 +22,8 @@ Vue.component("patientCard", patientCard);
 
 Vue.component("navBar", navBar);
 Vue.component("customTitle", customTitle);
+
+Vue.prototype.$axios = axios;
 
 new Vue({
   router,
