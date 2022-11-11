@@ -10,7 +10,18 @@
         </div>
       </div>
     </router-link>
-    <router-link to="/qr" class="choiceBox">
+    <router-link to="/examination" class="choiceBox" v-if="this.$store.state.isChecked">
+      <div class="boxIn">
+        <div class="icon">
+          <img src="@/assets/img/stethoscope.png" class="img" />
+        </div>
+        <div class="title">
+          <p v-if="patientId == ''" class="textp">건강검진<br />시작하기</p>
+          <p v-else class="textp">건강검진<br />진행 상황</p>
+        </div>
+      </div>
+    </router-link>
+    <router-link to="/qr" class="choiceBox" v-else>
       <div class="boxIn">
         <div class="icon">
           <img src="@/assets/img/stethoscope.png" class="img" />

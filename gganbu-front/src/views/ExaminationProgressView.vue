@@ -91,7 +91,7 @@ export default {
     };
   },
   created() {
-    this.connectSpringSocket();
+    // this.connectSpringSocket();
     this.nextProgress();
   },
   computed: {
@@ -101,7 +101,8 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["connectSpringSocket", "acceptProgressBoolean"]),
+    // ...mapActions(["connectSpringSocket", "acceptProgressBoolean"]),
+    ...mapActions(["acceptProgressBoolean"]),
     async nextProgress() {
       this.$axios.get("http://localhost:8080/api/staff/progress/" + this.$store.state.patientId).then((response) => {
         console.log(response.data.data);

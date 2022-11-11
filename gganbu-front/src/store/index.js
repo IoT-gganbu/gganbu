@@ -20,6 +20,7 @@ export default new Vuex.Store({
     springStomp: null,
     springSocketConnected: false,
     springSocketMessage: "",
+    isChecked: false,
   },
   getters: {
     getSpringWebsocketUrl: (state) => {
@@ -62,6 +63,9 @@ export default new Vuex.Store({
     },
     acceptProgressBoolean(state, idx) {
       state.progressBoolean[idx] = true;
+    },
+    changeChecked(state) {
+      state.isChecked = !state.isChecked;
     },
   },
   actions: {

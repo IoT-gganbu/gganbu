@@ -7,12 +7,20 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
       tracking: false,
       voice: false,
     };
+  },
+  created() {
+    // 소켓 연결이 되어있다면 다시 연결하지 않게 예외처리
+    // if (!this.$store.state.springSocketConnected) {
+    this.connectSpringSocket();
+    // }
+    // this.nextProgress();
   },
   mounted() {
     setTimeout(() => {
@@ -26,6 +34,7 @@ export default {
     }, 6000);
   },
   methods: {
+    ...mapActions(["connectSpringSocket"]),
     startTracking() {
       console.log(this.tracking);
       this.$axios.get(this.$store.state.baseurl + "tracking").then((response) => {
