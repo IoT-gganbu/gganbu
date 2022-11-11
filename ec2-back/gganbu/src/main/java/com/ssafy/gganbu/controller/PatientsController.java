@@ -15,6 +15,7 @@ import com.ssafy.gganbu.service.PatientService;
 import com.ssafy.gganbu.service.QrService;
 import com.ssafy.gganbu.service.TaskService;
 import io.swagger.annotations.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.io.Resource;
@@ -37,6 +38,7 @@ import java.util.*;
 
 @Api("환자 Controller")
 @CrossOrigin(origins = "*")
+@Slf4j
 @RestController
 @RequestMapping("/api/patient")
 public class PatientsController {
@@ -166,15 +168,17 @@ public class PatientsController {
         PatientProgressHistory history = new PatientProgressHistory();
         Patients patients = patientService.getPatient(checkUpReq.getPatientId());
         TaskChecktitle taskChecktitle = taskService.getTask(checkUpReq.getTcId());
-        // 중복 입력시
-        Boolean check = historyRepository.existsByTaskChecktitleAndPatient(taskChecktitle, patients).orElseThrow(() -> new NoSuchElementException("list not found"));
-        if (check) {
-            return ResponseEntity.status(200).body(BaseResponseBody.of("중복 입력"));
-        }
+        System.out.println("patients : " + patients.toString());
+        System.out.println("taskChecktitle : " + taskChecktitle.toString());
         try {
-            history.setPatient(patients);
-            history.setTaskChecktitle(taskChecktitle);
-            historyRepository.save(history);
+            // 중복 입력 체크. 이미 4상태일경우 중복 입력 불가
+//            boolean check = patientService.checkPatientHistory(patients, taskChecktitle);
+//            if (check) {
+//                return ResponseEntity.status(200).body(BaseResponseBody.of("중복 입력"));
+//            }
+//            history.setPatient(patients);
+//            history.setTaskChecktitle(taskChecktitle);
+//            historyRepository.save(history);
             // 만약 해당 검진이 마지막검진이라면 전체 삭제하는 로직이 필요하다.
 
             // 이벤트 발생
@@ -182,6 +186,7 @@ public class PatientsController {
         }catch (Exception e){
             System.out.println("error");
             System.out.println(e.getMessage());
+            e.printStackTrace();
             return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
         }
 
@@ -245,6 +250,7 @@ public class PatientsController {
     @ApiImplicitParam(name = "patientId", value = "환자 ID", required = true, dataType = "String", paramType = "path", example = "1")
     public ResponseEntity<? extends BaseResponseBody> getPatientInfo(@PathVariable Long patientId) {
         HashMap<String, Object> res = new HashMap<>();
+        log.info("PatientsController.getPatientInfo");
         try {
             Patients patients = patientService.getPatient(patientId);
             res.put("patientId", patients.getPatientId());
