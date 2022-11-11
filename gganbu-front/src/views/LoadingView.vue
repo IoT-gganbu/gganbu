@@ -16,7 +16,10 @@ export default {
     };
   },
   created() {
+    // 소켓 연결이 되어있다면 다시 연결하지 않게 예외처리
+    // if (!this.$store.state.springSocketConnected) {
     this.connectSpringSocket();
+    // }
     // this.nextProgress();
   },
   mounted() {
