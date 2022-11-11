@@ -11,5 +11,5 @@ public interface StaffService {
 
     public String receipt(String residentNo) throws NoChangeExeption, WriterException, IOException;
 
-    Object progress(Long userId);
+    Long progress(Long userId);
 }
