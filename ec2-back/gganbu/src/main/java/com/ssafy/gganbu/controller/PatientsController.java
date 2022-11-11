@@ -70,7 +70,7 @@ public class PatientsController {
     @ApiOperation(value = "환자 접수")
     public ResponseEntity<Map<String, Object>> receipt(@RequestBody @ApiParam(value = "수정할회원정보") PatientReq reqData) {
         Map<String, Object> result = new HashMap<>();
-        System.out.println(reqData.toString());
+        log.info(reqData.toString());
         if(patientService.checkResidentNo(reqData.getResidentNo())){
             result.put("message", FAIL);
         } else {
@@ -92,7 +92,7 @@ public class PatientsController {
             // 만나이 구하는 함수
             int age = getAge(newage,
                     Integer.parseInt(residentNo.substring(2, 4)), Integer.parseInt(residentNo.substring(4, 6)));
-            System.out.println(age);
+            log.info(age);
             res.setAge(age);
             patientReqository.save(res);
             result.put("message", SUCCESS);
@@ -122,7 +122,7 @@ public class PatientsController {
     @GetMapping("/search/{name}")
     @ApiOperation(value = "이름으로 환자 검색")
     @ApiImplicitParam(name = "name", value = "환자 이름", required = true, dataType = "String", paramType = "path", example = "김철수")
-    public ResponseEntity<? extends BaseResponseBody> searchPatient(@PathVariable String name) {
+    public ResponseEntity<BaseResponseBody> searchPatient(@PathVariable String name) {
 
         List<Patients> res = new ArrayList<>();
         try {
@@ -131,7 +131,7 @@ public class PatientsController {
             return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
         }
         // 해당 회원이 없는 경우
-        if (res.size() == 0) {
+        if (res.isEmpty()) {
             return ResponseEntity.status(200).body(BaseResponseBody.of("해당회원없음"));
         } else {
             return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS, res));
@@ -148,12 +148,31 @@ public class PatientsController {
             }
     )
 
-    public ResponseEntity<? extends BaseResponseBody> searchPatientWithPage(@RequestParam(value = "name") String name, @RequestParam(value = "page") int page, @RequestParam(value = "size") int size) {
+    public ResponseEntity<BaseResponseBody> searchPatientWithPage(@RequestParam(value = "name") String name, @RequestParam(value = "page") int page, @RequestParam(value = "size") int size) {
         try{
-            System.out.println("name : " + name);
-            System.out.println("page : " + page);
-            System.out.println("size : " + size);
+            log.info("name : " + name);
+            log.info("page : " + page);
+            log.info("size : " + size);
             Page<Patients> res = patientService.searchPatientWithPage(name, page, size);
+            return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS, res));
+        }
+        catch (Exception e){
+            return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
+        }
+    }
+
+    @GetMapping("/searchAllPatients")
+    @ApiOperation(value = "모든 환자 리스트 + 페이징 처리")
+    @ApiImplicitParams(
+            {
+                    @ApiImplicitParam(name = "size", value = "페이지 사이즈", required = true, dataType = "int", paramType = "query", example = "10")
+            }
+    )
+
+    public ResponseEntity<BaseResponseBody> searchAllPatientWithPage( @RequestParam(value = "size") int size) {
+        try{
+            log.info("size : " + size);
+            Page<Patients> res = patientService.searchAllPatientWithPage(0, size);
             return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS, res));
         }
         catch (Exception e){
@@ -164,12 +183,12 @@ public class PatientsController {
     // 해당 검진 절차 완료 여부 입력 함수
     @PostMapping("/checkup")
     @ApiOperation(value = "각 단계 검진 완료 기록")
-    public ResponseEntity<? extends BaseResponseBody> checkUp(@RequestBody CheckUpReq checkUpReq) {
+    public ResponseEntity<BaseResponseBody> checkUp(@RequestBody CheckUpReq checkUpReq) {
         PatientProgressHistory history = new PatientProgressHistory();
         Patients patients = patientService.getPatient(checkUpReq.getPatientId());
         TaskChecktitle taskChecktitle = taskService.getTask(checkUpReq.getTcId());
-        System.out.println("patients : " + patients.toString());
-        System.out.println("taskChecktitle : " + taskChecktitle.toString());
+        log.info("patients : " + patients.toString());
+        log.info("taskChecktitle : " + taskChecktitle.toString());
         try {
             // 중복 입력 체크. 이미 4상태일경우 중복 입력 불가
 //            boolean check = patientService.checkPatientHistory(patients, taskChecktitle);
@@ -184,8 +203,8 @@ public class PatientsController {
             // 이벤트 발생
             eventPublisher.publishEvent(new CheckupEvent(new SocketVO(patients.getPatientId()+"", taskChecktitle.getTcId()+"")));
         }catch (Exception e){
-            System.out.println("error");
-            System.out.println(e.getMessage());
+            log.info("error");
+            log.info(e.getMessage());
             e.printStackTrace();
             return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
         }
@@ -202,12 +221,9 @@ public class PatientsController {
         try {
             contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
         } catch (IOException e) {
-            System.out.println("Could not determine file type.");
+            log.info("Could not determine file type.");
         }
-        if (contentType == null) {
-//            contentType = "application/octet-stream";
-            contentType = "image/png";
-        }
+        if (contentType == null) contentType = "image/png";
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
@@ -217,12 +233,12 @@ public class PatientsController {
     @GetMapping(value = "/image/view/{patientId}", produces = MediaType.IMAGE_PNG_VALUE)
     @ApiImplicitParam(name = "patientId", value = "환자 ID", required = true, dataType = "String", paramType = "path", example = "1")
     public @ResponseBody byte[] getImage(@RequestParam("patientId") String id) throws IOException {
-        FileInputStream fis = null;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Path path = Paths.get("/tmp/gganbu/patient/" + id + "/qr.png");
         byte[] fileArray = new byte[0];
-        try {
-            fis = new FileInputStream(path.toString());
+        try (
+                FileInputStream  fis = new FileInputStream(path.toString());
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ){
             int readCount = 0;
             byte[] buffer = new byte[1024];
             fileArray = null;
@@ -230,17 +246,8 @@ public class PatientsController {
                 baos.write(buffer, 0, readCount);
             }
             fileArray = baos.toByteArray();
-            fis.close();
-            baos.close();
         } catch (IOException e) {
-            System.out.println("파일을 찾을 수 없습니다.");
-        } finally {
-            if (fis != null) {
-                fis.close();
-            }
-            if (baos != null) {
-                baos.close();
-            }
+            log.info("파일을 찾을 수 없습니다.");
         }
         return fileArray;
     }
@@ -248,7 +255,7 @@ public class PatientsController {
     @GetMapping("/{patientId}")
     @ApiOperation(value = "QR의 id로 유저 검색")
     @ApiImplicitParam(name = "patientId", value = "환자 ID", required = true, dataType = "String", paramType = "path", example = "1")
-    public ResponseEntity<? extends BaseResponseBody> getPatientInfo(@PathVariable Long patientId) {
+    public ResponseEntity<BaseResponseBody> getPatientInfo(@PathVariable Long patientId) {
         HashMap<String, Object> res = new HashMap<>();
         log.info("PatientsController.getPatientInfo");
         try {
