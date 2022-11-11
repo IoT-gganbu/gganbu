@@ -33,7 +33,7 @@ export default {
       let login_id = document.getElementById("logInInput").value;
       let login_pw = document.getElementById("logInpageInput").value;
       axios
-        .post(this.$store.state.baseurl + "staff/login", {
+        .post(this.$store.state.baseurl + "/staff/login", {
           id: login_id,
           password: login_pw,
         })
@@ -49,9 +49,9 @@ export default {
             sessionStorage.setItem("task", response.data.data.task);
             this.$store.state.memberStore.isLogin = true;
 
-            if (this.$store.state.memberStore.isLogin && sessionStorage.getItem("task") == 0) {
+            if (this.$store.state.memberStore.isLogin && sessionStorage.getItem("task") == 1) {
               this.$router.push("/patientReceiptView");
-            } else if (this.$store.state.memberStore.isLogin && sessionStorage.getItem("task") != 0) {
+            } else if (this.$store.state.memberStore.isLogin && sessionStorage.getItem("task") != 1) {
               this.$router.push("/qr");
             }
             console.log("success");
