@@ -17,6 +17,7 @@ public interface PatientReqository extends JpaRepository<Patients, Long> {
     public Optional<Boolean> existsByResidentNo(String residentNo);
 
     public Optional<List<Patients>> findAllByName(String name);
+    public List<Patients> findAll();
 
     public Optional<Patients> findByPatientId(Long patientId);
 
