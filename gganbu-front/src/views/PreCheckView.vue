@@ -7,6 +7,7 @@
       </div>
       <div v-if="!isLoading"></div>
       <spinner-view v-if="isLoading"></spinner-view>
+      <router-link :to="{ name: 'pre' }" class="link"><custom-button btnText="안내시작" v-if="isFinished"></custom-button></router-link>
       <!-- <div :value="res">{{ res }}</div> -->
     </div>
   </div>
@@ -83,7 +84,7 @@ export default {
         return "finish";
       }
       this.isLoading = true;
-      await this.$axios.get(this.$store.state.baseurl + "record/save/").then((response) => {
+      await this.$axios.get(this.$store.state.baseurl + "record/save").then((response) => {
         this.isLoading = false;
         this.res.push(response.data);
         console.log(response.data);
@@ -93,9 +94,10 @@ export default {
 
     sendMail() {
       const headers = {
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/json",
       };
-      this.$axios.post(this.$store.state.baseurl + "record/mail", { data: this.res }, { headers: headers }).then((response) => {
+      console.log(this.res);
+      this.$axios.post(this.$store.state.baseurl + "email", { data: this.res }, { headers: headers }).then((response) => {
         console.log(response);
       });
     },
