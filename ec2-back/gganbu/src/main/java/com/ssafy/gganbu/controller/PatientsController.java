@@ -5,7 +5,7 @@ import com.ssafy.gganbu.db.entity.PatientProgressHistory;
 import com.ssafy.gganbu.db.entity.Patients;
 import com.ssafy.gganbu.db.entity.TaskChecktitle;
 import com.ssafy.gganbu.db.repository.HistoryRepository;
-import com.ssafy.gganbu.db.repository.PatientReqository;
+import com.ssafy.gganbu.db.repository.PatientRepository;
 import com.ssafy.gganbu.db.repository.TaskRepository;
 import com.ssafy.gganbu.event.CheckupEvent;
 import com.ssafy.gganbu.model.SocketVO;
@@ -33,7 +33,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.util.*;
 
 @Api("환자 Controller")
@@ -49,7 +48,7 @@ public class PatientsController {
     @Autowired
     PatientService patientService;
     @Autowired
-    PatientReqository patientReqository;
+    PatientRepository patientRepository;
 
     @Autowired
     TaskService taskService;
@@ -94,7 +93,7 @@ public class PatientsController {
                     Integer.parseInt(residentNo.substring(2, 4)), Integer.parseInt(residentNo.substring(4, 6)));
             System.out.println(age);
             res.setAge(age);
-            patientReqository.save(res);
+            patientRepository.save(res);
             result.put("message", SUCCESS);
         }
         return new ResponseEntity<>(result, HttpStatus.OK);

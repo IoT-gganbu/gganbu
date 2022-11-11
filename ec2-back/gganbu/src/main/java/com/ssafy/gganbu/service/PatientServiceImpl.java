@@ -1,8 +1,9 @@
 package com.ssafy.gganbu.service;
 
 import com.ssafy.gganbu.db.entity.Patients;
+import com.ssafy.gganbu.db.entity.TaskChecktitle;
 import com.ssafy.gganbu.db.repository.HistoryRepository;
-import com.ssafy.gganbu.db.repository.PatientReqository;
+import com.ssafy.gganbu.db.repository.PatientRepository;
 import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,7 @@ import java.util.NoSuchElementException;
 public class PatientServiceImpl implements PatientService{
 
     @Autowired
-    PatientReqository patientReqository;
+    PatientRepository patientRepository;
 
 
     @Autowired
@@ -32,13 +33,13 @@ public class PatientServiceImpl implements PatientService{
 
     public boolean checkResidentNo(String residentNo){
         log.info("service" + residentNo);
-        return patientReqository.existsByResidentNo(residentNo).orElseThrow(()-> new NoSuchElementException("patient not found"));
+        return patientRepository.existsByResidentNo(residentNo).orElseThrow(()-> new NoSuchElementException("patient not found"));
     }
 
     @Override
     public List<Patients> searchPatient(String name) {
         try {
-            return patientReqository.findAllByName(name).orElseThrow(()-> new NoSuchElementException("patient not found"));
+            return patientRepository.findAllByName(name).orElseThrow(()-> new NoSuchElementException("patient not found"));
         }catch (Exception e){
             e.printStackTrace();
             return Collections.emptyList();
@@ -48,7 +49,7 @@ public class PatientServiceImpl implements PatientService{
     @Override
     public Patients getPatient(Long patientId) {
         try {
-            return patientReqository.findByPatientId(patientId).orElseThrow(()-> new NoSuchElementException("patient not found"));
+            return patientRepository.findByPatientId(patientId).orElseThrow(()-> new NoSuchElementException("patient not found"));
         }catch (Exception e) {
             return null;
         }
@@ -58,7 +59,7 @@ public class PatientServiceImpl implements PatientService{
     public Page<Patients> searchPatientWithPage(String name, int page, int size) {
         try {
             Pageable pageable = PageRequest.of(page, size);
-            return patientReqository.findAllByName(name, pageable).orElseThrow(()-> new NoSuchElementException("patient not found"));
+            return patientRepository.findAllByName(name, pageable).orElseThrow(()-> new NoSuchElementException("patient not found"));
         }catch (Exception e){
             e.printStackTrace();
             return null;
@@ -69,17 +70,22 @@ public class PatientServiceImpl implements PatientService{
     public Page<Patients> searchAllPatientWithPage(int page, int size) {
         try {
             Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
-            return patientReqository.findAll(pageable);
+            return patientRepository.findAll(pageable);
         }catch (Exception e){
             e.printStackTrace();
             return null;
         }
     }
 
+    @Override
+    public boolean checkPatientHistory(Patients patient, TaskChecktitle taskChecktitle) {
+        return false;
+    }
+
     public Patients receipt(Patients patients){
 
         try{
-            return patientReqository.save(patients);
+            return patientRepository.save(patients);
         }catch(Exception e){
             e.printStackTrace();
             return null;

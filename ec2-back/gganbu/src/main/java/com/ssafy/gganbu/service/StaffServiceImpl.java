@@ -6,7 +6,7 @@ import com.ssafy.gganbu.db.entity.PatientProgressHistory;
 import com.ssafy.gganbu.db.entity.Patients;
 import com.ssafy.gganbu.db.entity.Staffs;
 import com.ssafy.gganbu.db.repository.HistoryRepository;
-import com.ssafy.gganbu.db.repository.PatientReqository;
+import com.ssafy.gganbu.db.repository.PatientRepository;
 import com.ssafy.gganbu.db.repository.StaffRepository;
 import com.ssafy.gganbu.exception.NoChangeExeption;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ public class StaffServiceImpl implements StaffService {
     StaffRepository staffRepository;
 
     @Autowired
-    PatientReqository patientRepository;
+    PatientRepository patientRepository;
 
     @Autowired
     HistoryRepository historyRepository;
