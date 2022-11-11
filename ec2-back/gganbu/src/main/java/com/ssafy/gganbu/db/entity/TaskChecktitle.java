@@ -3,7 +3,6 @@ package com.ssafy.gganbu.db.entity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -11,7 +10,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "task_checktitle")
-@ToString
 public class TaskChecktitle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

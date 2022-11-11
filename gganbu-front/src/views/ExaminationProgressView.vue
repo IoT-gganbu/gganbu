@@ -2,18 +2,18 @@
   <div>
     <div class="title">
       <!-- <router-link to="/"><custom-button id="btn" btnText="◀" /></router-link> -->
-      <custom-title id="titleText" titleText=" 님의 건강검진 진척도" :name="patient.name"></custom-title>
+      <custom-title id="titleText" titleText=" 님의 건강검진 진척도" :name="name"></custom-title>
     </div>
     <div class="body">
       <div class="row" v-for="(data, idx) in processes" :key="idx">
-        <div class="col1" v-bind:id="idx / 2" v-if="data.item[0] != ''">
+        <div class="col1" v-if="data.item[0] != ''">
           <div class="boxIn">
             <img :src="data.image[0]" class="img" />
             <div class="titleBox" v-html="data.item[0]"></div>
             <!-- <br :key="idx" /> -->
           </div>
         </div>
-        <div class="col2" v-bind:id="9 - idx / 2" v-if="data.item[1] != ''">
+        <div class="col2" v-if="data.item[1] != ''">
           <div class="boxIn">
             <img :src="data.image[1]" class="img" />
             <div class="titleBox" v-html="data.item[1]"></div>
@@ -33,9 +33,6 @@
 
 <script>
 import customTitle from "@/components/common/customTitle.vue";
-import { mapActions } from "vuex";
-import { mapState } from "vuex";
-// import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -44,12 +41,9 @@ export default {
   data() {
     return {
       showImgModal: false,
-      // name: patient.name,
+      name: "전승준",
       process: "",
       processNo: 0,
-      styleObject: {
-        backgroundColor: "#90b5ff",
-      },
       processes: [
         {
           item: [`접수 및 <br />문진표 작성`, "폐암 검사"],
@@ -90,35 +84,15 @@ export default {
       ],
     };
   },
-  created() {
-    this.connectSpringSocket();
+  mounted() {
     this.nextProgress();
   },
-  computed: {
-    ...mapState(["patientId", "patient", "progressBoolean"]),
-    progressBoolean: function () {
-      return this.$store.state.progressBoolean;
-    },
-  },
   methods: {
-    ...mapActions(["connectSpringSocket", "acceptProgressBoolean"]),
-    async nextProgress() {
-      this.$axios.get("http://localhost:8080/api/staff/progress/" + this.$store.state.patientId).then((response) => {
-        console.log(response.data.data);
-        console.log(this.progressBoolean);
-        let progress = response.data.data;
-        for (let i = 0; i < progress - 1; i++) {
-          this.acceptProgressBoolean(i);
-          var dom = document.getElementById(i);
-          dom.style.backgroundColor = "#90b5ff";
-        }
-        console.log("after change");
-        console.log(this.progressBoolean);
+    nextProgress() {
+      this.$axios.get("http://localhost:8080/api/staff/progress/" + this.$store.state.patientId).then(function (response) {
+        console.log(response);
       });
     },
-    // changeClass(idx) {
-    //   document.getElementById(idx).classList.toggle("col1 check");
-    // },
   },
 };
 </script>
@@ -127,12 +101,10 @@ export default {
 .title {
   height: 50px;
 }
-
 #titleText {
   float: left;
   width: 300px;
 }
-
 .titleBox {
   height: 60px;
   width: 100px;
@@ -142,24 +114,20 @@ export default {
   margin-left: 15px;
   align-items: center;
 }
-
 .row {
   display: flex;
   justify-content: center;
   margin-top: 1%;
   height: 20%;
 }
-
 .body {
   margin-top: 40px;
 }
-
 @keyframes blink-effect {
   50% {
     opacity: 0.5;
   }
 }
-
 .col1,
 .col2 {
   /* animation: blink-effect 2s step-end infinite; */
@@ -174,28 +142,10 @@ export default {
   align-items: center;
   margin: 0% 1% 0 1%;
 }
-
-/* 
 .col1:hover,
 .col2:hover {
   background-color: #90b5ff;
-} */
-
-.col1_check {
-  /* animation: blink-effect 2s step-end infinite; */
-  height: 90px;
-  width: 40%;
-  font-size: 1.3rem;
-  background: #ffffff;
-  border: 2px solid #90b5ff;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
-  display: inline-grid;
-  align-items: center;
-  margin: 0% 1% 0 1%;
-  background-color: #90b5ff;
 }
-
 .arrow1,
 .arrow2 {
   height: 30px;
@@ -206,34 +156,27 @@ export default {
   margin: 0px;
   margin: 0% 0% 0 1%;
 }
-
 .arrow1 {
   padding-right: 30px;
 }
-
 .arrow2 {
   padding-left: 30px;
 }
-
 .arrow_img {
   width: 30px;
   height: 30px;
 }
-
 .img {
   height: 60px;
   width: 60px;
   margin-top: 10px;
 }
-
 .detail {
   height: 120%;
 }
-
 .choiceBox:hover {
   background-color: #90b5ff;
 }
-
 .boxIn {
   display: flex;
   text-align: center;

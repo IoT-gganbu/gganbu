@@ -18,7 +18,7 @@ public class EventHandler {
     public void senddata(CheckupEvent checkupEvent) {
         SocketVO socketVO = checkupEvent.getSocketVO();
         System.out.println("socketVO = " + socketVO.toString());
-        simpMessagingTemplate.convertAndSend("/ros/"+socketVO.getPatientId(), new SocketVO(socketVO.getPatientId(), socketVO.getTask()));
+        simpMessagingTemplate.convertAndSend("/ros/1", new SocketVO(socketVO.getPatientId(), socketVO.getTask()));
         System.out.println("event End");
     }
 }

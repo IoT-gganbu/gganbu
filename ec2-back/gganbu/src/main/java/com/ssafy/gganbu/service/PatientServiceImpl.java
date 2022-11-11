@@ -1,9 +1,6 @@
 package com.ssafy.gganbu.service;
 
-import com.ssafy.gganbu.db.entity.PatientProgressHistory;
 import com.ssafy.gganbu.db.entity.Patients;
-import com.ssafy.gganbu.db.entity.TaskChecktitle;
-import com.ssafy.gganbu.db.repository.HistoryRepository;
 import com.ssafy.gganbu.db.repository.PatientReqository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,9 +22,6 @@ public class PatientServiceImpl implements PatientService{
 
     @Autowired
     PatientReqository patientReqository;
-
-    @Autowired
-    HistoryRepository historyRepository;
 
     public boolean checkResidentNo(String residentNo){
         System.out.println("service" + residentNo);
@@ -65,20 +59,6 @@ public class PatientServiceImpl implements PatientService{
         }catch (Exception e){
             e.printStackTrace();
             return null;
-        }
-    }
-
-    @Override
-    public boolean checkPatientHistory(Patients patient, TaskChecktitle taskChecktitle) {
-        PatientProgressHistory patientProgressHistory = historyRepository.findByPatientAndTaskChecktitle(patient, taskChecktitle).orElseThrow(() -> new NoSuchElementException("patientProgressHistory not found"));
-        // 이동전(0), 이동중(1), 대기중(2), 검사중(3), 검사완료(4)
-        if(patientProgressHistory.getPatientStatus() == 4)
-            return false;
-        else if(patientProgressHistory.getPatientStatus() == 3)
-            return true;
-        else{
-            log.error("this patient is not staus 3 or 4");
-            return false;
         }
     }
 

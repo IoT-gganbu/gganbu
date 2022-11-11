@@ -67,11 +67,10 @@ public class StaffController {
         log.info("StaffController.progress");
         log.debug("userId : " + userId);
         try{
-            Long res = staffService.progress(userId);
-            return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS, res));
+            staffService.progress(userId);
+            return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS));
         }
         catch (Exception e) {
-            e.printStackTrace();
             log.debug(e.getMessage());
             return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
         }

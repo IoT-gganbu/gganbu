@@ -11,7 +11,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "patient")
-@ToString
 public class Patients {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

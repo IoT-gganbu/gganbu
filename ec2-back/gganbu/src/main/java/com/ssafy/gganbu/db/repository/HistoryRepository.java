@@ -14,7 +14,7 @@ import java.util.Optional;
 @Repository
 public interface HistoryRepository extends JpaRepository<PatientProgressHistory, Long> {
 
-    Optional<PatientProgressHistory> findByPatientAndTaskChecktitle(Patients patient, TaskChecktitle taskChecktitle);
+    public Optional<Boolean> existsByTaskChecktitleAndPatient(TaskChecktitle taskChecktitle, Patients patients);
 
     public Optional<List<PatientProgressHistory>> findByPatientOrderByTaskChecktitleAsc(Patients patient);
 
