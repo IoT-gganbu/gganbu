@@ -1,5 +1,6 @@
 package com.ssafy.gganbu.service;
 
+import com.ssafy.gganbu.db.entity.PatientProgressHistory;
 import com.ssafy.gganbu.db.entity.Patients;
 import com.ssafy.gganbu.db.entity.TaskChecktitle;
 import org.springframework.data.domain.Page;
@@ -17,5 +18,7 @@ public interface PatientService {
 
 
     boolean checkPatientHistory(Patients patient, TaskChecktitle taskChecktitle);
+
+    PatientProgressHistory getHistory(Patients patient, TaskChecktitle taskChecktitle);
 
 }

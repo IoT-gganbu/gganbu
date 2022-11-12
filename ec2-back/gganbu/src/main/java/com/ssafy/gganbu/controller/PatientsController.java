@@ -11,6 +11,7 @@ import com.ssafy.gganbu.event.CheckupEvent;
 import com.ssafy.gganbu.model.SocketVO;
 import com.ssafy.gganbu.request.CheckUpReq;
 import com.ssafy.gganbu.request.PatientReq;
+import com.ssafy.gganbu.request.StatusReq;
 import com.ssafy.gganbu.service.PatientService;
 import com.ssafy.gganbu.service.QrService;
 import com.ssafy.gganbu.service.TaskService;
@@ -146,7 +147,6 @@ public class PatientsController {
                     @ApiImplicitParam(name = "size", value = "페이지 사이즈", required = true, dataType = "int", paramType = "query", example = "10")
             }
     )
-
     public ResponseEntity<? extends BaseResponseBody> searchPatientWithPage(@RequestParam(value = "name") String name, @RequestParam(value = "page") int page, @RequestParam(value = "size") int size) {
         try{
             System.out.println("name : " + name);
@@ -160,6 +160,43 @@ public class PatientsController {
         }
     }
 
+    @PutMapping("/checkup")
+    @ApiOperation(value = "상태 변경")
+    public ResponseEntity<BaseResponseBody> updateStatus(@RequestBody StatusReq statusReq) {
+        Patients patients = patientService.getPatient(statusReq.getPatientId());
+        TaskChecktitle taskChecktitle = taskService.getTask(statusReq.getTcId());
+        TaskChecktitle nextTask = taskService.getTask(statusReq.getTcId()+1);
+        if(statusReq.getStatus() == 4){
+            try {
+                PatientProgressHistory patientProgressHistory = patientService.getHistory(patients, taskChecktitle);
+                patientProgressHistory.setPatientStatus(statusReq.getStatus());
+                historyRepository.save(patientProgressHistory);
+                PatientProgressHistory history = new PatientProgressHistory();
+                history.setPatient(patients);
+                history.setTaskChecktitle(nextTask);
+                history.setPatientStatus(0);
+                historyRepository.save(history);
+                return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS));
+            } catch(Exception e){
+                log.info("error");
+                log.info(e.getMessage());
+                e.printStackTrace();
+                return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
+            }
+        }
+        try {
+            PatientProgressHistory patientProgressHistory = patientService.getHistory(patients, taskChecktitle);
+            patientProgressHistory.setPatientStatus(statusReq.getStatus());
+            historyRepository.save(patientProgressHistory);
+        } catch(Exception e){
+            log.info("error");
+            log.info(e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
+        }
+
+        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS));
+    }
     // 해당 검진 절차 완료 여부 입력 함수
     @PostMapping("/checkup")
     @ApiOperation(value = "각 단계 검진 완료 기록")
