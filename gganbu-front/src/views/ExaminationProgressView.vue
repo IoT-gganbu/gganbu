@@ -28,11 +28,15 @@
         </div>
       </div>
     </div>
+    <custom-modal class="modal" id="modal" v-show="showImgModal" @close-modal="showImgModal = false">
+      <ask-guide></ask-guide>
+    </custom-modal>
   </div>
 </template>
 
 <script>
 import customTitle from "@/components/common/customTitle.vue";
+import askGuide from "@/components/AskGuide.vue";
 import { mapActions } from "vuex";
 import { mapState } from "vuex";
 // import { mapGetters } from "vuex";
@@ -40,6 +44,7 @@ import { mapState } from "vuex";
 export default {
   components: {
     customTitle,
+    askGuide,
   },
   data() {
     return {
@@ -100,6 +105,12 @@ export default {
       return this.$store.state.progressBoolean;
     },
   },
+  mounted() {
+    // setTimeout(() => {
+    //   this.showImgModal = true;
+    // }, 5000);
+    this.showImgModal = true;
+  },
   methods: {
     // ...mapActions(["connectSpringSocket", "acceptProgressBoolean"]),
     ...mapActions(["acceptProgressBoolean"]),
@@ -125,6 +136,11 @@ export default {
 </script>
 
 <style scoped>
+.content {
+  width: 100%;
+  height: 500%;
+  align-content: flex-end;
+}
 .title {
   height: 50px;
 }

@@ -21,6 +21,9 @@ export default new Vuex.Store({
     springSocketConnected: false,
     springSocketMessage: "",
     isChecked: false,
+    progressName: ["진찰 및 문진표 작성", "기초 검사 / 신체 계측", "채혈 / 소변 검사", "흉부 방사선", "진찰 및 상담", "자궁경부암 검사", "유방암 검사", "위암 검사", "대장암 검사", "폐암 검사"],
+    tracking: false,
+    voice: false,
   },
   getters: {
     getSpringWebsocketUrl: (state) => {
@@ -43,6 +46,12 @@ export default new Vuex.Store({
     },
     getProgressBoolean: (state) => {
       return state.progressBoolean;
+    },
+    getTracking: (state) => {
+      return state.tracking;
+    },
+    getVoice: (state) => {
+      return state.voice;
     },
   },
   mutations: {

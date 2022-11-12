@@ -168,6 +168,7 @@ def tracking():
         global isWaiting
         if isWaiting:
             print("음성인식 종료로 인해 트래킹도 종료")
+            returnState == 3
             break
         ret, frame = cap.read()
         frame = imutils.resize(frame, width=1000)
@@ -214,6 +215,7 @@ def tracking():
                 tracker = trackers[trackerIdx]() # 선택한 숫자의 트랙커 객체 생성 ---⑦
                 isInit = tracker.init(frame, bbox) # 이전 추적 위치로 추적 위치 초기화
         elif key == 27 : 
+            returnState = 2
             break
     else:
         print( "Could not open video")
@@ -221,7 +223,11 @@ def tracking():
     cv2.destroyAllWindows()
     isWaiting = True
     if(returnState == 1):
-        return False
+        return "missing"
+    elif (returnState == 2):
+        return "quit"
+    elif (returnState == 3):
+        return True
     time.sleep(2)
     isWaiting = False
     

@@ -39,6 +39,8 @@ export default {
       console.log(this.tracking);
       this.$axios.get(this.$store.state.baseurl + "tracking").then((response) => {
         console.log(response);
+        this.$store.state.tracking = !this.$store.state.tracking;
+        this.$store.state.voice = !this.$store.state.voice;
         this.tracking = false;
       });
       this.tracking = true;
@@ -47,6 +49,8 @@ export default {
     startVoice() {
       this.$axios.get(this.$store.state.baseurl + "gganbu").then((response) => {
         console.log(response);
+        this.$store.state.tracking = !this.$store.state.tracking;
+        this.$store.state.voice = !this.$store.state.voice;
         this.voice = false;
       });
       this.voice = true;
