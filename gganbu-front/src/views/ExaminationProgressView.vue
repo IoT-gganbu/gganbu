@@ -4,16 +4,18 @@
       <!-- <router-link to="/"><custom-button id="btn" btnText="◀" /></router-link> -->
       <custom-title id="titleText" titleText=" 님의 건강검진 진척도" :name="patient.name"></custom-title>
     </div>
+    <button class="btn" @click="disconnectAllsocket">disconnect all socket</button>
+    <button class="btn" @click="publishRosSocket">publish ros topic</button>
     <div class="body">
       <div class="row" v-for="(data, idx) in processes" :key="idx">
-        <div class="col1" v-bind:id="idx / 2" v-if="data.item[0] != ''">
+        <div class="col1" v-bind:id="idx / 2 + 1" v-if="data.item[0] != ''">
           <div class="boxIn">
             <img :src="data.image[0]" class="img" />
             <div class="titleBox" v-html="data.item[0]"></div>
             <!-- <br :key="idx" /> -->
           </div>
         </div>
-        <div class="col2" v-bind:id="9 - idx / 2" v-if="data.item[1] != ''">
+        <div class="col2" v-bind:id="9 - idx / 2 + 1" v-if="data.item[1] != ''">
           <div class="boxIn">
             <img :src="data.image[1]" class="img" />
             <div class="titleBox" v-html="data.item[1]"></div>
@@ -55,6 +57,7 @@ export default {
       styleObject: {
         backgroundColor: "#90b5ff",
       },
+      progressBooleanList: [],
       processes: [
         {
           item: [`접수 및 <br />문진표 작성`, "폐암 검사"],
@@ -96,13 +99,26 @@ export default {
     };
   },
   created() {
-    // this.connectSpringSocket();
+    this.connectSpringSocket();
+    this.connectRosSocket();
     this.nextProgress();
   },
   computed: {
-    ...mapState(["patientId", "patient", "progressBoolean", "tracking", "voice"]),
+    ...mapState(["patientId", "patient", "progressBoolean", "springSocketMessage", "tracking", "voice"]),
+  },
+  watch: {
     progressBoolean: function () {
-      return this.$store.state.progressBoolean;
+      console.log("watch progressBoolean");
+      for (var i = 1; i <= 10; i++) {
+        if (this.progressBoolean[i] == true) {
+          console.log("progressBoolean[" + i + "] : " + this.progressBoolean[i]);
+          document.getElementById(i).style.backgroundColor = "#90b5ff";
+        }
+      }
+    },
+    springSocketMessage: function () {
+      this.nextProgress();
+      console.log("watch springSocketMessage");
     },
   },
   mounted() {
@@ -114,14 +130,14 @@ export default {
     }
   },
   methods: {
-    // ...mapActions(["connectSpringSocket", "acceptProgressBoolean"]),
-    ...mapActions(["acceptProgressBoolean"]),
+    ...mapActions(["connectSpringSocket", "disconnectAllsocket", "acceptProgressBoolean", "connectRosSocket", "publishRosSocket"]),
+    // ...mapActions(["acceptProgressBoolean"]),
     async nextProgress() {
       this.$axios.get("http://localhost:8080/api/staff/progress/" + this.$store.state.patientId).then((response) => {
         console.log(response.data.data);
         console.log(this.progressBoolean);
         let progress = response.data.data;
-        for (let i = 0; i < progress - 1; i++) {
+        for (let i = 1; i <= progress; i++) {
           this.acceptProgressBoolean(i);
           var dom = document.getElementById(i);
           dom.style.backgroundColor = "#90b5ff";
