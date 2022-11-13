@@ -3,10 +3,10 @@
     <div class="left-body">
       <div class="search">
         <div class="search-bar">
-          <input placeholder="Search" class="input" />
+          <input placeholder="Search" class="input" v-model="searchName" />
         </div>
         <div class="search-btn">
-          <custom-button btnText="검색" :v-bind="searchName" @click="searchPatient(searchName)"></custom-button>
+          <custom-button btnText="검색" @click="searchPatient(searchName)"></custom-button>
         </div>
       </div>
       <patient-list></patient-list>
@@ -50,20 +50,17 @@ export default {
       await this.$axios.get(`${this.$store.state.baseurl}/patient/searchAllPatients?size=10`).then((response) => {
         this.$store.commit("SAVE_MEMBER_LIST", response.data);
       });
-      console.log(this.$store.state.memberStore.memberList.data);
     },
-    async searchPatient() {
-      await this.$axios.get(`${this.$store.state.baseurl}/patient/searchAllPatients?size=10`).then((response) => {
-        this.$store.commit("SAVE_MEMBER_LIST", response.data);
-      });
-      // this.$axios
-      //   .get(`${this.$store.state.baseurl}/patient/search/${searchName}`)
-      //   .then(() => {
-      //     // console.log(response);
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
+    async searchPatient(searchName) {
+      await this.$axios
+        .get(`${this.$store.state.baseurl}/patient/search/${searchName}`)
+        .then((response) => {
+          console.log(response);
+          this.$store.commit("SAVE_MEMBER_LIST", response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };

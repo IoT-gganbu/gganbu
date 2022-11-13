@@ -4,6 +4,7 @@ const memberStore = {
   state: {
     isLogin: false,
     memberList: [],
+    selectMember: 0,
   },
   getters: {
     isLogin(state) {
@@ -11,7 +12,6 @@ const memberStore = {
       return JSON.parse(sessionStorage.getItem("isLogin"));
     },
     getMemberListAll(state, payload) {
-      console.log("11");
       return state.memberList.data[payload];
     },
   },
@@ -26,7 +26,21 @@ const memberStore = {
     SAVE_MEMBER_LIST(state, payload) {
       state.memberList = payload;
     },
+    SET_SELECTED_MEMBER(state, payload) {
+      state.selectMember = payload;
+    },
   },
-  actions: {},
+  actions: {
+    GET_MEMBER_LIST_ALL({ commit }) {
+      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+      this.$axios
+        .get(`${this.$store.state.baseurl}/patient/searchAllPatients?size=10`)
+        .then((response) => {
+          commit("SAVE_MEMBER_LIST", response.data);
+          console.log("ZAZAXSAZXAS");
+        })
+        .catch((error) => console.log(error));
+    },
+  },
 };
 export default memberStore;

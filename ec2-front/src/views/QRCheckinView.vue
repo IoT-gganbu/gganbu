@@ -26,13 +26,10 @@ export default {
       qrCodeData: "",
     };
   },
-
   methods: {
     async onDecode(result) {
-      // let pid = 0;
       await this.$axios.get(`${this.$store.state.baseurl}/staff/progress/${result}`).then((response) => {
         console.log(response);
-        // pid = 1;
       });
       // await this.$axios
       //   .post(`${this.$store.state.baseurl}patient/checkup/${pid}`, {

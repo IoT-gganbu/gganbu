@@ -3,7 +3,7 @@
     <img class="mainPicture" src="../assets/img/hospital.png" style="height: 660px; filter: drop-shadow(2px 0px 10px rgba(0, 0, 0, 0.5))" />
     <div class="logInInfo">
       <div class="logInBox">
-        <div v-show="loginAlram" class="logInAlarm">아이디 또는 비밀번호를 확인하세요.</div>
+        <div v-show="loginAlarm" class="logInAlarm">아이디 또는 비밀번호를 확인하세요.</div>
         <custom-title titleText="로그인" style="margin-bottom: 50px"></custom-title>
         <div class="logInLabel">아이디</div>
         <div class="logInInput">
@@ -24,7 +24,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      loginAlram: false,
+      loginAlarm: false,
     };
   },
   methods: {
@@ -41,7 +41,7 @@ export default {
         .then((response) => {
           if (response.data.message == "FAIL") {
             // this.loginWarningShow = true;
-            // this.loginAlram = true;
+            // this.loginAlarm = true;
             console.log("fail");
           } else if (response.data.message == "SUCCESS") {
             console.log(response.data.data);
@@ -50,6 +50,7 @@ export default {
             this.$store.state.memberStore.isLogin = true;
 
             if (this.$store.state.memberStore.isLogin && sessionStorage.getItem("task") == 1) {
+              this.getMemberList();
               this.$router.push("/patientReceiptView");
             } else if (this.$store.state.memberStore.isLogin && sessionStorage.getItem("task") != 1) {
               this.$router.push("/qr");
@@ -58,6 +59,11 @@ export default {
           }
         });
       // console.log(login_id, login_pw);
+    },
+    async getMemberList() {
+      await this.$axios.get(`${this.$store.state.baseurl}/patient/searchAllPatients?size=10`).then((response) => {
+        this.$store.commit("SAVE_MEMBER_LIST", response.data);
+      });
     },
   },
 };

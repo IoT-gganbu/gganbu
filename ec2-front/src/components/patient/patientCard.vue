@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       patient: {
-        name: "장정1훈",
+        name: "김철수",
         age: 28,
         sex: "남",
         no: "950803 - 1xxxxxx",
@@ -35,22 +35,31 @@ export default {
       },
     };
   },
+  created() {
+    this.getPatientInfo(0);
+  },
+  computed: {
+    selectMember: function () {
+      return this.$store.state.memberStore.selectMember;
+    },
+  },
+  watch: {
+    selectMember() {
+      this.getPatientInfo(this.selectMember);
+    },
+  },
+  methods: {
+    getPatientInfo(num) {
+      let tmpPatient = this.$store.state.memberStore.memberList.data.content[num];
 
-  method: {
-    getPatient() {
-      let tmpPatient = this.$store.state.memberStore.memberList.data.content[0];
       this.patient = {
-        name: tmpPatient.age,
-        age: tmpPatient.residentNo,
-        sex: tmpPatient.getPatient,
+        name: tmpPatient.name,
+        age: new Date().getFullYear() - Number("19" + tmpPatient.residentNo.substr(0, 2)),
+        sex: tmpPatient.gender == 0 ? "남" : "여",
         no: tmpPatient.residentNo,
         phone: tmpPatient.tel,
       };
     },
-  },
-  created() {
-    console.log("123");
-    this.getPatient();
   },
 };
 </script>
