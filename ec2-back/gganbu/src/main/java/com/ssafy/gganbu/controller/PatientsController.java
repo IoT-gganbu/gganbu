@@ -169,6 +169,9 @@ public class PatientsController {
         if(statusReq.getStatus() == 4){
             try {
                 PatientProgressHistory patientProgressHistory = patientService.getHistory(patients, taskChecktitle);
+                if(patientProgressHistory.getPatientStatus()==4){
+                    return ResponseEntity.status(200).body(BaseResponseBody.of("중복"));
+                }
                 patientProgressHistory.setPatientStatus(statusReq.getStatus());
                 historyRepository.save(patientProgressHistory);
                 PatientProgressHistory history = new PatientProgressHistory();
@@ -291,6 +294,7 @@ public class PatientsController {
             res.put("patientId", patients.getPatientId());
             res.put("gender", patients.getGender());
             res.put("name", patients.getName());
+            res.put("age", patients.getAge());
             List<TaskChecktitle> tasks = taskService.getAllTask();
             // 남자의 경우
             if (patients.getGender() == 0) {
