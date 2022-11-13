@@ -16,7 +16,7 @@ export default new Vuex.Store({
     springWebsocketUrl: "http://127.0.0.1:8080/ws/spring",
     patientId: "",
     patient: {},
-    progressBoolean: [false, false, false, false, false, false, false, false, false, false],
+    progressBoolean: [true, false, false, false, false, false, false, false, false, false, false],
     springSocket: null,
     springStomp: null,
     springSocketConnected: false,
@@ -99,13 +99,14 @@ export default new Vuex.Store({
             console.log("구독으로 받은 메시지 입니다.", res.body);
             // 받은 데이터를 기반으로 화면을 업데이트 합니다.
             let data = JSON.parse(res.body);
+            console.log("this task is " + data.task);
             // data 예시 {"patientId":"10","task":"3"}
-            for (let i = 0; i < data.task; i++) {
+            for (let i = 1; i < data.task; i++) {
               if (this.state.progressBoolean[i] == false) {
                 this.commit("acceptProgressBoolean", i);
               }
             }
-            console.log(this.state.progressBoolean);
+            // console.log(this.state.progressBoolean);
             // 받은 데이터를 json으로 파싱하고 state에 저장합니다.
             this.commit("changeSpringSocketMessage", data);
           });

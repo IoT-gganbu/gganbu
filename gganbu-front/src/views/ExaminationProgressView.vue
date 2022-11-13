@@ -8,14 +8,14 @@
     <button class="btn" @click="publishRosSocket">publish ros topic</button>
     <div class="body">
       <div class="row" v-for="(data, idx) in processes" :key="idx">
-        <div class="col1" v-bind:id="idx / 2" v-if="data.item[0] != ''">
+        <div class="col1" v-bind:id="idx / 2 + 1" v-if="data.item[0] != ''">
           <div class="boxIn">
             <img :src="data.image[0]" class="img" />
             <div class="titleBox" v-html="data.item[0]"></div>
             <!-- <br :key="idx" /> -->
           </div>
         </div>
-        <div class="col2" v-bind:id="9 - idx / 2" v-if="data.item[1] != ''">
+        <div class="col2" v-bind:id="9 - idx / 2 + 1" v-if="data.item[1] != ''">
           <div class="boxIn">
             <img :src="data.image[1]" class="img" />
             <div class="titleBox" v-html="data.item[1]"></div>
@@ -104,7 +104,7 @@ export default {
   watch: {
     progressBoolean: function () {
       console.log("watch progressBoolean");
-      for (var i = 0; i < 10; i++) {
+      for (var i = 1; i <= 10; i++) {
         if (this.progressBoolean[i] == true) {
           console.log("progressBoolean[" + i + "] : " + this.progressBoolean[i]);
           document.getElementById(i).style.backgroundColor = "#90b5ff";
@@ -124,7 +124,7 @@ export default {
         console.log(response.data.data);
         console.log(this.progressBoolean);
         let progress = response.data.data;
-        for (let i = 0; i < progress - 1; i++) {
+        for (let i = 1; i <= progress; i++) {
           this.acceptProgressBoolean(i);
           var dom = document.getElementById(i);
           dom.style.backgroundColor = "#90b5ff";
