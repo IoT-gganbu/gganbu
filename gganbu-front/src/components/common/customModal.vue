@@ -2,7 +2,7 @@
   <div class="modal-overlay1" @click="$emit('close-modal')">
     <div id="modalMain" class="modal1" @click.stop>
       <div class="modalTopLine">
-        <i class="fa-solid fa-xs fa-xmark modalClose" @click="$emit('close-modal')"></i>
+        <!-- <i class="fa-solid fa-xs fa-xmark modalClose" @click="$emit('close-modal')"></i> -->
       </div>
       <h2 class="modalTitle">{{ titleText }}</h2>
       <slot />

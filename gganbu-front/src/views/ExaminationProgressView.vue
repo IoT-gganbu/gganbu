@@ -30,11 +30,15 @@
         </div>
       </div>
     </div>
+    <custom-modal class="modal" id="modal" v-show="showImgModal" @close-modal="showImgModal = false">
+      <ask-guide></ask-guide>
+    </custom-modal>
   </div>
 </template>
 
 <script>
 import customTitle from "@/components/common/customTitle.vue";
+import askGuide from "@/components/AskGuide.vue";
 import { mapActions } from "vuex";
 import { mapState } from "vuex";
 // import { mapGetters } from "vuex";
@@ -42,6 +46,7 @@ import { mapState } from "vuex";
 export default {
   components: {
     customTitle,
+    askGuide,
   },
   data() {
     return {
@@ -99,7 +104,7 @@ export default {
     this.nextProgress();
   },
   computed: {
-    ...mapState(["patientId", "patient", "progressBoolean", "springSocketMessage"]),
+    ...mapState(["patientId", "patient", "progressBoolean", "springSocketMessage", "tracking", "voice"]),
   },
   watch: {
     progressBoolean: function () {
@@ -115,6 +120,14 @@ export default {
       this.nextProgress();
       console.log("watch springSocketMessage");
     },
+  },
+  mounted() {
+    // setTimeout(() => {
+    //   this.showImgModal = true;
+    // }, 5000);
+    if (this.tracking == true && this.voice == true) {
+      this.showImgModal = true;
+    }
   },
   methods: {
     ...mapActions(["connectSpringSocket", "disconnectAllsocket", "acceptProgressBoolean", "connectRosSocket", "publishRosSocket"]),
@@ -141,6 +154,11 @@ export default {
 </script>
 
 <style scoped>
+.content {
+  width: 100%;
+  height: 500%;
+  align-content: flex-end;
+}
 .title {
   height: 50px;
 }
