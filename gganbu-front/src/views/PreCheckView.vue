@@ -17,12 +17,7 @@
 export default {
   data() {
     return {
-      question: [
-        "인플루엔자 예방접종을 매년 하십니까?",
-        // "지금까지 다섯갑 이상의 담배를 피운 적이 있습니까?",
-        // "한 달에 몇번 세잔 이상의 음주를 하십니까?",
-        // "부모, 형제, 자매 중에 당뇨를 앓은 경우가 있습니까?",
-      ],
+      question: ["인플루엔자 예방접종을 매년 하십니까?", "지금까지 다섯갑 이상의 담배를 피운 적이 있습니까?", "한 달에 몇번 세잔 이상의 음주를 하십니까?", "가족 중에 당뇨를 앓은 경우가 있습니까?"],
       res: [],
       cnt: 0,
       isLoading: false,
@@ -76,6 +71,17 @@ export default {
         this.getData();
       }, 3500);
     },
+
+    async replay() {
+      const text = "다시 한번 말씀해주세요";
+
+      console.log(text);
+      await this.speak(text, {
+        rate: 1,
+        pitch: 1.2,
+        lang: "ko-KR",
+      });
+    },
     async getData() {
       if (this.question.length == this.cnt) {
         console.log("finish");
@@ -86,9 +92,17 @@ export default {
       this.isLoading = true;
       await this.$axios.get(this.$store.state.baseurl + "record/save").then((response) => {
         this.isLoading = false;
-        this.res.push(response.data);
-        console.log(response.data);
-        this.cnt += 1;
+        if (response.data == "FAIL") {
+          console.log("다시");
+          this.replay();
+          setTimeout(() => {
+            this.getData();
+          }, 2000);
+        } else {
+          this.res.push(response.data);
+          console.log(response.data);
+          this.cnt += 1;
+        }
       });
     },
 
