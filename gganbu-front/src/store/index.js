@@ -76,6 +76,12 @@ export default new Vuex.Store({
     changeChecked(state) {
       state.isChecked = !state.isChecked;
     },
+    changeTracking(state) {
+      state.tracking = !state.tracking;
+    },
+    changeVoice(state) {
+      state.voice = !state.voice;
+    },
   },
   actions: {
     async setPatientId({ commit }, patientId) {

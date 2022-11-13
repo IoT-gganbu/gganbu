@@ -261,7 +261,7 @@ def sendMail(item:Item) :
 
     contents = item.data
     print(len(contents))
-    print(contents[0]+" "+ contents[1])
+    # print(contents[0]+" "+ contents[1])
     for i in range(len(contents)):
         if(contents[i].find("예")!=-1 or contents[i].find("네")!=-1 or contents[i].find("응")!=-1 or contents[i].find("내")!=-1):
             contents[i] = "예"
@@ -270,8 +270,11 @@ def sendMail(item:Item) :
     
     # 3. MIME 형태의 이메일 메세지 작성
     message = EmailMessage()
-    message.set_content('인플루엔자 예방접종을 매년 하십니까?\n'+contents[0]+"\n지금까지 평생 다섯갑 이상의 담배를 피운 적이 있습니까?\n"
-                        + contents[1]+"\n한 달에 몇번 음주를 하십니까?\n"+ contents[2]+ "\n부모, 형제, 자매 중에 당뇨 질환을 앓은 경우가 있습니까?\n"+contents[3])
+    message.set_content('인플루엔자 예방접종을 매년 하십니까?\n'+contents[0]
+                        # +"\n지금까지 평생 다섯갑 이상의 담배를 피운 적이 있습니까?\n"
+                        # + contents[1]+"\n한 달에 몇번 음주를 하십니까?\n"+ contents[2]
+                        # + "\n부모, 형제, 자매 중에 당뇨 질환을 앓은 경우가 있습니까?\n"+contents[3]
+                        )
     message["Subject"] = "싸브란스 병원 문진 결과"
     message["From"] = EMAIL_ADDR  #보내는 사람의 이메일 계정
     message["To"] = 'chann585862@naver.com'

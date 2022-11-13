@@ -100,7 +100,7 @@ export default {
     this.nextProgress();
   },
   computed: {
-    ...mapState(["patientId", "patient", "progressBoolean"]),
+    ...mapState(["patientId", "patient", "progressBoolean", "tracking", "voice"]),
     progressBoolean: function () {
       return this.$store.state.progressBoolean;
     },
@@ -109,7 +109,9 @@ export default {
     // setTimeout(() => {
     //   this.showImgModal = true;
     // }, 5000);
-    this.showImgModal = true;
+    if (this.tracking == true && this.voice == true) {
+      this.showImgModal = true;
+    }
   },
   methods: {
     // ...mapActions(["connectSpringSocket", "acceptProgressBoolean"]),
