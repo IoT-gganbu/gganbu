@@ -92,6 +92,13 @@ public class PatientServiceImpl implements PatientService{
         }
     }
 
+    @Override
+    public PatientProgressHistory getHistory(Patients patient, TaskChecktitle taskChecktitle) {
+        PatientProgressHistory patientProgressHistory = historyRepository.findByPatientAndTaskChecktitle(patient, taskChecktitle).orElseThrow(() -> new NoSuchElementException("patientProgressHistory not found"));
+
+        return patientProgressHistory;
+    }
+
     public Patients receipt(Patients patients){
 
         try{
