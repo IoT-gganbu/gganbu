@@ -58,7 +58,6 @@ export default {
             console.log("success");
           }
         });
-      // console.log(login_id, login_pw);
     },
     async getMemberList() {
       await this.$axios.get(`${this.$store.state.baseurl}/patient/searchAllPatients?size=10`).then((response) => {

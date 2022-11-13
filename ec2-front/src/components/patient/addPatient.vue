@@ -11,8 +11,8 @@
         <div class="gender">
           <div class="genderlabel">성별</div>
           <div class="genderInput">
-            <custom-button class="submit" id="gender" btnText="남" style="margin-right: 10px" @click="genderClick(0)"></custom-button>
-            <custom-button class="submit" id="gender" btnText="여" style="margin-left: 10px" @click="genderClick(1)"></custom-button>
+            <custom-button class="submit" :class="{ pressed: !isSelected }" btnText="남" style="margin-right: 10px" @click="genderClick(0)"></custom-button>
+            <custom-button class="submit" :class="{ pressed: isSelected }" btnText="여" style="margin-left: 10px" @click="genderClick(1)"></custom-button>
           </div>
         </div>
         <div class="personalNum">
@@ -51,21 +51,17 @@ export default {
       personalIdBack: "",
       phoneNumFront: "",
       phoneNumMid: "",
-      phoneNumFBack: "",
-      genderClicked: false,
+      phoneNumBack: "",
+      isSelected: false,
     };
   },
   methods: {
     addPatientToDatabase() {
-      console.log(this.name, this.gender);
+      console.log(this.name, this.gender, this.personalIdFront, this.personalIdBack, this.phoneNumFront, this.phoneNumMid, this.phoneNumBack);
+      this.$axios.post().then();
     },
-    genderClick(num) {
-      if (num == 0) {
-        event.target.addClass("clicked");
-        document.getElementById("man").addClass("clicked");
-      } else if (num == 1) {
-        console.log("여");
-      }
+    genderClick() {
+      this.isSelected = !this.isSelected;
     },
   },
 };
@@ -123,7 +119,7 @@ p {
   height: 36px;
   margin: 0 5px 0 5px;
 }
-.gender:focus {
+.pressed {
   background: #90b5ff;
 }
 </style>
