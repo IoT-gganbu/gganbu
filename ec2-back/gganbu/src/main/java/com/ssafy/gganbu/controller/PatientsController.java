@@ -194,7 +194,6 @@ public class PatientsController {
             e.printStackTrace();
             return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
         }
-
         return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS));
     }
     // 해당 검진 절차 완료 여부 입력 함수
