@@ -160,6 +160,20 @@ public class PatientsController {
         }
     }
 
+    @GetMapping("/searchAllPatients")
+    @ApiOperation(value = "모든 환자 리스트 + 페이징 처리")
+    @ApiImplicitParams({@ApiImplicitParam(name = "size", value = "페이지 사이즈", required = true, dataType = "int", paramType = "query", example = "10")})
+    public ResponseEntity<BaseResponseBody> searchAllPatientWithPage( @RequestParam(value = "size") int size) {
+        try{
+            log.info("size : " + size);
+            Page<Patients> res = patientService.searchAllPatientWithPage(0, size);
+            return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS, res));
+        }
+        catch (Exception e){
+            return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
+        }
+    }
+
     // 해당 검진 절차 완료 여부 입력 함수
     @PostMapping("/checkup")
     @ApiOperation(value = "각 단계 검진 완료 기록")

@@ -27,13 +27,30 @@ export default {
   data() {
     return {
       patient: {
-        name: "장정훈",
+        name: "장정1훈",
         age: 28,
         sex: "남",
         no: "950803 - 1xxxxxx",
         phone: "010 - 4328 - 8206",
       },
     };
+  },
+
+  method: {
+    getPatient() {
+      let tmpPatient = this.$store.state.memberStore.memberList.data.content[0];
+      this.patient = {
+        name: tmpPatient.age,
+        age: tmpPatient.residentNo,
+        sex: tmpPatient.getPatient,
+        no: tmpPatient.residentNo,
+        phone: tmpPatient.tel,
+      };
+    },
+  },
+  created() {
+    console.log("123");
+    this.getPatient();
   },
 };
 </script>

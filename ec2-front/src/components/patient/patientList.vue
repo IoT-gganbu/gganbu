@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -32,6 +33,22 @@ export default {
         { name: "이한기", no: "951111 - 1xxxxxx" },
       ],
     };
+  },
+  methods: {},
+  watch: {
+    async memberList() {
+      await this.$axios.get(`${this.$store.state.baseurl}/patient/searchAllPatients?size=10`).then((response) => {
+        this.$store.commit("SAVE_MEMBER_LIST", response.data);
+      });
+
+      for (let i = 0; i < 9; i++) {
+        this.patientSearchList[i].name = this.$store.state.memberStore.memberList.data.content[i].name;
+        this.patientSearchList[i].no = this.$store.state.memberStore.memberList.data.content[i].residentNo;
+      }
+    },
+  },
+  computed: {
+    ...mapState(["memberList"]),
   },
 };
 </script>

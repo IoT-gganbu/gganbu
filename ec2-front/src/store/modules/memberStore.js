@@ -10,6 +10,10 @@ const memberStore = {
       console.log(state.isLogin);
       return JSON.parse(sessionStorage.getItem("isLogin"));
     },
+    getMemberListAll(state, payload) {
+      console.log("11");
+      return state.memberList.data[payload];
+    },
   },
   mutations: {
     MEMBER_LOGOUT(state) {
@@ -19,8 +23,8 @@ const memberStore = {
       sessionStorage.removeItem("access-token");
       api.defaults.headers["access-token"] = "";
     },
-    MEMBER_LIST(state) {
-      state.memberList = state;
+    SAVE_MEMBER_LIST(state, payload) {
+      state.memberList = payload;
     },
   },
   actions: {},

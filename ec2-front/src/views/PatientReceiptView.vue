@@ -9,7 +9,6 @@
           <custom-button btnText="검색" :v-bind="searchName" @click="searchPatient(searchName)"></custom-button>
         </div>
       </div>
-      <!-- <div class="patient-list">검수자 리스트</div> -->
       <patient-list></patient-list>
     </div>
     <div class="right-body">
@@ -30,6 +29,7 @@
 <script>
 import AddPatient from "@/components/patient/addPatient.vue";
 import PatientCard from "@/components/patient/patientCard.vue";
+
 export default {
   name: "PatientReceiptView",
   components: {
@@ -43,27 +43,29 @@ export default {
     };
   },
   mounted() {
-    // this.getPatientList();
+    this.getAllPatientList();
   },
   methods: {
-    getAllPatientList() {
-      this.$axios.get(`${this.$store.state.baseurl}/patient/searchAllPatient`).then((response) => {
-        console.log(response);
+    async getAllPatientList() {
+      await this.$axios.get(`${this.$store.state.baseurl}/patient/searchAllPatients?size=10`).then((response) => {
+        this.$store.commit("SAVE_MEMBER_LIST", response.data);
       });
+      console.log(this.$store.state.memberStore.memberList.data);
     },
-    searchPatient(searchName) {
-      console.log(this.searchName);
-      this.$axios
-        .get(`${this.$store.state.baseurl}/patient/search/${searchName}`)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    async searchPatient() {
+      await this.$axios.get(`${this.$store.state.baseurl}/patient/searchAllPatients?size=10`).then((response) => {
+        this.$store.commit("SAVE_MEMBER_LIST", response.data);
+      });
+      // this.$axios
+      //   .get(`${this.$store.state.baseurl}/patient/search/${searchName}`)
+      //   .then(() => {
+      //     // console.log(response);
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
     },
   },
-  mutations: {},
 };
 </script>
 
