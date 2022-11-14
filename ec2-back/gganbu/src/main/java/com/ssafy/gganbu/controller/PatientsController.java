@@ -183,6 +183,7 @@ public class PatientsController {
                 history.setTaskChecktitle(nextTask);
                 history.setPatientStatus(0);
                 historyRepository.save(history);
+                eventPublisher.publishEvent(new CheckupEvent(new SocketVO(patients.getPatientId()+"", taskChecktitle.getTcId()+"", 4L)));
                 return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS));
             } catch(Exception e){
                 log.info("error");
@@ -201,6 +202,8 @@ public class PatientsController {
             e.printStackTrace();
             return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
         }
+        eventPublisher.publishEvent(new CheckupEvent(new SocketVO(patients.getPatientId()+"", taskChecktitle.getTcId()+"", 3L)));
+
         return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS));
     }
     // 해당 검진 절차 완료 여부 입력 함수
@@ -224,7 +227,7 @@ public class PatientsController {
             // 만약 해당 검진이 마지막검진이라면 전체 삭제하는 로직이 필요하다.
 
             // 이벤트 발생
-            eventPublisher.publishEvent(new CheckupEvent(new SocketVO(patients.getPatientId()+"", taskChecktitle.getTcId()+"")));
+//            eventPublisher.publishEvent(new CheckupEvent(new SocketVO(patients.getPatientId()+"", taskChecktitle.getTcId()+"", sta)));
         }catch (Exception e){
             System.out.println("error");
             System.out.println(e.getMessage());
