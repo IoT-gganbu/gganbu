@@ -9,7 +9,6 @@
           <custom-button btnText="검색" @click="searchPatient(searchName)"></custom-button>
         </div>
       </div>
-      <!-- <div class="patient-list">검수자 리스트</div> -->
       <patient-list></patient-list>
     </div>
     <div class="right-body">
@@ -30,6 +29,7 @@
 <script>
 import AddPatient from "@/components/patient/addPatient.vue";
 import PatientCard from "@/components/patient/patientCard.vue";
+
 export default {
   name: "PatientReceiptView",
   components: {
@@ -42,12 +42,30 @@ export default {
       searchName: "",
     };
   },
+<<<<<<< HEAD
   methods: {
     searchPatient(name) {
       this.$axios
         .get(`${this.$store.state.baseurl}/patient/search/${name}`)
         .then((response) => {
           console.log(response.data);
+=======
+  mounted() {
+    this.getAllPatientList();
+  },
+  methods: {
+    async getAllPatientList() {
+      await this.$axios.get(`${this.$store.state.baseurl}/patient/searchAllPatients?size=10`).then((response) => {
+        this.$store.commit("SAVE_MEMBER_LIST", response.data);
+      });
+    },
+    async searchPatient(searchName) {
+      await this.$axios
+        .get(`${this.$store.state.baseurl}/patient/search/${searchName}`)
+        .then((response) => {
+          console.log(response);
+          this.$store.commit("SAVE_MEMBER_LIST", response.data);
+>>>>>>> bbfba43ba4c042171bb58202c2af7f4e68f93ae2
         })
         .catch((error) => {
           console.log(error);

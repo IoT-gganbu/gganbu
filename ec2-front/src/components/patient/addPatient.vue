@@ -5,44 +5,66 @@
         <div class="name">
           <div class="namelabel">성명</div>
           <div class="nameInput">
-            <input type="text" placeholder="성명을 입력하세요." />
+            <input type="text" placeholder="성명을 입력하세요." v-model="name" />
           </div>
         </div>
         <div class="gender">
           <div class="genderlabel">성별</div>
           <div class="genderInput">
-            <custom-button class="submit" btnText="남" style="margin-right: 10px"></custom-button>
-            <custom-button class="submit" btnText="여" style="margin-left: 10px"></custom-button>
+            <custom-button class="submit" :class="{ pressed: !isSelected }" btnText="남" style="margin-right: 10px" @click="genderClick(0)"></custom-button>
+            <custom-button class="submit" :class="{ pressed: isSelected }" btnText="여" style="margin-left: 10px" @click="genderClick(1)"></custom-button>
           </div>
         </div>
         <div class="personalNum">
           <div class="personalNumlabel">주민등록번호</div>
           <div class="personalNumInput">
-            <input type="text" placeholder="생년월일 6자리" />
+            <input type="text" placeholder="생년월일 6자리" v-model="personalIdFront" />
             <p>-</p>
-            <input type="password" placeholder="주민번호 뒷자리" />
+            <input type="password" placeholder="주민번호 뒷자리" v-model="personalIdBack" />
           </div>
         </div>
         <div class="phoneNum">
           <div class="phoneNumlabel">휴대폰 번호</div>
           <div class="phoneNumInput">
-            <input type="text" placeholder="010" />
+            <input type="text" placeholder="010" v-model="phoneNumFront" />
             <p>-</p>
-            <input type="text" placeholder="1234" />
+            <input type="text" placeholder="1234" v-model="phoneNumMid" />
             <p>-</p>
-            <input type="text" placeholder="5678" />
+            <input type="text" placeholder="5678" v-model="phoneNumBack" />
           </div>
         </div>
       </div>
     </div>
     <div class="button">
-      <custom-button class="submit" btnText="등록"></custom-button>
+      <custom-button class="submit" btnText="등록" @click="addPatientToDatabase()"></custom-button>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      name: "",
+      gender: 0,
+      personalIdFront: "",
+      personalIdBack: "",
+      phoneNumFront: "",
+      phoneNumMid: "",
+      phoneNumBack: "",
+      isSelected: false,
+    };
+  },
+  methods: {
+    addPatientToDatabase() {
+      console.log(this.name, this.gender, this.personalIdFront, this.personalIdBack, this.phoneNumFront, this.phoneNumMid, this.phoneNumBack);
+      this.$axios.post().then();
+    },
+    genderClick() {
+      this.isSelected = !this.isSelected;
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -96,5 +118,8 @@ p {
   line-height: 36px;
   height: 36px;
   margin: 0 5px 0 5px;
+}
+.pressed {
+  background: #90b5ff;
 }
 </style>

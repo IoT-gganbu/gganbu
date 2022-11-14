@@ -7,12 +7,17 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
-    return {
-      tracking: false,
-      voice: false,
-    };
+    return {};
+  },
+  created() {
+    // 소켓 연결이 되어있다면 다시 연결하지 않게 예외처리
+    // if (!this.$store.state.springSocketConnected) {
+    this.connectSpringSocket();
+    // }
+    // this.nextProgress();
   },
   mounted() {
     setTimeout(() => {
@@ -26,24 +31,27 @@ export default {
     }, 6000);
   },
   methods: {
+    ...mapActions(["connectSpringSocket"]),
     startTracking() {
-      console.log(this.tracking);
+      this.$store.commit("changeTracking");
+      console.log(1);
       this.$axios.get(this.$store.state.baseurl + "tracking").then((response) => {
         console.log(response);
+        console.log(2);
+        this.$store.commit("changeTracking");
         this.tracking = false;
       });
-      this.tracking = true;
-      console.log(this.tracking);
+      console.log(3);
     },
     startVoice() {
+      this.$store.commit("changeVoice");
       this.$axios.get(this.$store.state.baseurl + "gganbu").then((response) => {
         console.log(response);
-        this.voice = false;
+        this.$store.commit("changeVoice");
       });
-      this.voice = true;
     },
     checkConnection() {
-      if (this.tracking && this.voice) {
+      if (this.$store.state.tracking && this.$store.state.voice) {
         return true;
       } else return false;
     },

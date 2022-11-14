@@ -64,82 +64,86 @@ def recognize_from_microphone():
 @app.get("/tracking")
 def tracking():
     casacade = cv2.CascadeClassifier("data/haarcascade_upperbody.xml")
-
-    video_capture = cv2.VideoCapture(0)
-    img_counter = 0
-    while True:
+    flag = True
+    while flag :
+        video_capture = cv2.VideoCapture(0)
         img_counter = 0
-        ret, frame = video_capture.read()
-        frame = imutils.resize(frame, width=1000)
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) # convert video to grayscale
-        # rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        while True:
+            img_counter = 0
+            ret, frame = video_capture.read()
+            frame = imutils.resize(frame, width=1000)
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) # convert video to grayscale
+            # rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-        box = casacade.detectMultiScale(
-            gray,
-            # rgb,
-            scaleFactor = 1.1,
-            minNeighbors = 3,
-            minSize = (200, 200), # Min size for valid detection, changes according to video size or body size in the video.
-            flags = cv2.CASCADE_SCALE_IMAGE
-        )
+            box = casacade.detectMultiScale(
+                gray,
+                # rgb,
+                scaleFactor = 1.1,
+                minNeighbors = 3,
+                minSize = (200, 200), # Min size for valid detection, changes according to video size or body size in the video.
+                flags = cv2.CASCADE_SCALE_IMAGE
+            )
 
-        # Draw a rectangle around the upper bodies
-        for (x, y, w, h) in box:
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 1) # creates green color rectangle with a thickness size of 1
-            cv2.putText(frame, "Object Detected", (x + 5, y + 15), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2) # creates green color text with text size of 0.5 & thickness size of 2
-            print(x, y, w, h)
-            img_name = 'frame_data/opencv_frame_{}.png'.format(img_counter)
-            cv2.imwrite(img_name, frame)
-            img_counter += 1
+            # Draw a rectangle around the upper bodies
+            for (x, y, w, h) in box:
+                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 1) # creates green color rectangle with a thickness size of 1
+                cv2.putText(frame, "Object Detected", (x + 5, y + 15), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2) # creates green color text with text size of 0.5 & thickness size of 2
+                print(x, y, w, h)
+                img_name = 'frame_data/opencv_frame_{}.png'.format(img_counter)
+                cv2.imwrite(img_name, frame)
+                img_counter += 1
 
-        if img_counter > 0:
-            break
-
-        cv2.imshow('Video', frame) # Display video
-        # stop script when "q" key is pressed
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
-    # Release capture
-    video_capture.release()
-    cv2.destroyAllWindows()
-
-    # 여기부터는 이미 캡쳐한거에서 상반신 박스그리기
-    # Opening image
-    img = cv2.imread("frame_data/opencv_frame_0.png")
-    
-    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    
-    found = casacade.detectMultiScale(
-            img_gray,
-            # img_rgb,
-            scaleFactor = 1.1,
-            minNeighbors = 3,
-            minSize = (200, 200), # Min size for valid detection, changes according to video size or body size in the video.
-            flags = cv2.CASCADE_SCALE_IMAGE
-        )
-    
-    amount_found = len(found)
-    
-    if amount_found != 0:
-        found_cnt = 0
-        for (x, y, width, height) in found:
-            found_cnt += 1
-            cv2.rectangle(img_rgb, (x, y), (x + height, y + width), (0, 255, 0), 1)
-            #  첫번째 박스만 가져오기
-            #  이부분에서 여러 박스가 있을때 어떤걸 선택해야하는지 고민해봐야 한다.
-            if found_cnt > 1:
-                break
-            else:
-                boxPos = (x, y, width, height)
+            if img_counter > 0:
                 break
 
-    else:
-        # 여기에서 roi를 못찾았다면 다시 화면 캡쳐하는 곳으로 돌아가기
-        # 
-        # 
-        print('ROI 못찾겠다')
+            cv2.imshow('Video', frame) # Display video
+            # stop script when "q" key is pressed
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                flag = False
+                break
+
+        # Release capture
+        video_capture.release()
+        cv2.destroyAllWindows()
+
+        # 여기부터는 이미 캡쳐한거에서 상반신 박스그리기
+        # Opening image
+        img = cv2.imread("frame_data/opencv_frame_0.png")
+        
+        img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        
+        found = casacade.detectMultiScale(
+                img_gray,
+                # img_rgb,
+                scaleFactor = 1.1,
+                minNeighbors = 3,
+                minSize = (200, 200), # Min size for valid detection, changes according to video size or body size in the video.
+                flags = cv2.CASCADE_SCALE_IMAGE
+            )
+        
+        amount_found = len(found)
+        
+        if amount_found != 0:
+            found_cnt = 0
+            for (x, y, width, height) in found:
+                found_cnt += 1
+                cv2.rectangle(img_rgb, (x, y), (x + height, y + width), (0, 255, 0), 1)
+                #  첫번째 박스만 가져오기
+                #  이부분에서 여러 박스가 있을때 어떤걸 선택해야하는지 고민해봐야 한다.
+                if found_cnt > 1:
+                    flag = False
+                    break
+                else:
+                    boxPos = (x, y, width, height)
+                    flag = False
+                    break
+
+        else:
+            # 여기에서 roi를 못찾았다면 다시 화면 캡쳐하는 곳으로 돌아가기
+            # 
+            # 
+            print('ROI 못찾겠다')
 
     # 트랙커 객체 생성자 함수 리스트 ---①
     trackers = [
@@ -164,6 +168,7 @@ def tracking():
         global isWaiting
         if isWaiting:
             print("음성인식 종료로 인해 트래킹도 종료")
+            returnState == 3
             break
         ret, frame = cap.read()
         frame = imutils.resize(frame, width=1000)
@@ -210,6 +215,7 @@ def tracking():
                 tracker = trackers[trackerIdx]() # 선택한 숫자의 트랙커 객체 생성 ---⑦
                 isInit = tracker.init(frame, bbox) # 이전 추적 위치로 추적 위치 초기화
         elif key == 27 : 
+            returnState = 2
             break
     else:
         print( "Could not open video")
@@ -217,7 +223,11 @@ def tracking():
     cv2.destroyAllWindows()
     isWaiting = True
     if(returnState == 1):
-        return False
+        return "missing"
+    elif (returnState == 2):
+        return "quit"
+    elif (returnState == 3):
+        return True
     time.sleep(2)
     isWaiting = False
     
@@ -251,7 +261,7 @@ def sendMail(item:Item) :
 
     contents = item.data
     print(len(contents))
-    print(contents[0]+" "+ contents[1])
+    # print(contents[0]+" "+ contents[1])
     for i in range(len(contents)):
         if(contents[i].find("예")!=-1 or contents[i].find("네")!=-1 or contents[i].find("응")!=-1 or contents[i].find("내")!=-1):
             contents[i] = "예"
@@ -260,8 +270,11 @@ def sendMail(item:Item) :
     
     # 3. MIME 형태의 이메일 메세지 작성
     message = EmailMessage()
-    message.set_content('인플루엔자 예방접종을 매년 하십니까?\n'+contents[0]+"\n지금까지 평생 다섯갑 이상의 담배를 피운 적이 있습니까?\n"
-                        + contents[1]+"\n한 달에 몇번 음주를 하십니까?\n"+ contents[2]+ "\n부모, 형제, 자매 중에 당뇨 질환을 앓은 경우가 있습니까?\n"+contents[3])
+    message.set_content('인플루엔자 예방접종을 매년 하십니까?\n'+contents[0]
+                        # +"\n지금까지 평생 다섯갑 이상의 담배를 피운 적이 있습니까?\n"
+                        # + contents[1]+"\n한 달에 몇번 음주를 하십니까?\n"+ contents[2]
+                        # + "\n부모, 형제, 자매 중에 당뇨 질환을 앓은 경우가 있습니까?\n"+contents[3]
+                        )
     message["Subject"] = "싸브란스 병원 문진 결과"
     message["From"] = EMAIL_ADDR  #보내는 사람의 이메일 계정
     message["To"] = 'chann585862@naver.com'

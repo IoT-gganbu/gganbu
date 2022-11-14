@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface PatientReqository extends JpaRepository<Patients, Long> {
+public interface PatientRepository extends JpaRepository<Patients, Long> {
     // 나중에 Optional로 변경해야함.
     public Optional<Patients> findByResidentNo(String residentNo);
 
