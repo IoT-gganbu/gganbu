@@ -42,16 +42,8 @@ export default {
       searchName: "",
     };
   },
-<<<<<<< HEAD
-  methods: {
-    searchPatient(name) {
-      this.$axios
-        .get(`${this.$store.state.baseurl}/patient/search/${name}`)
-        .then((response) => {
-          console.log(response.data);
-=======
   mounted() {
-    this.getAllPatientList();
+    // this.getPatientList();
   },
   methods: {
     async getAllPatientList() {
@@ -64,8 +56,6 @@ export default {
         .get(`${this.$store.state.baseurl}/patient/search/${searchName}`)
         .then((response) => {
           console.log(response);
-          this.$store.commit("SAVE_MEMBER_LIST", response.data);
->>>>>>> bbfba43ba4c042171bb58202c2af7f4e68f93ae2
         })
         .catch((error) => {
           console.log(error);
