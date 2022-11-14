@@ -17,6 +17,7 @@ import com.ssafy.gganbu.service.QrService;
 import com.ssafy.gganbu.service.TaskService;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.Check;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.io.Resource;
@@ -182,16 +183,21 @@ public class PatientsController {
         if(statusReq.getStatus() == 4){
             try {
                 PatientProgressHistory patientProgressHistory = patientService.getHistory(patients, taskChecktitle);
-                if(patientProgressHistory.getPatientStatus()==4){
+                if(patientProgressHistory.getPatientStatus()==4) {
                     return ResponseEntity.status(200).body(BaseResponseBody.of("중복"));
                 }
                 patientProgressHistory.setPatientStatus(statusReq.getStatus());
                 historyRepository.save(patientProgressHistory);
+                if(patientService.existedHistory(patients,nextTask)){
+                    return ResponseEntity.status(200).body(BaseResponseBody.of("중복"));
+                }
                 PatientProgressHistory history = new PatientProgressHistory();
                 history.setPatient(patients);
                 history.setTaskChecktitle(nextTask);
                 history.setPatientStatus(0);
                 historyRepository.save(history);
+                System.out.println("44");
+                eventPublisher.publishEvent(new CheckupEvent(new SocketVO(patients.getPatientId()+"", taskChecktitle.getTcId()+"", 4L)));
                 return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS));
             } catch(Exception e){
                 log.info("error");
@@ -203,6 +209,7 @@ public class PatientsController {
         try {
             PatientProgressHistory patientProgressHistory = patientService.getHistory(patients, taskChecktitle);
             patientProgressHistory.setPatientStatus(statusReq.getStatus());
+            System.out.println("33");
             historyRepository.save(patientProgressHistory);
         } catch(Exception e){
             log.info("error");
@@ -210,39 +217,57 @@ public class PatientsController {
             e.printStackTrace();
             return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
         }
+        eventPublisher.publishEvent(new CheckupEvent(new SocketVO(patients.getPatientId()+"", taskChecktitle.getTcId()+"", 3L)));
+
         return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS));
     }
     // 해당 검진 절차 완료 여부 입력 함수
-//    @PostMapping("/checkup")
-//    @ApiOperation(value = "각 단계 검진 완료 기록")
-//    public ResponseEntity<? extends BaseResponseBody> checkUp(@RequestBody CheckUpReq checkUpReq) {
-//        PatientProgressHistory history = new PatientProgressHistory();
-//        Patients patients = patientService.getPatient(checkUpReq.getPatientId());
-//        TaskChecktitle taskChecktitle = taskService.getTask(checkUpReq.getTcId());
-//        System.out.println("patients : " + patients.toString());
-//        System.out.println("taskChecktitle : " + taskChecktitle.toString());
-//        try {
-//            // 중복 입력 체크. 이미 4상태일경우 중복 입력 불가
-////            boolean check = patientService.checkPatientHistory(patients, taskChecktitle);
-////            if (check) {
-////                return ResponseEntity.status(200).body(BaseResponseBody.of("중복 입력"));
-////            }
-////            history.setPatient(patients);
-////            history.setTaskChecktitle(taskChecktitle);
-////            historyRepository.save(history);
-//            // 만약 해당 검진이 마지막검진이라면 전체 삭제하는 로직이 필요하다.
-//
-//            // 이벤트 발생
-//            eventPublisher.publishEvent(new CheckupEvent(new SocketVO(patients.getPatientId()+"", taskChecktitle.getTcId()+"")));
-//        }catch (Exception e){
-//            System.out.println("error");
-//            System.out.println(e.getMessage());
-//            e.printStackTrace();
-//            return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
-//        }
-//
-//        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS));
-//    }
+    @PostMapping("/checkup")
+    @ApiOperation(value = "각 단계 검진 완료 기록")
+    public ResponseEntity<? extends BaseResponseBody> checkUp(@RequestBody CheckUpReq checkUpReq) {
+        PatientProgressHistory history = new PatientProgressHistory();
+        Patients patients = patientService.getPatient(checkUpReq.getPatientId());
+        TaskChecktitle taskChecktitle = taskService.getTask(checkUpReq.getTcId());
+        System.out.println("patients : " + patients.toString());
+        System.out.println("taskChecktitle : " + taskChecktitle.toString());
+        try {
+            // 중복 입력 체크. 이미 4상태일경우 중복 입력 불가
+//            boolean check = patientService.checkPatientHistory(patients, taskChecktitle);
+//            if (check) {
+//                return ResponseEntity.status(200).body(BaseResponseBody.of("중복 입력"));
+//            }
+//            history.setPatient(patients);
+//            history.setTaskChecktitle(taskChecktitle);
+//            historyRepository.save(history);
+            // 만약 해당 검진이 마지막검진이라면 전체 삭제하는 로직이 필요하다.
+
+            // 이벤트 발생
+//            eventPublisher.publishEvent(new CheckupEvent(new SocketVO(patients.getPatientId()+"", taskChecktitle.getTcId()+"", sta)));
+        }catch (Exception e){
+            System.out.println("error");
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
+        }
+
+        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS));
+    }
+
+    @GetMapping("/checkup/{patientId}/{tcId}")
+    @ApiOperation(value = "상태 조회")
+    public ResponseEntity<BaseResponseBody> getStatus(@PathVariable Long patientId, @PathVariable Long tcId) {
+        HashMap<String, Object> res = new HashMap<>();
+        Patients patients = patientService.getPatient(patientId);
+        TaskChecktitle taskChecktitle = taskService.getTask(tcId);
+        try {
+            PatientProgressHistory patientProgressHistory = patientService.getHistory(patients, taskChecktitle);
+            res.put("status",patientProgressHistory.getPatientStatus());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
+        }
+        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS, res));
+    }
 
     @GetMapping("/downloadfile/{patientId:.+}")
     @ApiOperation(value = "QR 다운로드")

@@ -237,7 +237,7 @@ def checkGGanbu() :
     while(isWaiting == False):
         gganbu = recognize_from_microphone()
         print(gganbu)
-        if (gganbu.find("간부")!=-1) or (gganbu.find("깜부")!=-1) or (gganbu.find("안부")!=-1) or (gganbu.find("깐부")!=-1):
+        if (gganbu.find("간부")!=-1) or (gganbu.find("깜부")!=-1) or (gganbu.find("안부")!=-1) or (gganbu.find("깐부")!=-1) or (gganbu.find("남북")!=-1) or (gganbu.find("강북")!=-1) or (gganbu.find("남부")!=-1):
             isWaiting = True
             break
     time.sleep(0.5)

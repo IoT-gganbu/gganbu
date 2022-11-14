@@ -21,4 +21,5 @@ public interface PatientService {
 
     PatientProgressHistory getHistory(Patients patient, TaskChecktitle taskChecktitle);
 
+    boolean existedHistory(Patients patient, TaskChecktitle taskChecktitle);
 }
