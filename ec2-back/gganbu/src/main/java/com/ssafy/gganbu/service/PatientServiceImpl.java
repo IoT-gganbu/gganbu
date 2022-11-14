@@ -99,6 +99,12 @@ public class PatientServiceImpl implements PatientService{
         return patientProgressHistory;
     }
 
+    @Override
+    public boolean existedHistory(Patients patient, TaskChecktitle taskChecktitle) {
+        boolean isExisted = historyRepository.existsByPatientAndTaskChecktitle(patient, taskChecktitle);
+        return isExisted;
+    }
+
     public Patients receipt(Patients patients){
 
         try{
