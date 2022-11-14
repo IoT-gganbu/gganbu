@@ -17,5 +17,5 @@ public class StatusReq {
     @ApiModelProperty(value = "검사 id", required = true, example = "1")
     private Long tcId;
     @ApiModelProperty(value = "상태", required = true, example = "1")
-    private Integer status;
+    private int status;
 }

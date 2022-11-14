@@ -69,61 +69,19 @@ public class PatientsController {
 
     @PostMapping("/receipt")
     @ApiOperation(value = "환자 접수")
-    public ResponseEntity<Map<String, Object>> receipt(@RequestBody @ApiParam(value = "수정할회원정보") PatientReq reqData) {
-        Map<String, Object> result = new HashMap<>();
-        System.out.println(reqData.toString());
-        if(patientService.checkResidentNo(reqData.getResidentNo())){
-            result.put("message", FAIL);
-        } else {
-            Patients res = new Patients();
-            res.setName(reqData.getName());
-            res.setGender(reqData.getGender());
-            res.setTel(reqData.getTel());
-            String residentNo = reqData.getResidentNo();
-            res.setResidentNo(residentNo);
-            // 만나이 저장 변수
-            int newage = 0;
-            // 2000년생 이상인 경우
-            if (Integer.parseInt(residentNo.substring(7, 8)) == 3 || Integer.parseInt(residentNo.substring(7, 8)) == 4) {
-                newage = 2000 + Integer.parseInt(residentNo.substring(0, 2));
-                // 1900년생인 경우
-            } else {
-                newage = 1900 + Integer.parseInt(residentNo.substring(0, 2));
-            }
-            // 만나이 구하는 함수
-            int age = getAge(newage,
-                    Integer.parseInt(residentNo.substring(2, 4)), Integer.parseInt(residentNo.substring(4, 6)));
-            System.out.println(age);
-            res.setAge(age);
-            patientRepository.save(res);
-            result.put("message", SUCCESS);
+    public ResponseEntity<BaseResponseBody> receipt(@RequestBody @ApiParam(value = "수정할회원정보") PatientReq reqData) {
+        if(patientService.addPatient(reqData.getName(), reqData.getGender(), reqData.getTel(), reqData.getResidentNo())){
+            return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS));
+        }else{
+            return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
         }
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
-    public static int getAge(int birthYear, int birthMonth, int birthDay) {
-        Calendar current = Calendar.getInstance();
-
-        int currentYear = current.get(Calendar.YEAR);
-        int currentMonth = current.get(Calendar.MONTH) + 1;
-        int currentDay = current.get(Calendar.DAY_OF_MONTH);
-
-        // 만 나이 구하기 2022-1995=27 (현재년-태어난년)
-        int age = currentYear - birthYear;
-        // 만약 생일이 지나지 않았으면 -1
-        if (birthMonth * 100 + birthDay > currentMonth * 100 + currentDay)
-            age--;
-        // 5월 26일 생은 526
-        // 현재날짜 5월 25일은 525
-        // 두 수를 비교 했을 때 생일이 더 클 경우 생일이 지나지 않은 것이다.
-        return age;
     }
 
 
     @GetMapping("/search/{name}")
     @ApiOperation(value = "이름으로 환자 검색")
     @ApiImplicitParam(name = "name", value = "환자 이름", required = true, dataType = "String", paramType = "path", example = "김철수")
-    public ResponseEntity<? extends BaseResponseBody> searchPatient(@PathVariable String name) {
+    public ResponseEntity<BaseResponseBody> searchPatient(@PathVariable String name) {
 
         List<Patients> res = new ArrayList<>();
         try {
@@ -148,7 +106,7 @@ public class PatientsController {
                     @ApiImplicitParam(name = "size", value = "페이지 사이즈", required = true, dataType = "int", paramType = "query", example = "10")
             }
     )
-    public ResponseEntity<? extends BaseResponseBody> searchPatientWithPage(@RequestParam(value = "name") String name, @RequestParam(value = "page") int page, @RequestParam(value = "size") int size) {
+    public ResponseEntity<BaseResponseBody> searchPatientWithPage(@RequestParam(value = "name") String name, @RequestParam(value = "page") int page, @RequestParam(value = "size") int size) {
         try{
             System.out.println("name : " + name);
             System.out.println("page : " + page);
@@ -163,82 +121,23 @@ public class PatientsController {
 
     @PutMapping("/checkup")
     @ApiOperation(value = "상태 변경")
-    public ResponseEntity<BaseResponseBody> updateStatus(@RequestBody StatusReq statusReq) {
-        Patients patients = patientService.getPatient(statusReq.getPatientId());
-        TaskChecktitle taskChecktitle = taskService.getTask(statusReq.getTcId());
-        TaskChecktitle nextTask = taskService.getTask(statusReq.getTcId()+1);
-        if(statusReq.getStatus() == 4){
+    public ResponseEntity<BaseResponseBody> changeStatus(@RequestBody StatusReq statusReq) {
             try {
-                PatientProgressHistory patientProgressHistory = patientService.getHistory(patients, taskChecktitle);
-                if(patientProgressHistory.getPatientStatus()==4) {
-                    return ResponseEntity.status(200).body(BaseResponseBody.of("중복"));
+                String res = patientService.updateStatus(statusReq.getPatientId(), statusReq.getTcId(), statusReq.getStatus());
+                if(res == "duplicated"){
+                    return ResponseEntity.status(200).body(BaseResponseBody.of("Duplicate"));
+                }else{
+                    eventPublisher.publishEvent(new CheckupEvent(new SocketVO(statusReq.getPatientId()+"", statusReq.getTcId()+"", statusReq.getStatus())));
                 }
-                patientProgressHistory.setPatientStatus(statusReq.getStatus());
-                historyRepository.save(patientProgressHistory);
-                if(patientService.existedHistory(patients,nextTask)){
-                    return ResponseEntity.status(200).body(BaseResponseBody.of("중복"));
-                }
-                PatientProgressHistory history = new PatientProgressHistory();
-                history.setPatient(patients);
-                history.setTaskChecktitle(nextTask);
-                history.setPatientStatus(0);
-                historyRepository.save(history);
-                System.out.println("44");
-                eventPublisher.publishEvent(new CheckupEvent(new SocketVO(patients.getPatientId()+"", taskChecktitle.getTcId()+"", 4L)));
-                return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS));
             } catch(Exception e){
                 log.info("error");
                 log.info(e.getMessage());
                 e.printStackTrace();
                 return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
             }
-        }
-        try {
-            PatientProgressHistory patientProgressHistory = patientService.getHistory(patients, taskChecktitle);
-            patientProgressHistory.setPatientStatus(statusReq.getStatus());
-            System.out.println("33");
-            historyRepository.save(patientProgressHistory);
-        } catch(Exception e){
-            log.info("error");
-            log.info(e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
-        }
-        eventPublisher.publishEvent(new CheckupEvent(new SocketVO(patients.getPatientId()+"", taskChecktitle.getTcId()+"", 3L)));
-
         return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS));
     }
-    // 해당 검진 절차 완료 여부 입력 함수
-    @PostMapping("/checkup")
-    @ApiOperation(value = "각 단계 검진 완료 기록")
-    public ResponseEntity<? extends BaseResponseBody> checkUp(@RequestBody CheckUpReq checkUpReq) {
-        PatientProgressHistory history = new PatientProgressHistory();
-        Patients patients = patientService.getPatient(checkUpReq.getPatientId());
-        TaskChecktitle taskChecktitle = taskService.getTask(checkUpReq.getTcId());
-        System.out.println("patients : " + patients.toString());
-        System.out.println("taskChecktitle : " + taskChecktitle.toString());
-        try {
-            // 중복 입력 체크. 이미 4상태일경우 중복 입력 불가
-//            boolean check = patientService.checkPatientHistory(patients, taskChecktitle);
-//            if (check) {
-//                return ResponseEntity.status(200).body(BaseResponseBody.of("중복 입력"));
-//            }
-//            history.setPatient(patients);
-//            history.setTaskChecktitle(taskChecktitle);
-//            historyRepository.save(history);
-            // 만약 해당 검진이 마지막검진이라면 전체 삭제하는 로직이 필요하다.
 
-            // 이벤트 발생
-//            eventPublisher.publishEvent(new CheckupEvent(new SocketVO(patients.getPatientId()+"", taskChecktitle.getTcId()+"", sta)));
-        }catch (Exception e){
-            System.out.println("error");
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
-        }
-
-        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS));
-    }
 
     @GetMapping("/checkup/{patientId}/{tcId}")
     @ApiOperation(value = "상태 조회")
