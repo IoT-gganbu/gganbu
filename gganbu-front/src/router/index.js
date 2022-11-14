@@ -64,6 +64,11 @@ const routes = [
     name: "loading",
     component: () => import("../views/LoadingView.vue"),
   },
+  {
+    path: "/guide",
+    name: "guide",
+    component: () => import("../views/GuideView.vue"),
+  },
 ];
 
 const router = new VueRouter({
