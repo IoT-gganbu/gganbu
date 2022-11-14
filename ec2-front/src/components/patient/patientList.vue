@@ -59,7 +59,7 @@ export default {
       for (let i = 0; i < patientList.length; i++) {
         let property = new Object();
         property.name = patientList[i].name;
-        property.no = patientList[i].residentNo;
+        property.no = patientList[i].residentNo.substr(0, 8) + "******";
         set.add(property);
       }
 

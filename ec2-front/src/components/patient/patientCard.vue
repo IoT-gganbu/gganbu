@@ -75,7 +75,7 @@ export default {
         name: tmpPatient[0].name,
         age: new Date().getFullYear() - Number("19" + tmpPatient[0].residentNo.substr(0, 2)),
         sex: tmpPatient[0].gender == 0 ? "남" : "여",
-        no: tmpPatient[0].residentNo,
+        no: tmpPatient[0].residentNo.substr(0, 8) + "******",
         phone: tmpPatient[0].tel,
         isChecked: tmpPatient[0].isCheckup,
       };
@@ -88,7 +88,7 @@ export default {
         name: tmpPatient[num].name,
         age: new Date().getFullYear() - Number("19" + tmpPatient[num].residentNo.substr(0, 2)),
         sex: tmpPatient[num].gender == 0 ? "남" : "여",
-        no: tmpPatient[num].residentNo,
+        no: tmpPatient[num].residentNo.substr(0, 8) + "******",
         phone: tmpPatient[num].tel,
         isChecked: tmpPatient[num].isCheckup,
       };
