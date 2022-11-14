@@ -17,6 +17,7 @@ import com.ssafy.gganbu.service.QrService;
 import com.ssafy.gganbu.service.TaskService;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.Check;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.io.Resource;
@@ -229,6 +230,22 @@ public class PatientsController {
         }
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS));
+    }
+
+    @GetMapping("/checkup/{patientId}/{tcId}")
+    @ApiOperation(value = "상태 조회")
+    public ResponseEntity<BaseResponseBody> getStatus(@PathVariable Long patientId, @PathVariable Long tcId) {
+        HashMap<String, Object> res = new HashMap<>();
+        Patients patients = patientService.getPatient(patientId);
+        TaskChecktitle taskChecktitle = taskService.getTask(tcId);
+        try {
+            PatientProgressHistory patientProgressHistory = patientService.getHistory(patients, taskChecktitle);
+            res.put("status",patientProgressHistory.getPatientStatus());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
+        }
+        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS, res));
     }
 
     @GetMapping("/downloadfile/{patientId:.+}")

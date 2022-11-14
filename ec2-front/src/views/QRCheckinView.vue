@@ -1,6 +1,7 @@
 <template>
   <div>
     <custom-title id="custom_title" titleText="검진자 QR 인식"></custom-title>
+    <button @click="getStatus()">adsad</button>
     <div id="scanBox">
       <qrcode-stream @decode="onDecode" />
     </div>
@@ -44,6 +45,9 @@ export default {
 
   methods: {
     async onDecode(result) {
+      this.$store.state.patientId = result;
+      this.getStatus();
+      console.log(this.isChecked);
       this.showImgModal = true;
       // let pid = 0;
       // await this.$axios.get(`${this.$store.state.baseurl}/staff/progress/${result}`).then((response) => {
@@ -61,7 +65,7 @@ export default {
       //   .catch((error) => {
       //     console.log(error.response);
       //   });
-      this.$store.state.patientId = result;
+      // this.$store.state.patientId = result;
 
       await this.$axios.get(`${this.$store.state.baseurl}/patient/${this.$store.state.patientId}`).then((response) => {
         console.log(response.data);
@@ -91,7 +95,6 @@ export default {
         .then((response) => {
           console.log(response);
           this.showImgModal = false;
-          this.isChecked = false;
           // pid = 1;
         });
     },
@@ -104,8 +107,20 @@ export default {
         .put(`${this.$store.state.baseurl}/patient/checkup`, { patientId: this.$store.state.patientId, tcId: sessionStorage.getItem("task"), status: 4 }, { headers: headers })
         .then((response) => {
           console.log(response);
+          this.showImgModal = false;
           // pid = 1;
         });
+    },
+
+    async getStatus() {
+      await this.$axios.get(`${this.$store.state.baseurl}/patient/checkup/${this.$store.state.patientId}/${sessionStorage.getItem("task")}`).then((response) => {
+        console.log(response);
+        if (response.data.data.status == 3) {
+          this.isChecked = false;
+        } else {
+          this.isChecked = true;
+        }
+      });
     },
   },
 };
