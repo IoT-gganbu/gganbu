@@ -3,7 +3,7 @@ import { api } from "@/store";
 const memberStore = {
   state: {
     isLogin: false,
-    memberList: [],
+    memberList: undefined,
   },
   getters: {
     isLogin(state) {
@@ -19,8 +19,8 @@ const memberStore = {
       sessionStorage.removeItem("access-token");
       api.defaults.headers["access-token"] = "";
     },
-    MEMBER_LIST(state) {
-      state.memberList = state;
+    GET_MEMBER_LIST_ALL(state, payload) {
+      state.memberList = payload;
     },
   },
   actions: {},

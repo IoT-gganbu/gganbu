@@ -230,8 +230,7 @@ export default {
 .box-down > * {
   border-radius: 5px;
 }
-.homeBtn {
-}
+.homeBtn,
 .retryBtn {
 }
 .btnClass {

@@ -3,10 +3,10 @@
     <div class="left-body">
       <div class="search">
         <div class="search-bar">
-          <input placeholder="Search" class="input" />
+          <input placeholder="Search" class="input" v-model="searchName" />
         </div>
         <div class="search-btn">
-          <custom-button btnText="검색" :v-bind="searchName" @click="searchPatient(searchName)"></custom-button>
+          <custom-button btnText="검색" @click="searchPatient(searchName)"></custom-button>
         </div>
       </div>
       <!-- <div class="patient-list">검수자 리스트</div> -->
@@ -42,28 +42,18 @@ export default {
       searchName: "",
     };
   },
-  mounted() {
-    // this.getPatientList();
-  },
   methods: {
-    getAllPatientList() {
-      this.$axios.get(`${this.$store.state.baseurl}/patient/searchAllPatient`).then((response) => {
-        console.log(response);
-      });
-    },
-    searchPatient(searchName) {
-      console.log(this.searchName);
+    searchPatient(name) {
       this.$axios
-        .get(`${this.$store.state.baseurl}/patient/search/${searchName}`)
+        .get(`${this.$store.state.baseurl}/patient/search/${name}`)
         .then((response) => {
-          console.log(response);
+          console.log(response.data);
         })
         .catch((error) => {
           console.log(error);
         });
     },
   },
-  mutations: {},
 };
 </script>
 

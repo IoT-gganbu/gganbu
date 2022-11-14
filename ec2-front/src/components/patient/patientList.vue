@@ -33,6 +33,22 @@ export default {
       ],
     };
   },
+  mounted() {
+    this.getAllPatientsList();
+    console.log(this.$store.state.memberStore.memberList);
+  },
+  methods: {
+    async getAllPatientsList() {
+      await this.$axios
+        .get(`${this.$store.state.baseurl}/patient/searchAllPatients?size=10`)
+        .then((response) => {
+          this.$store.commit("GET_MEMBER_LIST_ALL", response.data.data.content);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
 };
 </script>
 

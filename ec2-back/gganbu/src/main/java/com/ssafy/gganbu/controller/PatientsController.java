@@ -92,7 +92,7 @@ public class PatientsController {
             // 만나이 구하는 함수
             int age = getAge(newage,
                     Integer.parseInt(residentNo.substring(2, 4)), Integer.parseInt(residentNo.substring(4, 6)));
-            log.info(age);
+            log.info(age+"");
             res.setAge(age);
             patientReqository.save(res);
             result.put("message", SUCCESS);
