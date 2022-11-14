@@ -1,6 +1,5 @@
 FROM openjdk:17-jdk-alpine AS builder
 
-COPY gradlew .
 COPY gradle gradle
 COPY build.gradle .
 COPY settings.gradle .
