@@ -170,11 +170,14 @@ public class PatientsController {
         if(statusReq.getStatus() == 4){
             try {
                 PatientProgressHistory patientProgressHistory = patientService.getHistory(patients, taskChecktitle);
-                if(patientProgressHistory.getPatientStatus()==4){
+                if(patientProgressHistory.getPatientStatus()==4) {
                     return ResponseEntity.status(200).body(BaseResponseBody.of("중복"));
                 }
                 patientProgressHistory.setPatientStatus(statusReq.getStatus());
                 historyRepository.save(patientProgressHistory);
+                if(patientService.existedHistory(patients,nextTask)){
+                    return ResponseEntity.status(200).body(BaseResponseBody.of("중복"));
+                }
                 PatientProgressHistory history = new PatientProgressHistory();
                 history.setPatient(patients);
                 history.setTaskChecktitle(nextTask);

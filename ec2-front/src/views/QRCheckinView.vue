@@ -1,7 +1,6 @@
 <template>
   <div>
     <custom-title id="custom_title" titleText="검진자 QR 인식"></custom-title>
-    <button @click="getStatus()">adsad</button>
     <div id="scanBox">
       <qrcode-stream @decode="onDecode" />
     </div>
@@ -95,6 +94,8 @@ export default {
         .then((response) => {
           console.log(response);
           this.showImgModal = false;
+          window.alert("처리 완료");
+          window.location.reload();
           // pid = 1;
         });
     },
@@ -108,6 +109,8 @@ export default {
         .then((response) => {
           console.log(response);
           this.showImgModal = false;
+          window.alert("처리 완료");
+          window.location.reload();
           // pid = 1;
         });
     },
