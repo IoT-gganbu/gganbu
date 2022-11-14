@@ -183,6 +183,7 @@ public class PatientsController {
                 history.setTaskChecktitle(nextTask);
                 history.setPatientStatus(0);
                 historyRepository.save(history);
+                System.out.println("44");
                 eventPublisher.publishEvent(new CheckupEvent(new SocketVO(patients.getPatientId()+"", taskChecktitle.getTcId()+"", 4L)));
                 return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS));
             } catch(Exception e){
@@ -195,6 +196,7 @@ public class PatientsController {
         try {
             PatientProgressHistory patientProgressHistory = patientService.getHistory(patients, taskChecktitle);
             patientProgressHistory.setPatientStatus(statusReq.getStatus());
+            System.out.println("33");
             historyRepository.save(patientProgressHistory);
         } catch(Exception e){
             log.info("error");
