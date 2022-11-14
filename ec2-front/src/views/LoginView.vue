@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
@@ -32,7 +31,7 @@ export default {
     loginMember() {
       let login_id = document.getElementById("logInInput").value;
       let login_pw = document.getElementById("logInpageInput").value;
-      axios
+      this.$axios
         .post(this.$store.state.baseurl + "/staff/login", {
           id: login_id,
           password: login_pw,
@@ -50,7 +49,6 @@ export default {
             this.$store.state.memberStore.isLogin = true;
 
             if (this.$store.state.memberStore.isLogin && sessionStorage.getItem("task") == 1) {
-              this.getMemberList();
               this.$router.push("/patientReceiptView");
             } else if (this.$store.state.memberStore.isLogin && sessionStorage.getItem("task") != 1) {
               this.$router.push("/qr");
@@ -58,11 +56,6 @@ export default {
             console.log("success");
           }
         });
-    },
-    async getMemberList() {
-      await this.$axios.get(`${this.$store.state.baseurl}/patient/searchAllPatients?size=10`).then((response) => {
-        this.$store.commit("SAVE_MEMBER_LIST", response.data);
-      });
     },
   },
 };

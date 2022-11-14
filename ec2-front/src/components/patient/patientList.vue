@@ -33,6 +33,42 @@ export default {
       ],
     };
   },
+  created() {
+    this.getMemberList();
+  },
+  computed: {
+    memberList: function () {
+      return this.$store.state.memberStore.memberList;
+    },
+  },
+  watch: {
+    memberList() {
+      this.getPatientList();
+    },
+  },
+  methods: {
+    async getMemberList() {
+      await this.$axios.get(`${this.$store.state.baseurl}/patient/searchAllPatients?size=10`).then((response) => {
+        this.$store.commit("SAVE_MEMBER_LIST", response.data.data.content);
+      });
+    },
+    async getPatientList() {
+      const patientList = await this.$store.state.memberStore.memberList;
+      let set = new Set();
+
+      for (let i = 0; i < patientList.length; i++) {
+        let property = new Object();
+        property.name = patientList[i].name;
+        property.no = patientList[i].residentNo;
+        set.add(property);
+      }
+
+      this.patientSearchList = set;
+    },
+    selectedMember(key) {
+      this.$store.commit("SET_SELECTED_MEMBER", key);
+    },
+  },
 };
 </script>
 

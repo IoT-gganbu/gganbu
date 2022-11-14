@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="button">
-      <custom-button class="submit" btnText="등록" @click="addPatientToDatabase()"></custom-button>
+      <custom-button id="submit" class="submit" btnText="등록" @click="addPatientToDatabase()"></custom-button>
     </div>
   </div>
 </template>
@@ -57,10 +57,16 @@ export default {
   },
   methods: {
     addPatientToDatabase() {
-      console.log(this.name, this.gender, this.personalIdFront, this.personalIdBack, this.phoneNumFront, this.phoneNumMid, this.phoneNumBack);
-      this.$axios.post().then();
+      let personalId = this.personalIdFront + "-" + this.personalIdBack;
+      let phoneNumber = this.phoneNumFront + "-" + this.phoneNumMid + "-" + this.phoneNumBack;
+
+      this.$axios.post(`${this.$store.state.baseurl}/patient/receipt`, { gender: this.gender, name: this.name, residentNo: personalId, tel: phoneNumber }).then((response) => {
+        console.log(response);
+      });
+      location.reload();
     },
-    genderClick() {
+    genderClick(num) {
+      this.gender = num;
       this.isSelected = !this.isSelected;
     },
   },

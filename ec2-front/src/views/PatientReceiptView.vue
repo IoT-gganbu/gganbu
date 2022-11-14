@@ -14,7 +14,7 @@
     <div class="right-body">
       <div class="new-patient">
         <div class="new-patient-btn">
-          <custom-button btnText="추가" @click="showImgModal = true"></custom-button>
+          <custom-button btnText="추가" @click="showModal()"></custom-button>
         </div>
       </div>
       <patient-card></patient-card>
@@ -42,24 +42,27 @@ export default {
       searchName: "",
     };
   },
-  mounted() {
-    // this.getPatientList();
-  },
   methods: {
-    async getAllPatientList() {
-      await this.$axios.get(`${this.$store.state.baseurl}/patient/searchAllPatients?size=10`).then((response) => {
-        this.$store.commit("SAVE_MEMBER_LIST", response.data);
-      });
-    },
     async searchPatient(searchName) {
-      await this.$axios
-        .get(`${this.$store.state.baseurl}/patient/search/${searchName}`)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
+      if (searchName == "") {
+        await this.$axios.get(`${this.$store.state.baseurl}/patient/searchAllPatients?size=10`).then((response) => {
+          this.$store.commit("SAVE_MEMBER_LIST", response.data.data.content);
         });
+      } else {
+        await this.$axios
+          .get(`${this.$store.state.baseurl}/patient/search/${searchName}`)
+          .then((response) => {
+            console.log(response.data.data);
+            this.$store.commit("SAVE_MEMBER_LIST", response.data.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    },
+    showModal() {
+      this.showImgModal = true;
+      console.log(this.showImgModal);
     },
   },
 };
