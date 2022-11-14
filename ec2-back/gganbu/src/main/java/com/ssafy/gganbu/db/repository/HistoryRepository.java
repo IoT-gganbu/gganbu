@@ -18,4 +18,5 @@ public interface HistoryRepository extends JpaRepository<PatientProgressHistory,
 
     public Optional<List<PatientProgressHistory>> findByPatientOrderByTaskChecktitleAsc(Patients patient);
 
+    Boolean existsByPatientAndTaskChecktitle(Patients patient, TaskChecktitle taskChecktitle);
 }
