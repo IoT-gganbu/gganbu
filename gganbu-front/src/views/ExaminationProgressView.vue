@@ -57,7 +57,6 @@ export default {
       styleObject: {
         backgroundColor: "#90b5ff",
       },
-      progressBooleanList: [],
       processes: [
         {
           item: [`접수 및 <br />문진표 작성`, "폐암 검사"],
@@ -100,24 +99,24 @@ export default {
   },
   created() {
     this.connectSpringSocket();
-    this.connectRosSocket();
-    this.nextProgress();
+    // this.connectRosSocket();
   },
   computed: {
-    ...mapState(["patientId", "patient", "progressBoolean", "springSocketMessage", "tracking", "voice"]),
+    ...mapState(["patientId", "patient", "progressBoolean", "progressBooleanCnt", "springSocketMessage", "tracking", "voice"]),
   },
   watch: {
-    progressBoolean: function () {
-      console.log("watch progressBoolean");
-      for (var i = 1; i <= 10; i++) {
-        if (this.progressBoolean[i] == true) {
-          console.log("progressBoolean[" + i + "] : " + this.progressBoolean[i]);
-          document.getElementById(i).style.backgroundColor = "#90b5ff";
-        }
-      }
+    progressBooleanCnt: function () {
+      console.log("watch progressBooleanCnt");
+      // for (var i = 1; i <= 10; i++) {
+      //   if (this.progressBoolean[i] == true) {
+      //     console.log("progressBoolean[" + i + "] : " + this.progressBoolean[i]);
+      //     document.getElementById(i).style.backgroundColor = "#90b5ff";
+      //   }
+      // }
+      this.progressCheck();
     },
     springSocketMessage: function () {
-      this.nextProgress();
+      // this.nextProgress();
       console.log("watch springSocketMessage");
     },
   },
@@ -128,23 +127,30 @@ export default {
     if (this.tracking == true && this.voice == true) {
       this.showImgModal = true;
     }
+    this.progressCheck();
+    this.nextProgress();
   },
   methods: {
     ...mapActions(["connectSpringSocket", "disconnectAllsocket", "acceptProgressBoolean", "connectRosSocket", "publishRosSocket"]),
     // ...mapActions(["acceptProgressBoolean"]),
-    async nextProgress() {
+    nextProgress() {
       this.$axios.get("http://localhost:8080/api/staff/progress/" + this.$store.state.patientId).then((response) => {
-        console.log(response.data.data);
-        console.log(this.progressBoolean);
+        console.log("nextProgress");
+        // console.log(this.progressBoolean);
         let progress = response.data.data;
-        for (let i = 1; i <= progress; i++) {
-          this.acceptProgressBoolean(i);
-          var dom = document.getElementById(i);
-          dom.style.backgroundColor = "#90b5ff";
-        }
-        console.log("after change");
-        console.log(this.progressBoolean);
+        console.log("progress = " + progress);
+        // this.progressCheck();
+        console.log("finish change");
+        // console.log(this.progressBoolean);
+        this.$store.commit("changeProgressBooleanCnt", progress);
       });
+    },
+    progressCheck() {
+      console.log("progressCheck");
+      for (let i = 1; i <= this.progressBooleanCnt; i++) {
+        var dom = document.getElementById(i);
+        dom.style.backgroundColor = "#90b5ff";
+      }
     },
     // changeClass(idx) {
     //   document.getElementById(idx).classList.toggle("col1 check");
@@ -159,6 +165,7 @@ export default {
   height: 500%;
   align-content: flex-end;
 }
+
 .title {
   height: 50px;
 }

@@ -17,10 +17,11 @@ export default new Vuex.Store({
     patientId: "",
     patient: {},
     progressBoolean: [true, false, false, false, false, false, false, false, false, false, false],
+    progressBooleanCnt: 1,
     springSocket: null,
     springStomp: null,
     springSocketConnected: false,
-    springSocketMessage: "",
+    springSocketMessage: null,
     rosSocket: null,
     rosTopic: null,
     rosMessage: null,
@@ -51,6 +52,9 @@ export default new Vuex.Store({
     getProgressBoolean: (state) => {
       return state.progressBoolean;
     },
+    getProgressBooleanCnt: (state) => {
+      return state.progressBooleanCnt;
+    },
     getTracking: (state) => {
       return state.tracking;
     },
@@ -74,8 +78,11 @@ export default new Vuex.Store({
     changeSpringSocketMessage(state, springSocketMessage) {
       state.springSocketMessage = springSocketMessage;
     },
-    acceptProgressBoolean(state, idx) {
-      state.progressBoolean[idx] = true;
+    acceptProgressBoolean(state, newProgressBoolean) {
+      state.progressBoolean = newProgressBoolean;
+    },
+    changeProgressBooleanCnt(state, newProgressBooleanCnt) {
+      state.progressBooleanCnt = newProgressBooleanCnt;
     },
     changeChecked(state) {
       state.isChecked = !state.isChecked;
@@ -116,11 +123,9 @@ export default new Vuex.Store({
             let data = JSON.parse(res.body);
             console.log("this task is " + data.task);
             // data 예시 {"patientId":"10","task":"3"}
-            for (let i = 1; i < data.task; i++) {
-              if (this.state.progressBoolean[i] == false) {
-                this.commit("acceptProgressBoolean", i);
-              }
-            }
+            // 메시지를 아예 전체 다 바꿔주는방식으로 진행해야겠다.
+            this.commit("changeProgressBooleanCnt", data.task);
+            // this.commit("acceptProgressBoolean", tempProgressBoolean);
             // console.log(this.state.progressBoolean);
             // 받은 데이터를 json으로 파싱하고 state에 저장합니다.
             this.commit("changeSpringSocketMessage", data);
