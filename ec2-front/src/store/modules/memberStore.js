@@ -2,7 +2,7 @@ import { api } from "@/store";
 
 const memberStore = {
   state: {
-    isLogin: false,
+    isLogined: false,
     memberList: [],
     selectMember: 0,
   },
@@ -17,9 +17,8 @@ const memberStore = {
   },
   mutations: {
     MEMBER_LOGOUT(state) {
-      console.log(sessionStorage.getItem("isLogin"));
-      sessionStorage.setItem("isLogin", false);
-      state.isLogin = false;
+      sessionStorage.setItem("isLogined", false);
+      state.isLogined = false;
       sessionStorage.removeItem("access-token");
       api.defaults.headers["access-token"] = "";
     },

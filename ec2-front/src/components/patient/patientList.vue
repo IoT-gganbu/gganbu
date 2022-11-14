@@ -62,7 +62,6 @@ export default {
         property.no = patientList[i].residentNo.substr(0, 8) + "******";
         set.add(property);
       }
-
       this.patientSearchList = set;
     },
     selectedMember(key) {

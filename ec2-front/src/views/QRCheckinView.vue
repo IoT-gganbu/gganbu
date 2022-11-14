@@ -124,7 +124,7 @@ export default {
 }
 .patient-info {
   color: #5780c6;
-  font-size: 30px;
+  font-size: 40px;
 }
 .box {
   width: 40%;
@@ -144,5 +144,8 @@ export default {
 }
 .box:hover {
   background-color: #90b5ff;
+}
+.nextQr {
+  margin-top: 100px;
 }
 </style>
