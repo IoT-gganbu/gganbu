@@ -49,7 +49,6 @@ export default {
       isChecked: 0,
     };
   },
-
   methods: {
     async onDecode(result) {
       this.$store.state.patientId = result;

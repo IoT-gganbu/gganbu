@@ -19,6 +19,8 @@
         <td class="c2">{{ patient.phone }}</td>
       </tr>
     </table>
+    <custom-button v-if="!patient.isChecked" class="submit" btnText="검사 시작" @click="moveToNextProcess()"></custom-button>
+    <custom-button v-else class="proceeding" btnText="검사 중"></custom-button>
   </div>
 </template>
 
@@ -27,13 +29,75 @@ export default {
   data() {
     return {
       patient: {
-        name: "장정훈",
+        id: "",
+        name: "김",
         age: 28,
         sex: "남",
         no: "950803 - 1xxxxxx",
         phone: "010 - 4328 - 8206",
+        isChecked: false,
       },
     };
+  },
+  created() {
+    this.getPatientListZero();
+  },
+  computed: {
+    selectMember: function () {
+      return this.$store.state.memberStore.selectMember;
+    },
+    checkedButton: function () {
+      return this.isChecked;
+    },
+    memberList: function () {
+      return this.$store.state.memberList;
+    },
+  },
+  watch: {
+    selectMember() {
+      this.getPatientInfo(this.selectMember);
+    },
+    checkedButton() {
+      this.getPatientInfo(this.selectMember);
+    },
+    memberList() {
+      this.getPatientInfo(0);
+    },
+  },
+  methods: {
+    async getPatientListZero() {
+      await this.$axios.get(`${this.$store.state.baseurl}/patient/searchAllPatients?size=10`).then((response) => {
+        this.$store.commit("SAVE_MEMBER_LIST", response.data.data.content);
+      });
+      let tmpPatient = this.$store.state.memberStore.memberList;
+      this.patient = {
+        id: tmpPatient[0].patientId,
+        name: tmpPatient[0].name,
+        age: new Date().getFullYear() - Number("19" + tmpPatient[0].residentNo.substr(0, 2)),
+        sex: tmpPatient[0].gender == 0 ? "남" : "여",
+        no: tmpPatient[0].residentNo.substr(0, 8) + "******",
+        phone: tmpPatient[0].tel,
+        isChecked: tmpPatient[0].isCheckup,
+      };
+    },
+    getPatientInfo(num) {
+      let tmpPatient = this.$store.state.memberStore.memberList;
+
+      this.patient = {
+        id: tmpPatient[num].patientId,
+        name: tmpPatient[num].name,
+        age: new Date().getFullYear() - Number("19" + tmpPatient[num].residentNo.substr(0, 2)),
+        sex: tmpPatient[num].gender == 0 ? "남" : "여",
+        no: tmpPatient[num].residentNo.substr(0, 8) + "******",
+        phone: tmpPatient[num].tel,
+        isChecked: tmpPatient[num].isCheckup,
+      };
+    },
+    moveToNextProcess() {
+      this.$axios.put(`${this.$store.state.baseurl}/staff/receipt`, { residentNo: this.patient.no }).then((response) => {
+        console.log(response);
+      });
+    },
   },
 };
 </script>
@@ -73,5 +137,16 @@ td {
 }
 .c2 {
   color: #90b5ff;
+}
+.submit,
+.proceeding {
+  width: 250px;
+  margin-bottom: 30px;
+}
+.proceeding {
+  color: #90b5ff;
+}
+.proceeding:hover {
+  background-color: white;
 }
 </style>

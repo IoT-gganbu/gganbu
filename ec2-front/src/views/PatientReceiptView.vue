@@ -3,19 +3,18 @@
     <div class="left-body">
       <div class="search">
         <div class="search-bar">
-          <input placeholder="Search" class="input" />
+          <input placeholder="Search" class="input" v-model="searchName" />
         </div>
         <div class="search-btn">
-          <custom-button btnText="검색" :v-bind="searchName" @click="searchPatient(searchName)"></custom-button>
+          <custom-button btnText="검색" @click="searchPatient(searchName)"></custom-button>
         </div>
       </div>
-      <!-- <div class="patient-list">검수자 리스트</div> -->
       <patient-list></patient-list>
     </div>
     <div class="right-body">
       <div class="new-patient">
         <div class="new-patient-btn">
-          <custom-button btnText="추가" @click="showImgModal = true"></custom-button>
+          <custom-button btnText="추가" @click="showModal()"></custom-button>
         </div>
       </div>
       <patient-card></patient-card>
@@ -30,6 +29,7 @@
 <script>
 import AddPatient from "@/components/patient/addPatient.vue";
 import PatientCard from "@/components/patient/patientCard.vue";
+
 export default {
   name: "PatientReceiptView",
   components: {
@@ -42,28 +42,29 @@ export default {
       searchName: "",
     };
   },
-  mounted() {
-    // this.getPatientList();
-  },
   methods: {
-    getAllPatientList() {
-      this.$axios.get(`${this.$store.state.baseurl}/patient/searchAllPatient`).then((response) => {
-        console.log(response);
-      });
-    },
-    searchPatient(searchName) {
-      console.log(this.searchName);
-      this.$axios
-        .get(`${this.$store.state.baseurl}/patient/search/${searchName}`)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
+    async searchPatient(searchName) {
+      if (searchName == "") {
+        await this.$axios.get(`${this.$store.state.baseurl}/patient/searchAllPatients?size=10`).then((response) => {
+          this.$store.commit("SAVE_MEMBER_LIST", response.data.data.content);
         });
+      } else {
+        await this.$axios
+          .get(`${this.$store.state.baseurl}/patient/search/${searchName}`)
+          .then((response) => {
+            console.log(response.data.data);
+            this.$store.commit("SAVE_MEMBER_LIST", response.data.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    },
+    showModal() {
+      this.showImgModal = true;
+      console.log(this.showImgModal);
     },
   },
-  mutations: {},
 };
 </script>
 

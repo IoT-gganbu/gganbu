@@ -3,7 +3,7 @@
     <img class="mainPicture" src="../assets/img/hospital.png" style="height: 660px; filter: drop-shadow(2px 0px 10px rgba(0, 0, 0, 0.5))" />
     <div class="logInInfo">
       <div class="logInBox">
-        <div v-show="loginAlram" class="logInAlarm">아이디 또는 비밀번호를 확인하세요.</div>
+        <div v-show="loginAlarm" class="logInAlarm">아이디 또는 비밀번호를 확인하세요.</div>
         <custom-title titleText="로그인" style="margin-bottom: 50px"></custom-title>
         <div class="logInLabel">아이디</div>
         <div class="logInInput">
@@ -20,11 +20,10 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
-      loginAlram: false,
+      loginAlarm: false,
     };
   },
   methods: {
@@ -32,7 +31,7 @@ export default {
     loginMember() {
       let login_id = document.getElementById("logInInput").value;
       let login_pw = document.getElementById("logInpageInput").value;
-      axios
+      this.$axios
         .post(this.$store.state.baseurl + "/staff/login", {
           id: login_id,
           password: login_pw,
@@ -41,7 +40,7 @@ export default {
         .then((response) => {
           if (response.data.message == "FAIL") {
             // this.loginWarningShow = true;
-            // this.loginAlram = true;
+            // this.loginAlarm = true;
             console.log("fail");
           } else if (response.data.message == "SUCCESS") {
             console.log(response.data.data);
@@ -57,7 +56,6 @@ export default {
             console.log("success");
           }
         });
-      // console.log(login_id, login_pw);
     },
   },
 };
