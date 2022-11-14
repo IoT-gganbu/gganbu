@@ -2,9 +2,46 @@
   <div id="app">
     <nav-bar />
     <router-view />
+    <custom-modal class="againGuideModal" id="againGuideModal" v-show="showImgModal" @close-modal="showImgModal = false" titleText="">
+      <content class="againGuide">
+        <after-process></after-process>
+      </content>
+    </custom-modal>
   </div>
 </template>
-
+<script>
+import afterProcess from "@/components/AfterProcess.vue";
+export default {
+  components: {
+    afterProcess,
+  },
+  data() {
+    return {
+      springSocketMessage: null,
+      showImgModal: false,
+    };
+  },
+  computed: {
+    getSpringSocketMessage: function () {
+      return this.$store.getters.getSpringSocketMessage;
+    },
+  },
+  watch: {
+    getSpringSocketMessage(value) {
+      console.log("app.vue에서 찍은 socket :", value);
+      this.springSocketMessage = value;
+      if (this.springSocketMessage.status == 4) {
+        this.showModal();
+      }
+    },
+  },
+  methods: {
+    showModal() {
+      this.showImgModal = true;
+    },
+  },
+};
+</script>
 <style>
 body {
   margin: 0;
