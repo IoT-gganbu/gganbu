@@ -60,6 +60,5 @@ export default {
 }
 .modal {
   padding-top: 10%;
-  height: 110%;
 }
 </style>

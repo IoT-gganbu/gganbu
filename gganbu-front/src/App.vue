@@ -2,10 +2,79 @@
   <div id="app">
     <nav-bar />
     <router-view />
+    <custom-modal class="againGuideModal" id="againGuideModal" v-show="showImgModal" @close-modal="showImgModal = false" titleText="">
+      <content class="againGuide">
+        <div class="text">
+          <div class="line">{{ name }}님</div>
+          <div class="line">{{ process }}검사가</div>
+          <div class="line">완료되었습니다.</div>
+          <div class="line">다음 검사실로</div>
+          <div class="line">안내하겠습니다.</div>
+        </div>
+        <custom-button class="yes" btnText="네" @click="toLoading()"></custom-button>
+      </content>
+    </custom-modal>
   </div>
 </template>
-
-<style>
+<script>
+export default {
+  data() {
+    return {
+      springSocketMessage: null,
+      showImgModal: false,
+      name: "",
+      process: "",
+    };
+  },
+  computed: {
+    getSpringSocketMessage: function () {
+      return this.$store.getters.getSpringSocketMessage;
+    },
+    getPatient: function () {
+      return this.$store.getters.getPatient;
+    },
+  },
+  watch: {
+    getSpringSocketMessage(value) {
+      console.log("app.vue에서 찍은 socket :", value);
+      this.springSocketMessage = value;
+      if (this.springSocketMessage.status == 3) {
+        this.$router.push("/");
+      } else if (this.springSocketMessage.status == 4) {
+        this.showModal();
+      }
+    },
+    getPatient(value) {
+      this.process = this.$store.state.progressName[value.task];
+      this.name = value.name;
+    },
+  },
+  methods: {
+    toLoading() {
+      this.showImgModal = false;
+      this.$router.push("/loading");
+    },
+    showModal() {
+      this.showImgModal = true;
+    },
+  },
+};
+</script>
+<style scoped>
+.yes {
+  font-size: 30px;
+  width: 200px;
+}
+.text {
+  margin: 30% 0 10% 0;
+  /* font-weight: bold; */
+  /* font-size: 30px; */
+  font: 34px "Pretendard Bold";
+  color: #5780c6;
+}
+.line {
+  margin-bottom: 7px;
+}
 body {
   margin: 0;
 }

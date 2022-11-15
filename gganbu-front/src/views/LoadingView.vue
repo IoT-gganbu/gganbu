@@ -69,7 +69,7 @@ export default {
   padding-top: 50%;
 }
 .vue-simple-spinner-text {
-  width: 65%;
+  width: 80%;
   padding-left: 18%;
 }
 </style>
