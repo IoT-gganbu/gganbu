@@ -27,9 +27,17 @@ export default {
     },
   },
   watch: {
-    moveNextPage() {
-      if (this.$store.state.patientId != null) {
-        this.$router.push("/examination");
+    qrcodeResult: function () {
+      this.moveNextProgress();
+    },
+  },
+  mounted() {
+    this.moveNextProgress();
+  },
+  methods: {
+    moveNextProgress() {
+      if (this.$store.state.patientId != "") {
+        this.$router.push("/prestart");
       }
     },
   },
