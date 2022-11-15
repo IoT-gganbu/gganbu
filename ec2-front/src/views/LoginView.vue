@@ -26,6 +26,9 @@ export default {
       loginAlarm: false,
     };
   },
+  mounted() {
+    sessionStorage.clear();
+  },
   methods: {
     //로그인
     loginMember() {
@@ -41,19 +44,22 @@ export default {
           if (response.data.message == "FAIL") {
             // this.loginWarningShow = true;
             // this.loginAlarm = true;
-            console.log("fail");
+            console.log("Login Fail");
           } else if (response.data.message == "SUCCESS") {
             console.log(response.data.data);
             sessionStorage.setItem("name", response.data.data.name);
             sessionStorage.setItem("task", response.data.data.task);
-            this.$store.state.memberStore.isLogin = true;
+            sessionStorage.setItem("isLogined", true);
+            this.$store.state.memberStore.isLogined = true;
 
-            if (this.$store.state.memberStore.isLogin && sessionStorage.getItem("task") == 1) {
+            if (this.$store.state.memberStore.isLogined && sessionStorage.getItem("task") == 1) {
+              sessionStorage.setItem("loginType", "접수처");
               this.$router.push("/patientReceiptView");
-            } else if (this.$store.state.memberStore.isLogin && sessionStorage.getItem("task") != 1) {
+            } else if (this.$store.state.memberStore.isLogined && sessionStorage.getItem("task") != 1) {
+              sessionStorage.setItem("loginType", "의료진");
               this.$router.push("/qr");
             }
-            console.log("success");
+            console.log("Login Success");
           }
         });
     },

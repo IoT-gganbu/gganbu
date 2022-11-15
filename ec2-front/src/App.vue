@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav-bar type="접수처" department="" professorName="전승준" isLogin="false" />
+    <nav-bar />
     <router-view />
   </div>
 </template>
