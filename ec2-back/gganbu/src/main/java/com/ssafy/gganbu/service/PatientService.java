@@ -13,13 +13,19 @@ public interface PatientService {
     public boolean checkResidentNo(String residentNo);
     public List<Patients> searchPatient(String name);
     public Patients getPatient(Long patientId);
-    Page<Patients> searchPatientWithPage(String name, int page, int size);
-    Page<Patients> searchAllPatientWithPage(int page, int size);
+    public Page<Patients> searchPatientWithPage(String name, int page, int size);
+    public Page<Patients> searchAllPatientWithPage(int page, int size);
 
 
     boolean checkPatientHistory(Patients patient, TaskChecktitle taskChecktitle);
 
+    String updateStatus(Long patientId, Long tcId, int status);
+
     PatientProgressHistory getHistory(Patients patient, TaskChecktitle taskChecktitle);
 
     boolean existedHistory(Patients patient, TaskChecktitle taskChecktitle);
+
+    void addHistory(Patients patient, TaskChecktitle taskChecktitle, int status);
+
+    boolean addPatient(String name, Integer gender, String tel, String residentNo);
 }

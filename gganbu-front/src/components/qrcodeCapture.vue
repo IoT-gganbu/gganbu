@@ -26,7 +26,7 @@ export default {
       //   this.patient = response.data.data;
       //   console.log("patient: ", this.patient);
       // });
-      $axios.get("http://127.0.0.1:8080/api/patient/" + result).then((response) => {
+      $axios.get("https://k7b309.p.ssafy.io/api/patient/" + result).then((response) => {
         console.log("response: ", response);
         this.patient = response.data.data;
         console.log("patient: ", this.patient);

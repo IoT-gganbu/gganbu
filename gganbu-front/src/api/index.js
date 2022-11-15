@@ -2,7 +2,7 @@ import axios from "axios";
 
 function createApi() {
   return axios.create({
-    baseURL: "http://127.0.0.1:8080/api",
+    baseURL: "https://k7b309.p.ssafy.io/api",
     headers: {
       "Content-Type": "application/json; charset=UTF-8",
     },

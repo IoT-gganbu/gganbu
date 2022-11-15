@@ -1,9 +1,7 @@
 package com.ssafy.gganbu.db.entity;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +10,8 @@ import javax.persistence.*;
 @Setter
 @Table(name = "patient")
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class Patients {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,4 +43,5 @@ public class Patients {
     @Column(name = "is_checkup", nullable = false, columnDefinition = "boolean default false")
     @ApiModelProperty(example = "검진 여부")
     private Boolean isCheckup = false;
+
 }

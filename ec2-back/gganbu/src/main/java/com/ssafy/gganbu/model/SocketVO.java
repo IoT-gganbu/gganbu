@@ -15,7 +15,7 @@ public class SocketVO {
     // 메시지의 내용을 저장하기 위한 변
     private String task;
 
-    private Long status;
+    private int status;
 
     public SocketVO() {
 

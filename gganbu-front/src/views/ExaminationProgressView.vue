@@ -133,7 +133,7 @@ export default {
     ...mapActions(["connectSpringSocket", "disconnectAllsocket", "acceptProgressBoolean", "connectRosSocket", "publishRosSocket"]),
     // ...mapActions(["acceptProgressBoolean"]),
     async nextProgress() {
-      this.$axios.get("http://localhost:8080/api/staff/progress/" + this.$store.state.patientId).then((response) => {
+      this.$axios.get("https://k7b309.p.ssafy.io/api/staff/progress/" + this.$store.state.patientId).then((response) => {
         console.log(response.data.data);
         console.log(this.progressBoolean);
         let progress = response.data.data;
