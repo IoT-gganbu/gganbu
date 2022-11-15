@@ -12,7 +12,7 @@
       </tr>
       <tr>
         <td class="c1">주민등록번호</td>
-        <td class="c2">{{ patient.no }}</td>
+        <td class="c2">{{ patient.no.substr(0, 8) + "******" }}</td>
       </tr>
       <tr>
         <td class="c1">휴대폰 번호</td>
@@ -75,7 +75,7 @@ export default {
         name: tmpPatient[0].name,
         age: new Date().getFullYear() - Number("19" + tmpPatient[0].residentNo.substr(0, 2)),
         sex: tmpPatient[0].gender == 0 ? "남" : "여",
-        no: tmpPatient[0].residentNo.substr(0, 8) + "******",
+        no: tmpPatient[0].residentNo,
         phone: tmpPatient[0].tel,
         isChecked: tmpPatient[0].isCheckup,
       };
@@ -88,15 +88,16 @@ export default {
         name: tmpPatient[num].name,
         age: new Date().getFullYear() - Number("19" + tmpPatient[num].residentNo.substr(0, 2)),
         sex: tmpPatient[num].gender == 0 ? "남" : "여",
-        no: tmpPatient[num].residentNo.substr(0, 8) + "******",
+        no: tmpPatient[num].residentNo,
         phone: tmpPatient[num].tel,
         isChecked: tmpPatient[num].isCheckup,
       };
     },
-    moveToNextProcess() {
-      this.$axios.put(`${this.$store.state.baseurl}/staff/receipt`, { residentNo: this.patient.no }).then((response) => {
+    async moveToNextProcess() {
+      await this.$axios.put(`${this.$store.state.baseurl}/staff/receipt`, { residentNo: this.patient.no }).then((response) => {
         console.log(response);
       });
+      location.reload();
     },
   },
 };
