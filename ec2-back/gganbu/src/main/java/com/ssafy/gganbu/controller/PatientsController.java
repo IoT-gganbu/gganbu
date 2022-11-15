@@ -90,7 +90,7 @@ public class PatientsController {
             return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
         }
         // 해당 회원이 없는 경우
-        if (res.size() == 0) {
+        if (res.isEmpty()) {
             return ResponseEntity.status(200).body(BaseResponseBody.of("해당회원없음"));
         } else {
             return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS, res));
@@ -108,9 +108,9 @@ public class PatientsController {
     )
     public ResponseEntity<BaseResponseBody> searchPatientWithPage(@RequestParam(value = "name") String name, @RequestParam(value = "page") int page, @RequestParam(value = "size") int size) {
         try{
-            System.out.println("name : " + name);
-            System.out.println("page : " + page);
-            System.out.println("size : " + size);
+            log.info("name : " + name);
+            log.info("page : " + page);
+            log.info("size : " + size);
             Page<Patients> res = patientService.searchPatientWithPage(name, page, size);
             return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS, res));
         }
@@ -124,7 +124,7 @@ public class PatientsController {
     public ResponseEntity<BaseResponseBody> changeStatus(@RequestBody StatusReq statusReq) {
             try {
                 String res = patientService.updateStatus(statusReq.getPatientId(), statusReq.getTcId(), statusReq.getStatus());
-                if(res == "duplicated"){
+                if(res.equals("duplicated")){
                     return ResponseEntity.status(200).body(BaseResponseBody.of("Duplicate"));
                 }else{
                     eventPublisher.publishEvent(new CheckupEvent(new SocketVO(statusReq.getPatientId()+"", statusReq.getTcId()+"", statusReq.getStatus())));
@@ -164,10 +164,9 @@ public class PatientsController {
         try {
             contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
         } catch (IOException e) {
-            System.out.println("Could not determine file type.");
+            log.info("Could not determine file type.");
         }
         if (contentType == null) {
-//            contentType = "application/octet-stream";
             contentType = "image/png";
         }
         return ResponseEntity.ok()
@@ -195,7 +194,7 @@ public class PatientsController {
             fis.close();
             baos.close();
         } catch (IOException e) {
-            System.out.println("파일을 찾을 수 없습니다.");
+            log.info("파일을 찾을 수 없습니다.");
         } finally {
             if (fis != null) {
                 fis.close();
@@ -210,7 +209,7 @@ public class PatientsController {
     @GetMapping("/{patientId}")
     @ApiOperation(value = "QR의 id로 유저 검색")
     @ApiImplicitParam(name = "patientId", value = "환자 ID", required = true, dataType = "String", paramType = "path", example = "1")
-    public ResponseEntity<? extends BaseResponseBody> getPatientInfo(@PathVariable Long patientId) {
+    public ResponseEntity<BaseResponseBody> getPatientInfo(@PathVariable Long patientId) {
         HashMap<String, Object> res = new HashMap<>();
         log.info("PatientsController.getPatientInfo");
         try {
