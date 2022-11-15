@@ -3,7 +3,7 @@
     <img class="mainPicture" src="../assets/img/hospital.png" style="height: 660px; filter: drop-shadow(2px 0px 10px rgba(0, 0, 0, 0.5))" />
     <div class="logInInfo">
       <div class="logInBox">
-        <div v-show="loginAlram" class="logInAlarm">아이디 또는 비밀번호를 확인하세요.</div>
+        <div v-show="loginAlarm" class="logInAlarm">아이디 또는 비밀번호를 확인하세요.</div>
         <custom-title titleText="로그인" style="margin-bottom: 50px"></custom-title>
         <div class="logInLabel">아이디</div>
         <div class="logInInput">
@@ -20,19 +20,21 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
-      loginAlram: false,
+      loginAlarm: false,
     };
+  },
+  mounted() {
+    sessionStorage.clear();
   },
   methods: {
     //로그인
     loginMember() {
       let login_id = document.getElementById("logInInput").value;
       let login_pw = document.getElementById("logInpageInput").value;
-      axios
+      this.$axios
         .post(this.$store.state.baseurl + "/staff/login", {
           id: login_id,
           password: login_pw,
@@ -41,23 +43,25 @@ export default {
         .then((response) => {
           if (response.data.message == "FAIL") {
             // this.loginWarningShow = true;
-            // this.loginAlram = true;
-            console.log("fail");
+            // this.loginAlarm = true;
+            console.log("Login Fail");
           } else if (response.data.message == "SUCCESS") {
             console.log(response.data.data);
             sessionStorage.setItem("name", response.data.data.name);
             sessionStorage.setItem("task", response.data.data.task);
-            this.$store.state.memberStore.isLogin = true;
+            sessionStorage.setItem("isLogined", true);
+            this.$store.state.memberStore.isLogined = true;
 
-            if (this.$store.state.memberStore.isLogin && sessionStorage.getItem("task") == 1) {
+            if (this.$store.state.memberStore.isLogined && sessionStorage.getItem("task") == 1) {
+              sessionStorage.setItem("loginType", "접수처");
               this.$router.push("/patientReceiptView");
-            } else if (this.$store.state.memberStore.isLogin && sessionStorage.getItem("task") != 1) {
+            } else if (this.$store.state.memberStore.isLogined && sessionStorage.getItem("task") != 1) {
+              sessionStorage.setItem("loginType", "의료진");
               this.$router.push("/qr");
             }
-            console.log("success");
+            console.log("Login Success");
           }
         });
-      // console.log(login_id, login_pw);
     },
   },
 };
