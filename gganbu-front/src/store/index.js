@@ -13,7 +13,7 @@ export const api = createApi();
 export default new Vuex.Store({
   state: {
     baseurl: "http://127.0.0.1:8000/",
-    springWebsocketUrl: "http://127.0.0.1:8080/ws/spring",
+    springWebsocketUrl: "https://k7b309.p.ssafy.io/ws/spring",
     patientId: "",
     patient: {},
     progressBoolean: [true, false, false, false, false, false, false, false, false, false, false],

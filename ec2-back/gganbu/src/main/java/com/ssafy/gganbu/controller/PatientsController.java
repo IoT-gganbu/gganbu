@@ -197,7 +197,7 @@ public class PatientsController {
         byte[] fileArray = new byte[0];
 
         try(FileInputStream  fis = new FileInputStream(path.toString());
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
             int readCount = 0;
             byte[] buffer = new byte[1024];
             fileArray = null;
