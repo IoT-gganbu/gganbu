@@ -69,11 +69,13 @@ public class PatientsController {
 
     @PostMapping("/receipt")
     @ApiOperation(value = "환자 접수")
+
     public ResponseEntity<BaseResponseBody> receipt(@RequestBody @ApiParam(value = "수정할회원정보") PatientReq reqData) {
         if(patientService.addPatient(reqData.getName(), reqData.getGender(), reqData.getTel(), reqData.getResidentNo())){
             return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS));
         }else{
             return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
+
         }
     }
 
@@ -112,6 +114,19 @@ public class PatientsController {
             log.info("page : " + page);
             log.info("size : " + size);
             Page<Patients> res = patientService.searchPatientWithPage(name, page, size);
+            return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS, res));
+        }
+        catch (Exception e){
+            return ResponseEntity.status(500).body(BaseResponseBody.of(FAIL));
+        }
+    }
+    @GetMapping("/searchAllPatients")
+    @ApiOperation(value = "모든 환자 리스트 + 페이징 처리")
+    @ApiImplicitParams({@ApiImplicitParam(name = "size", value = "페이지 사이즈", required = true, dataType = "int", paramType = "query", example = "10")})
+    public ResponseEntity<BaseResponseBody> searchAllPatientWithPage( @RequestParam(value = "size") int size) {
+        try{
+            log.info("size : " + size);
+            Page<Patients> res = patientService.searchAllPatientWithPage(0, size);
             return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS, res));
         }
         catch (Exception e){
@@ -178,12 +193,11 @@ public class PatientsController {
     @GetMapping(value = "/image/view/{patientId}", produces = MediaType.IMAGE_PNG_VALUE)
     @ApiImplicitParam(name = "patientId", value = "환자 ID", required = true, dataType = "String", paramType = "path", example = "1")
     public @ResponseBody byte[] getImage(@RequestParam("patientId") String id) throws IOException {
-        FileInputStream fis = null;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Path path = Paths.get("/tmp/gganbu/patient/" + id + "/qr.png");
         byte[] fileArray = new byte[0];
-        try {
-            fis = new FileInputStream(path.toString());
+
+        try(FileInputStream  fis = new FileInputStream(path.toString());
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
             int readCount = 0;
             byte[] buffer = new byte[1024];
             fileArray = null;
@@ -191,17 +205,8 @@ public class PatientsController {
                 baos.write(buffer, 0, readCount);
             }
             fileArray = baos.toByteArray();
-            fis.close();
-            baos.close();
         } catch (IOException e) {
             log.info("파일을 찾을 수 없습니다.");
-        } finally {
-            if (fis != null) {
-                fis.close();
-            }
-            if (baos != null) {
-                baos.close();
-            }
         }
         return fileArray;
     }

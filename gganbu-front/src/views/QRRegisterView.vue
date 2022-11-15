@@ -27,18 +27,9 @@ export default {
     },
   },
   watch: {
-    qrcodeResult: function () {
-      this.moveNextProgress();
-    },
-  },
-  mounted() {
-    this.moveNextProgress();
-  },
-  methods: {
-    moveNextProgress() {
-      if (this.$store.state.patientId != "") {
-        this.$router.push("/prestart");
-        // this.$router.push("/examination");
+    moveNextPage() {
+      if (this.$store.state.patientId != null) {
+        this.$router.push("/examination");
       }
     },
   },
