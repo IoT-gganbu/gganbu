@@ -13,10 +13,11 @@ export const api = createApi();
 export default new Vuex.Store({
   state: {
     baseurl: "http://127.0.0.1:8000/",
-    springWebsocketUrl: "http://k7b309.p.ssafy.io:8081/ws/spring",
+    // springWebsocketUrl: "http://k7b309.p.ssafy.io:8081/ws/spring",
+    springWebsocketUrl: "http://localhost:8081/ws/spring",
     patientId: "",
     patient: {},
-    progressBoolean: [true, false, false, false, false, false, false, false, false, false, false],
+    progressBoolean: 1,
     springSocket: null,
     springStomp: null,
     springSocketConnected: false,
@@ -77,8 +78,8 @@ export default new Vuex.Store({
     changeSpringSocketMessage(state, springSocketMessage) {
       state.springSocketMessage = springSocketMessage;
     },
-    acceptProgressBoolean(state, idx) {
-      state.progressBoolean[idx] = true;
+    changeProgressBoolean(state, idx) {
+      state.progressBoolean = idx;
     },
     changeChecked(state) {
       state.isChecked = !state.isChecked;
@@ -119,11 +120,12 @@ export default new Vuex.Store({
             let data = JSON.parse(res.body);
             console.log("this task is " + data.task);
             // data 예시 {"patientId":"10","task":"3"}
-            for (let i = 1; i < data.task; i++) {
-              if (this.state.progressBoolean[i] == false) {
-                this.commit("acceptProgressBoolean", i);
-              }
-            }
+            this.commit("changeProgressBoolean", data.task);
+            // for (let i = 1; i < data.task; i++) {
+            //   if (this.state.progressBoolean[i] == false) {
+            //     this.commit("changeProgressBoolean", i);
+            //   }
+            // }
             // console.log(this.state.progressBoolean);
             // 받은 데이터를 json으로 파싱하고 state에 저장합니다.
             this.commit("changeSpringSocketMessage", data);
@@ -153,8 +155,8 @@ export default new Vuex.Store({
       };
       this.commit("changeSpringSocketConnected", false);
     },
-    async acceptProgressBoolean({ commit }, idx) {
-      commit("acceptProgressBoolean", idx, true);
+    async changeProgressBoolean({ commit }, idx) {
+      commit("changeProgressBoolean", idx);
     },
     // ros 소켓 연결
     async connectRosSocket({ state }) {
