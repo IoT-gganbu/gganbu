@@ -2,7 +2,6 @@
   <div class="posegameview">
     <div class="top">
       <custom-title id="title" titleText="스트레칭" />
-      <!-- <custom-button id="backBtn" btnText="< 돌아가기" /> -->
     </div>
     <div class="game-box">
       <div class="result-container">정확도: {{ score }}</div>
@@ -32,10 +31,10 @@
 
 <script>
 import * as tmPose from "@teachablemachine/pose";
-import handSide from "@/assets/model/model_img/hands_side_sj.png";
-import handUp from "@/assets/model/model_img/hands_up_sj.png";
-import neckSideL from "@/assets/model/model_img/neck_side_left_sj.png";
-import neckSideR from "@/assets/model/model_img/neck_side_right_sj.png";
+import handSide from "@/assets/model/model_img/hand_side.png";
+import handUp from "@/assets/model/model_img/hand_up.png";
+import neckSideL from "@/assets/model/model_img/neck_side_left.png";
+import neckSideR from "@/assets/model/model_img/neck_side_right.png";
 
 export default {
   data() {
@@ -75,7 +74,7 @@ export default {
     },
     startGame() {
       this.score = this.classPrediction[this.imageIndex] * 100;
-      if (this.imageIndex == 1) {
+      if (this.imageIndex == 5) {
         this.showEndModal();
         this.time = Math.ceil((new Date().getTime() - this.time) / 1000);
         clearInterval(this.interval); // 프로그램 종료
@@ -191,7 +190,7 @@ export default {
   color: #5780c6;
 }
 .result-container {
-  height: 30px;
+  height: 35px;
   float: left;
   text-align: left;
   font-size: 30px;
