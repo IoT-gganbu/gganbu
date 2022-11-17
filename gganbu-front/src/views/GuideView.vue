@@ -31,14 +31,38 @@ export default {
     getTracking: function () {
       return this.$store.getters.getTracking;
     },
+    getVoice: function () {
+      return this.$store.getters.getVoice;
+    },
   },
   watch: {
     getTracking(value) {
       console.log("tracking : ", value);
-      this.showImgModal = true;
+      if (!value) {
+        this.stopRos();
+        this.showImgModal = true;
+      }
+    },
+    getVoice(value) {
+      console.log("voice : ", value);
+      if (!value) {
+        this.stopRos();
+        this.showImgModal = true;
+      }
     },
   },
-  methods: {},
+  methods: {
+    stopRos() {
+      // 1. ros 소켓 연결 확인
+      if (this.$store.getters.getRosSocket == null) {
+        this.connectRosSocket();
+      }
+      // 2. topic 생성
+      this.createRosTopic(0);
+      // 3. topic 메세지 publish
+      this.publishRosSocket();
+    },
+  },
 };
 </script>
 

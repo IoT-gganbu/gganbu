@@ -39,8 +39,9 @@ export default {
       console.log("app.vue에서 찍은 socket :", value);
       this.springSocketMessage = value;
       if (this.springSocketMessage.status == 3) {
-        this.$router.push("/");
+        this.$router.push("/").catch(() => {});
       } else if (this.springSocketMessage.status == 4) {
+        this.$router.push("/").catch(() => {});
         this.showModal();
       }
     },

@@ -4,8 +4,8 @@
       <!-- <router-link to="/"><custom-button id="btn" btnText="◀" /></router-link> -->
       <custom-title id="titleText" titleText=" 님의 건강검진 진척도" :name="patient.name"></custom-title>
     </div>
-    <!-- <button class="btn" @click="disconnectAllsocket">disconnect all socket</button>
-    <button class="btn" @click="publishRosSocket">publish ros topic</button> -->
+    <!-- <button class="btn" @click="disconnectAllsocket">disconnect all socket</button> -->
+    <!-- <button class="btn" @click="publishRosSocket">publish ros topic</button> -->
     <div class="body">
       <div class="row" v-for="(data, idx) in processes" :key="idx">
         <div class="col1" v-bind:id="idx / 2 + 1" v-if="data.item[0] != ''">

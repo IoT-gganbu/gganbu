@@ -36,7 +36,7 @@ async def root():
 @app.get("/record/save")
 def recognize_from_microphone():
     # This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
-    speech_config = speechsdk.SpeechConfig(subscription='d2dca5cef15a464b9b00046592d1baf6', region='koreacentral')
+    speech_config = speechsdk.SpeechConfig(subscription='dd2ac0f3da614f239fbb400eb4b1d29d', region='koreacentral')
     speech_config.speech_recognition_language="ko-KR"
 
     audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)
@@ -160,7 +160,8 @@ def tracking():
     isFirst = True
     cap = cv2.VideoCapture(0)
     fps = cap.get(cv2.CAP_PROP_FPS) # 프레임 수 구하기
-    delay = int(1000/fps)
+    # delay = int(1000/fps)
+    delay = 50
     win_name = 'Tracking APIs'
     returnState = 0 # 장고 리턴값을 유형별로 분기해서 나누어 주어야 한다.(while문이 끝나고 각각의 상태별로 리턴값을 보내줘야한다. ex)1-트래킹중 대상물체 인식실패가 3초 넘은 경우 )
     failCount = 0 
@@ -216,6 +217,7 @@ def tracking():
                 isInit = tracker.init(frame, bbox) # 이전 추적 위치로 추적 위치 초기화
         elif key == 27 : 
             returnState = 2
+            isWaiting = True
             break
     else:
         print( "Could not open video")
@@ -223,9 +225,9 @@ def tracking():
     cv2.destroyAllWindows()
     isWaiting = True
     if(returnState == 1):
-        return "missing"
+        return "Tracking Fail"
     elif (returnState == 2):
-        return "quit"
+        return "esc"
     elif (returnState == 3):
         return True
     time.sleep(2)
@@ -242,7 +244,7 @@ def checkGGanbu() :
             break
     time.sleep(0.5)
     isWaiting = False
-    return True
+    return "깐부 음성 인식 성공"
 
 @app.post("/email")
 def sendMail(item:Item) :

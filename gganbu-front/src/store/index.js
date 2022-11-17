@@ -13,7 +13,7 @@ export const api = createApi();
 export default new Vuex.Store({
   state: {
     baseurl: "http://127.0.0.1:8000/",
-    springWebsocketUrl: "https://k7b309.p.ssafy.io/ws/spring",
+    springWebsocketUrl: "http://k7b309.p.ssafy.io:8081/ws/spring",
     patientId: "",
     patient: {},
     progressBoolean: [true, false, false, false, false, false, false, false, false, false, false],
@@ -56,6 +56,9 @@ export default new Vuex.Store({
     },
     getVoice: (state) => {
       return state.voice;
+    },
+    getRosSocket: (state) => {
+      return state.rosSocket;
     },
   },
   mutations: {
@@ -153,9 +156,10 @@ export default new Vuex.Store({
     async acceptProgressBoolean({ commit }, idx) {
       commit("acceptProgressBoolean", idx, true);
     },
+    // ros 소켓 연결
     async connectRosSocket({ state }) {
       state.rosSocket = new ROSLIB.Ros({
-        url: "ws://localhost:9090",
+        url: "ws://192.168.31.96:9090",
       });
       state.rosSocket.on("connection", () => {
         console.log("Connected to RosSocket server.");
@@ -166,23 +170,20 @@ export default new Vuex.Store({
       state.rosSocket.on("close", () => {
         console.log("Connection to RosSocket server closed.");
       });
+      // state.rosTopic = new ROSLIB.Topic({
+      //   ros: this.state.rosSocket,
+      //   name: "/step",
+      //   messageType: "std_msgs::Int32",
+      // });
+      // state.rosMessage = new ROSLIB.Message({ data: 123 });
+    },
+    async createRosTopic({ state }, data) {
       state.rosTopic = new ROSLIB.Topic({
         ros: this.state.rosSocket,
-        name: "/turtle1/cmd_vel",
-        messageType: "geometry_msgs/Twist",
+        name: "/step",
+        messageType: "std_msgs::Int32",
       });
-      state.rosMessage = new ROSLIB.Message({
-        linear: {
-          x: 1.0,
-          y: 0.0,
-          z: 0.0,
-        },
-        angular: {
-          x: 0.0,
-          y: 0.0,
-          z: 1.0,
-        },
-      });
+      state.rosMessage = new ROSLIB.Message({ data: data });
     },
     async publishRosSocket() {
       this.state.rosTopic.publish(this.state.rosMessage);
