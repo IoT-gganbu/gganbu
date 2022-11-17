@@ -87,8 +87,13 @@ public class StaffServiceImpl implements StaffService {
         }
         // patient 기반으로 progress 찾기
         List<PatientProgressHistory> list = historyRepository.findByPatientOrderByTaskChecktitleAsc(patient).orElseThrow(()-> new NoSuchElementException("check list not found"));
-        // 제일 큰 값 하나만 리턴해준다?
-        return list.get(list.size()-1).getTaskChecktitle().getTcId();
+        // 현재 로직에선 가장 마지막값을 기준으로 모달에 표시해준다.
+        // 이젠 status가 4일경우에만 size -1, 3이하일경우엔 -2를 보내줘야할거같다.
+//        if(list.get(list.size()-1).getPatientStatus() == 4) {
+//            return list.get(list.size()-1).getTaskChecktitle().getTcId();
+//        } else {
+            return list.get(list.size()-2).getTaskChecktitle().getTcId();
+//        }
     }
 }
 
