@@ -185,7 +185,7 @@ export default new Vuex.Store({
         name: "/step",
         messageType: "std_msgs::Int32",
       });
-      state.rosMessage = new ROSLIB.Message({ data: data });
+      state.rosMessage = new ROSLIB.Message({ data: data + 1 });
     },
     async publishRosSocket() {
       this.state.rosTopic.publish(this.state.rosMessage);
