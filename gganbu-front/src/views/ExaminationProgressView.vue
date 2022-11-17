@@ -130,15 +130,15 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["connectSpringSocket", "disconnectAllsocket", "acceptProgressBoolean", "connectRosSocket", "publishRosSocket"]),
-    // ...mapActions(["acceptProgressBoolean"]),
+    ...mapActions(["connectSpringSocket", "disconnectAllsocket", "changeProgressBoolean", "connectRosSocket", "publishRosSocket"]),
+    // ...mapActions(["changeProgressBoolean"]),
     async nextProgress() {
-      this.$axios.get("https://k7b309.p.ssafy.io/api/staff/progress/" + this.$store.state.patientId).then((response) => {
+      this.$axios.get(`http://localhost:8081/api/staff/progress/` + this.$store.state.patientId).then((response) => {
         console.log(response.data.data);
         console.log(this.progressBoolean);
         let progress = response.data.data;
+        this.$store.commit("changeProgressBoolean", progress);
         for (let i = 1; i <= progress; i++) {
-          this.acceptProgressBoolean(i);
           var dom = document.getElementById(i);
           dom.style.backgroundColor = "#90b5ff";
         }
