@@ -24,6 +24,7 @@ export default new Vuex.Store({
     springSocketMessage: "",
     rosSocket: null,
     rosTopic: null,
+    rosPubTopic: null,
     rosMessage: null,
     isChecked: false,
     progressName: ["진찰 및 문진표 작성", "기초 / 신체 계측", "채혈 / 소변", "흉부 방사선", "진찰 및 상담", "자궁경부암", "유방암", "위암", "대장암", "폐암"],
@@ -189,6 +190,33 @@ export default new Vuex.Store({
     },
     async publishRosSocket() {
       this.state.rosTopic.publish(this.state.rosMessage);
+    },
+    async testRosTopic({ state }, data) {
+      console.log("test", data, "번 보냄");
+      state.rosTopic = new ROSLIB.Topic({
+        ros: this.state.rosSocket,
+        name: "/step",
+        messageType: "std_msgs::Int32",
+      });
+      state.rosMessage = new ROSLIB.Message({ data: data });
+      this.state.rosTopic.publish(this.state.rosMessage);
+    },
+    async createSubRosTopic({ state }) {
+      state.rosPubTopic = new ROSLIB.Topic({
+        ros: this.state.rosSocket,
+        name: "/listener",
+        messageType: "std_msgs/String",
+      });
+
+      state.rosPubTopic.subscribe(function (message) {
+        console.log("Received message on " + state.rosPubTopic.name + ": " + message.data);
+        if (message == "success") {
+          // fast-api 로 트래킹이랑 깐부 인식 멈추기 api 하나 만들어서 보내기
+          state.tracking = false;
+          state.voice = false;
+        }
+        // state.rosPubTopic.unsubscribe();
+      });
     },
     async disconnectAllsocket({ state }) {
       if (state.springStomp != null) {

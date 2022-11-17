@@ -10,7 +10,6 @@ from email.message import EmailMessage
 from pydantic import BaseModel
 from typing import List
 from fastapi.middleware.cors import CORSMiddleware
-from google.cloud import texttospeech
 
 app = FastAPI()
 
