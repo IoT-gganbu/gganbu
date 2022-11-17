@@ -17,10 +17,7 @@
 export default {
   data() {
     return {
-      question: [
-        "인플루엔자 예방접종을 매년 하십니까?",
-        //  "지금까지 다섯갑 이상의 담배를 피운 적이 있습니까?", "한 달에 몇번 세잔 이상의 음주를 하십니까?", "가족 중에 당뇨를 앓은 경우가 있습니까?"
-      ],
+      question: ["인플루엔자 예방접종을 매년 하십니까?", "지금까지 다섯갑 이상의 담배를 피운 적이 있습니까?", "한 달에 몇번 세잔 이상의 음주를 하십니까?", "가족 중에 당뇨를 앓은 경우가 있습니까?"],
       res: [],
       cnt: 0,
       isLoading: false,
@@ -63,13 +60,13 @@ export default {
 
     async play() {
       const text = document.getElementById("text").innerHTML;
-
-      console.log(text);
-      await this.speak(text, {
-        rate: 1,
-        pitch: 1.2,
-        lang: "ko-KR",
+      const headers = {
+        "Content-Type": "application/json",
+      };
+      this.$axios.post(this.$store.state.baseurl + "tts", { data: text }, { headers: headers }).then((response) => {
+        console.log(response);
       });
+      console.log(text);
       setTimeout(() => {
         this.getData();
       }, 3500);
