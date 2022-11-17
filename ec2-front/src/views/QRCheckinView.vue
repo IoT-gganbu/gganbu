@@ -206,6 +206,6 @@ export default {
   background-color: #90b5ff;
 }
 .nextQr {
-  margin-top: 100px;
+  height: 900px;
 }
 </style>
