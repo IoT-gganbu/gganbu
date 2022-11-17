@@ -10,6 +10,8 @@ from email.message import EmailMessage
 from pydantic import BaseModel
 from typing import List
 from fastapi.middleware.cors import CORSMiddleware
+from google.cloud import texttospeech
+
 app = FastAPI()
 
 origins = ["*"]
@@ -28,6 +30,8 @@ isWaiting = False
 class Item(BaseModel):
     data: List[str]
 
+class Speech(BaseModel):
+    data: str
 
 @app.get("/")
 async def root():
@@ -36,7 +40,7 @@ async def root():
 @app.get("/record/save")
 def recognize_from_microphone():
     # This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
-    speech_config = speechsdk.SpeechConfig(subscription='d2dca5cef15a464b9b00046592d1baf6', region='koreacentral')
+    speech_config = speechsdk.SpeechConfig(subscription='dd2ac0f3da614f239fbb400eb4b1d29d', region='koreacentral')
     speech_config.speech_recognition_language="ko-KR"
 
     audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)
@@ -271,9 +275,9 @@ def sendMail(item:Item) :
     # 3. MIME 형태의 이메일 메세지 작성
     message = EmailMessage()
     message.set_content('인플루엔자 예방접종을 매년 하십니까?\n'+contents[0]
-                        # +"\n지금까지 평생 다섯갑 이상의 담배를 피운 적이 있습니까?\n"
-                        # + contents[1]+"\n한 달에 몇번 음주를 하십니까?\n"+ contents[2]
-                        # + "\n부모, 형제, 자매 중에 당뇨 질환을 앓은 경우가 있습니까?\n"+contents[3]
+                        +"\n지금까지 평생 다섯갑 이상의 담배를 피운 적이 있습니까?\n"
+                        + contents[1]+"\n한 달에 몇번 음주를 하십니까?\n"+ contents[2]
+                        + "\n부모, 형제, 자매 중에 당뇨 질환을 앓은 경우가 있습니까?\n"+contents[3]
                         )
     message["Subject"] = "싸브란스 병원 문진 결과"
     message["From"] = EMAIL_ADDR  #보내는 사람의 이메일 계정
@@ -286,3 +290,31 @@ def sendMail(item:Item) :
     smtp.quit()
     
     return "SUCCESS"
+
+
+@app.post("/tts")
+def textToSpeech(speech:Speech) :
+    speech_config = speechsdk.SpeechConfig(subscription="dd2ac0f3da614f239fbb400eb4b1d29d", region="koreacentral")
+    audio_config = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
+
+    # The language of the voice that speaks.
+    speech_config.speech_synthesis_voice_name='ko-KR-SunHiNeural'
+
+    speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
+
+    # Get text from the console and synthesize to the default speaker.
+    text = speech.data
+
+    speech_synthesis_result = speech_synthesizer.speak_text_async(text).get()
+
+    if speech_synthesis_result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
+        print("Speech synthesized for text [{}]".format(text))
+        return "SUCCESS"
+    elif speech_synthesis_result.reason == speechsdk.ResultReason.Canceled:
+        cancellation_details = speech_synthesis_result.cancellation_details
+        print("Speech synthesis canceled: {}".format(cancellation_details.reason))
+        if cancellation_details.reason == speechsdk.CancellationReason.Error:
+            if cancellation_details.error_details:
+                print("Error details: {}".format(cancellation_details.error_details))
+                print("Did you set the speech resource key and region values?")
+                return "FAIL"
