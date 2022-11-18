@@ -36,6 +36,15 @@ class Speech(BaseModel):
 async def root():
     return {"message": "Hello World"}
 
+@app.post("/stop")
+async def stop():
+    global isWaiting
+    isWaiting = True
+    time.sleep(2)
+    isWaiting = False
+    return "stop Tracking, GGanbu"
+
+
 @app.get("/record/save")
 def recognize_from_microphone():
     # This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"

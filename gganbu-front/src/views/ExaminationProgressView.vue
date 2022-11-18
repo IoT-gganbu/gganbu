@@ -6,7 +6,7 @@
     </div>
     <!-- <button class="btn" @click="disconnectAllsocket">disconnect all socket</button> -->
     <!-- <button class="btn" @click="publishRosSocket">publish ros topic</button> -->
-    <button class="btn" @click="testRosTopic(0)">0 ros topic</button>
+    <button class="btn" @click="testStopRosTopic(0)">0 ros topic</button>
     <button class="btn" @click="testRosTopic(1)">1 ros topic</button>
     <button class="btn" @click="testRosTopic(2)">2 ros topic</button>
     <button class="btn" @click="testRosTopic(3)">3 ros topic</button>
@@ -135,7 +135,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["connectSpringSocket", "disconnectAllsocket", "changeProgressBoolean", "connectRosSocket", "publishRosSocket", "createSubRosTopic", "testRosTopic"]),
+    ...mapActions(["connectSpringSocket", "disconnectAllsocket", "changeProgressBoolean", "connectRosSocket", "publishRosSocket", "createSubRosTopic", "testRosTopic", "testStopRosTopic"]),
     // ...mapActions(["changeProgressBoolean"]),
     async nextProgress() {
       this.$axios.get(`http://localhost:8081/api/staff/progress/` + this.$store.state.patientId).then((response) => {

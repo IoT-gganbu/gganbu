@@ -12,6 +12,8 @@
 
 <script>
 import againGuide from "@/components/AgainGuide.vue";
+import { mapActions } from "vuex";
+
 export default {
   components: {
     againGuide,
@@ -26,6 +28,7 @@ export default {
   created() {
     this.name = this.$store.state.patient.name;
     this.progressName = this.$store.state.progressName[this.$store.state.patient.task];
+    this.createSubRosTopic();
   },
   computed: {
     getTracking: function () {
@@ -52,6 +55,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["createSubRosTopic"]),
     stopRos() {
       // 1. ros 소켓 연결 확인
       if (this.$store.getters.getRosSocket == null) {
