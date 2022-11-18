@@ -221,14 +221,12 @@ export default new Vuex.Store({
 
       state.rosSubTopic.subscribe(function (message) {
         console.log("Received message on " + state.rosSubTopic.name + ": " + message.data);
-        if (message == "success") {
+        if (message == "SUCCESS") {
           // fast-api 로 트래킹이랑 깐부 인식 멈추기 api 하나 만들어서 보내기
           axios.post(state.baseurl + "stop").then((response) => {
             console.log(response);
           });
           router.push("/").catch(() => {});
-          state.tracking = false;
-          state.voice = false;
         }
         // state.rosPubTopic.unsubscribe();
       });
