@@ -2,15 +2,20 @@ package com.ssafy.gganbu.controller;
 
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
+import com.ssafy.gganbu.db.entity.Patients;
 import com.ssafy.gganbu.db.entity.Staffs;
 import com.ssafy.gganbu.exception.NoChangeExeption;
 import com.ssafy.gganbu.request.ResidentNoReq;
 import com.ssafy.gganbu.request.StaffLoginReq;
+import com.ssafy.gganbu.service.MessageService;
+import com.ssafy.gganbu.service.PatientService;
 import com.ssafy.gganbu.service.StaffService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,10 +32,17 @@ import static com.ssafy.gganbu.controller.PatientsController.SUCCESS;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/staff")
+@RequiredArgsConstructor
 public class StaffController {
 
-    @Autowired
-    private StaffService staffService;
+    private final StaffService staffService;
+    private final MessageService messageService;
+    private final PatientService patientService;
+
+    @Value("${BACKEND_ADDRESS}")
+    private String BACKEND_ADDRESS;
+
+
 
     @PostMapping("/login")
     public ResponseEntity<BaseResponseBody> login(@RequestBody StaffLoginReq staffLoginReq) {
@@ -52,7 +64,9 @@ public class StaffController {
         log.info("StaffController.receipt");
         log.debug("residentNo : " + residentNoReq.getResidentNo());
         try{
-            staffService.receipt(residentNoReq.getResidentNo());
+            Patients patients = staffService.receipt(residentNoReq.getResidentNo());
+            String message = patients.getName()+ "환자님의 접수가 완료되었습니다.\n" + "http://"+BACKEND_ADDRESS+"/api/patient/image/view/"+patients.getPatientId()+" ";
+            messageService.sendMessage(patients.getTel(), message);
             return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS));
         }
         catch (Exception e) {

@@ -42,7 +42,7 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public String receipt(String residentNo) throws NoChangeExeption, WriterException, IOException {
+    public Patients receipt(String residentNo) throws NoChangeExeption, WriterException, IOException {
         log.info("StaffServiceImpl.receipt");
         // 나중에 Optional로 변경해야함.
         Patients patient = patientRepository.findByResidentNo(residentNo).orElseThrow(()-> new NoSuchElementException("patient not found"));
@@ -66,7 +66,7 @@ public class StaffServiceImpl implements StaffService {
         log.info("make QR code");
         BitMatrix qr = qrService.getQrCode(patient.getPatientId().toString());
         // bitMatrix를 png로 변환 후 저장경로 반환
-        return qrService.createQrImage(qr, patient);
+        return patient;
     }
 
     private void addHistoryAndStatus(Patients patient, Long task, Integer status) {
