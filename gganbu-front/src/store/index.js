@@ -226,7 +226,7 @@ export default new Vuex.Store({
           axios.post(state.baseurl + "stop").then((response) => {
             console.log(response);
           });
-          router.push("/");
+          router.push("/").catch(() => {});
           state.tracking = false;
           state.voice = false;
         }
