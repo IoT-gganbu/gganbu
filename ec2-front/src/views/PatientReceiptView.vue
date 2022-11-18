@@ -3,7 +3,7 @@
     <div class="left-body">
       <div class="search">
         <div class="search-bar">
-          <input placeholder="Search" class="input" v-model="searchName" />
+          <input placeholder="Search" class="input" v-model="searchName" @keyup.enter="searchPatient(searchName)" />
         </div>
         <div class="search-btn">
           <custom-button btnText="검색" @click="searchPatient(searchName)"></custom-button>

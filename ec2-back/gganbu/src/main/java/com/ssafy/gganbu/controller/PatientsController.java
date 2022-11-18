@@ -47,6 +47,7 @@ public class PatientsController {
     public static final String SUCCESS = "SUCCESS";
     public static final String FAIL = "FAIL";
 
+
     @Autowired
     PatientService patientService;
     @Autowired
@@ -192,7 +193,8 @@ public class PatientsController {
 
     @GetMapping(value = "/image/view/{patientId}", produces = MediaType.IMAGE_PNG_VALUE)
     @ApiImplicitParam(name = "patientId", value = "환자 ID", required = true, dataType = "String", paramType = "path", example = "1")
-    public @ResponseBody byte[] getImage(@RequestParam("patientId") String id) throws IOException {
+    public @ResponseBody byte[] getImage(@PathVariable("patientId") String id) throws IOException {
+        System.out.println("id : " + id);
         Path path = Paths.get("/tmp/gganbu/patient/" + id + "/qr.png");
         byte[] fileArray = new byte[0];
 

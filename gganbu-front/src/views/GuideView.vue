@@ -13,7 +13,6 @@
 <script>
 import againGuide from "@/components/AgainGuide.vue";
 import { mapActions } from "vuex";
-
 export default {
   components: {
     againGuide,
@@ -55,7 +54,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["createSubRosTopic"]),
+    ...mapActions(["createRosTopic", "connectRosSocket", "publishRosSocket"]),
     stopRos() {
       // 1. ros 소켓 연결 확인
       if (this.$store.getters.getRosSocket == null) {
@@ -79,6 +78,7 @@ export default {
   flex-direction: column;
   justify-content: center;
 }
+
 .text {
   text-align: center;
   text-justify: newspaper;
@@ -86,6 +86,7 @@ export default {
   font: 34px "Pretendard ExtraBold";
   color: #5780c6;
 }
+
 .modal {
   padding-top: 10%;
 }

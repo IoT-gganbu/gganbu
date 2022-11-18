@@ -172,8 +172,7 @@ def tracking():
     isFirst = True
     cap = cv2.VideoCapture(0)
     fps = cap.get(cv2.CAP_PROP_FPS) # 프레임 수 구하기
-    # delay = int(1000/fps)
-    delay = 50
+    delay = int(1000/fps)
     win_name = 'Tracking APIs'
     returnState = 0 # 장고 리턴값을 유형별로 분기해서 나누어 주어야 한다.(while문이 끝나고 각각의 상태별로 리턴값을 보내줘야한다. ex)1-트래킹중 대상물체 인식실패가 3초 넘은 경우 )
     failCount = 0 
@@ -229,7 +228,6 @@ def tracking():
                 isInit = tracker.init(frame, bbox) # 이전 추적 위치로 추적 위치 초기화
         elif key == 27 : 
             returnState = 2
-            isWaiting = True
             break
     else:
         print( "Could not open video")
@@ -237,9 +235,9 @@ def tracking():
     cv2.destroyAllWindows()
     isWaiting = True
     if(returnState == 1):
-        return "Tracking Fail"
+        return "missing"
     elif (returnState == 2):
-        return "esc"
+        return "quit"
     elif (returnState == 3):
         return True
     time.sleep(2)
@@ -256,7 +254,7 @@ def checkGGanbu() :
             break
     time.sleep(0.5)
     isWaiting = False
-    return "깐부 음성 인식 성공"
+    return True
 
 @app.post("/email")
 def sendMail(item:Item) :
