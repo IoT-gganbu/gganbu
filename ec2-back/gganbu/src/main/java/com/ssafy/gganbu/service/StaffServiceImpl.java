@@ -65,7 +65,7 @@ public class StaffServiceImpl implements StaffService {
         patientRepository.save(patient);
         log.info("make QR code");
         BitMatrix qr = qrService.getQrCode(patient.getPatientId().toString());
-        // bitMatrix를 png로 변환 후 저장경로 반환
+        String path = qrService.createQrImage(qr, patient);
         return patient;
     }
 
