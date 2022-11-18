@@ -36,6 +36,8 @@ dependencies {
 	implementation("io.springfox:springfox-swagger2:3.0.0")
 	implementation("io.springfox:springfox-swagger-ui:3.0.0")
 	implementation("io.springfox:springfox-data-rest:3.0.0")
+// https://mvnrepository.com/artifact/net.nurigo/javaSDK
+	implementation group: 'net.nurigo', name: 'javaSDK', version: '2.2'
 
 // https://mvnrepository.com/artifact/com.google.zxing/core
 	implementation group: 'com.google.zxing', name: 'core', version: '3.3.0'
