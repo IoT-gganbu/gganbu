@@ -5,7 +5,8 @@ import sockjs from "sockjs-client";
 import Stomp from "webstomp-client";
 import * as ROSLIB from "roslib";
 // import axios from "axios";
-
+import router from "@/router/index.js";
+import axios from "axios";
 Vue.use(Vuex);
 
 export const api = createApi();
@@ -24,6 +25,7 @@ export default new Vuex.Store({
     springSocketMessage: "",
     rosSocket: null,
     rosTopic: null,
+    rosSubTopic: null,
     rosMessage: null,
     isChecked: false,
     progressName: ["진찰 및 문진표 작성", "기초 / 신체 계측", "채혈 / 소변", "흉부 방사선", "진찰 및 상담", "자궁경부암", "유방암", "위암", "대장암", "폐암"],
@@ -189,6 +191,45 @@ export default new Vuex.Store({
     },
     async publishRosSocket() {
       this.state.rosTopic.publish(this.state.rosMessage);
+    },
+    async testRosTopic({ state }, data) {
+      console.log("test", data, "번 보냄");
+      state.rosTopic = new ROSLIB.Topic({
+        ros: this.state.rosSocket,
+        name: "/step",
+        messageType: "std_msgs::Int32",
+      });
+      state.rosMessage = new ROSLIB.Message({ data: data });
+      this.state.rosTopic.publish(this.state.rosMessage);
+    },
+    async testStopRosTopic({ state }, data) {
+      console.log("test", data, "번 보냄");
+      state.rosTopic = new ROSLIB.Topic({
+        ros: this.state.rosSocket,
+        name: "/stop",
+        messageType: "std_msgs::Int32",
+      });
+      state.rosMessage = new ROSLIB.Message({ data: data });
+      this.state.rosTopic.publish(this.state.rosMessage);
+    },
+    async createSubRosTopic({ state }) {
+      state.rosSubTopic = new ROSLIB.Topic({
+        ros: this.state.rosSocket,
+        name: "/listener",
+        messageType: "std_msgs/String",
+      });
+
+      state.rosSubTopic.subscribe(function (message) {
+        console.log("Received message on " + state.rosSubTopic.name + ": " + message.data);
+        if (message == "SUCCESS") {
+          // fast-api 로 트래킹이랑 깐부 인식 멈추기 api 하나 만들어서 보내기
+          axios.post(state.baseurl + "stop").then((response) => {
+            console.log(response);
+          });
+          router.push("/").catch(() => {});
+        }
+        // state.rosPubTopic.unsubscribe();
+      });
     },
     async disconnectAllsocket({ state }) {
       if (state.springStomp != null) {

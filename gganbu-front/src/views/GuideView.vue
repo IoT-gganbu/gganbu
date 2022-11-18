@@ -27,6 +27,7 @@ export default {
   created() {
     this.name = this.$store.state.patient.name;
     this.progressName = this.$store.state.progressName[this.$store.state.patient.task];
+    this.createSubRosTopic();
   },
   computed: {
     getTracking: function () {

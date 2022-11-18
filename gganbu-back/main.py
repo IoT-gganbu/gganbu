@@ -36,6 +36,15 @@ class Speech(BaseModel):
 async def root():
     return {"message": "Hello World"}
 
+@app.post("/stop")
+def stop():
+    global isWaiting
+    isWaiting = True
+    time.sleep(5)
+    isWaiting = False
+    return "stop Tracking, GGanbu"
+
+
 @app.get("/record/save")
 def recognize_from_microphone():
     # This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
@@ -170,7 +179,7 @@ def tracking():
     while cap.isOpened():
         global isWaiting
         if isWaiting:
-            print("음성인식 종료로 인해 트래킹도 종료")
+            print("음성인식 종료 or 목적지 도착으로 인해 트래킹도 종료")
             returnState == 3
             break
         ret, frame = cap.read()
