@@ -4,7 +4,9 @@
       <img src="@/assets/img/ssabeulans_logo.png" />
     </router-link>
     <div class="right-content">
-      <router-link to="/location"><button id="current-place-button" type="button">현재위치 보기</button></router-link>
+      <!-- <router-link to="/location"><button id="current-place-button" type="button">현재위치 보기</button></router-link> -->
+      <button class="status-check" id="tracking-status" type="button" @click="changeTrackingStatus">●</button>
+      <button class="status-check" id="voice-status" type="button" @click="changeVoiceStatus">●</button>
       <div class="weather-and-time">
         <div id="weather">{{ weather }}</div>
         <div id="time">{{ now }}</div>
@@ -14,6 +16,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "navBar",
   props: {},
@@ -27,7 +30,32 @@ export default {
     setInterval(this.calcTime, 1000);
     this.getWeather();
   },
+  computed: {
+    ...mapGetters(["getTracking", "getVoice"]),
+  },
+  watch: {
+    getTracking() {
+      if (this.getTracking) {
+        document.getElementById("tracking-status").style.color = "green";
+      } else {
+        document.getElementById("tracking-status").style.color = "red";
+      }
+    },
+    getVoice() {
+      if (this.getVoice) {
+        document.getElementById("voice-status").style.color = "green";
+      } else {
+        document.getElementById("voice-status").style.color = "red";
+      }
+    },
+  },
   methods: {
+    changeTrackingStatus() {
+      this.$store.commit("changeTracking");
+    },
+    changeVoiceStatus() {
+      this.$store.commit("changeVoice");
+    },
     calcTime() {
       const time = new Date();
 
@@ -87,27 +115,32 @@ export default {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   background-color: white;
 }
+
 .logo {
   float: left;
   margin-left: 15px;
   line-height: 70px;
 }
+
 .logo img {
   width: 200px;
   height: 50px;
   vertical-align: middle;
 }
+
 .type {
   float: left;
   padding-top: 20px;
   margin-right: 100px;
   color: #5780c6;
 }
+
 .right-content {
   float: right;
   vertical-align: middle;
   margin-right: 10px;
 }
+
 #current-place-button {
   background-color: transparent;
   background-position: 0px 0px;
@@ -118,6 +151,19 @@ export default {
   margin-top: 20px;
   margin-right: 20px;
 }
+
+.status-check {
+  background-color: transparent;
+  background-position: 0px 0px;
+  border: none;
+  cursor: pointer;
+  color: red;
+  /* color: #3300ff; */
+  font-size: 5px;
+  margin-top: 30px;
+  /* margin-right: 20px; */
+}
+
 .weather-and-time {
   float: right;
   height: 60px;
