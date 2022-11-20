@@ -65,13 +65,13 @@
 
 ### 📊 아키텍처
 
- ![Web App Reference Architecture (3)](C:\Users\multicampus\Downloads\Web App Reference Architecture (3).png)
+ ![Web App Reference Architecture (3)](https://user-images.githubusercontent.com/111056719/202900144-517ae773-35cf-4fa8-a960-c212b2897652.png)
 
 <br>
 
 ### 🛢 ERD
 
-  ![image-20221120143054890](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20221120143054890.png)    
+  ![image-20221120143054890](https://user-images.githubusercontent.com/111056719/202900166-565569d5-f2ba-490e-83f4-c1689d34ef99.png)  
 
 <br>
 
