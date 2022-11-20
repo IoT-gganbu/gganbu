@@ -56,6 +56,9 @@ def recognize_from_microphone():
 
     print("Speak into your microphone.")
     speech_recognition_result = speech_recognizer.recognize_once_async().get()
+    global isWaiting
+    if isWaiting ==True:
+        return "깐부"
 
     if speech_recognition_result.reason == speechsdk.ResultReason.RecognizedSpeech:
         print("Recognized: {}".format(speech_recognition_result.text))
