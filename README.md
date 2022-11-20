@@ -79,7 +79,7 @@
 
 |                      의료진 접수처 화면                      |                      의료진 검진실 화면                      |
 | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| ![ec2 로그인](https://user-images.githubusercontent.com/111056719/202899306-89b79aae-18df-4b7a-b434-dbde869c1d04.gif) | ![image](https://lab.ssafy.com/s07-final/S07P31B309/-/blob/develop/exec/image/ec2%20%EA%B2%80%EC%A7%84.gif) |
+| ![ec2 로그인](https://user-images.githubusercontent.com/111056719/202899306-89b79aae-18df-4b7a-b434-dbde869c1d04.gif) | ![image](./exec/image/ec2%20%EA%B2%80%EC%A7%84.gif) |
 
 ### 의료진 접수처 화면
 
@@ -119,7 +119,7 @@
 
 |              Pose Estimation를 이용한 스트레칭               |                          Card Game                           |
 | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| ![image](https://user-images.githubusercontent.com/79126498/202899561-95e96a33-14d4-438d-aa22-dd0b5a990ba4.png) | ![카드](https://user-images.githubusercontent.com/111056719/202899518-f8f217e0-cf45-4f87-98a6-b90cf8689b22.gif) |
+| ![image](./exec/image/스트레칭.gif) | ![카드](https://user-images.githubusercontent.com/111056719/202899518-f8f217e0-cf45-4f87-98a6-b90cf8689b22.gif) |
 
 ### Pose Estimation를 이용한 스트레칭
 
