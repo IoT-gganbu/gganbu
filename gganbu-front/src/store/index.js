@@ -5,7 +5,8 @@ import sockjs from "sockjs-client";
 import Stomp from "webstomp-client";
 import * as ROSLIB from "roslib";
 // import axios from "axios";
-
+import router from "@/router/index.js";
+import axios from "axios";
 Vue.use(Vuex);
 
 export const api = createApi();
@@ -13,8 +14,8 @@ export const api = createApi();
 export default new Vuex.Store({
   state: {
     baseurl: "http://127.0.0.1:8000/",
-    // springWebsocketUrl: "http://k7b309.p.ssafy.io:8081/ws/spring",
-    springWebsocketUrl: "http://localhost:8081/ws/spring",
+    springWebsocketUrl: "http://k7b309.p.ssafy.io:8081/ws/spring",
+    // springWebsocketUrl: "http://localhost:8081/ws/spring",
     patientId: "",
     patient: {},
     progressBoolean: 1,
@@ -24,6 +25,7 @@ export default new Vuex.Store({
     springSocketMessage: "",
     rosSocket: null,
     rosTopic: null,
+    rosSubTopic: null,
     rosMessage: null,
     isChecked: false,
     progressName: ["진찰 및 문진표 작성", "기초 / 신체 계측", "채혈 / 소변", "흉부 방사선", "진찰 및 상담", "자궁경부암", "유방암", "위암", "대장암", "폐암"],
@@ -161,7 +163,7 @@ export default new Vuex.Store({
     // ros 소켓 연결
     async connectRosSocket({ state }) {
       state.rosSocket = new ROSLIB.Ros({
-        url: "ws://192.168.31.96:9090",
+        url: "ws://192.168.219.154:9090",
       });
       state.rosSocket.on("connection", () => {
         console.log("Connected to RosSocket server.");
@@ -185,10 +187,58 @@ export default new Vuex.Store({
         name: "/step",
         messageType: "std_msgs::Int32",
       });
-      state.rosMessage = new ROSLIB.Message({ data: data + 1 });
+      state.rosMessage = new ROSLIB.Message({ data: data });
+    },
+    async createStopRosTopic({ state }, data) {
+      state.rosTopic = new ROSLIB.Topic({
+        ros: this.state.rosSocket,
+        name: "/stop",
+        messageType: "std_msgs::Int32",
+      });
+      state.rosMessage = new ROSLIB.Message({ data: data });
     },
     async publishRosSocket() {
+      console.log("this.state.rosMessage.data is " + this.state.rosMessage.data);
       this.state.rosTopic.publish(this.state.rosMessage);
+    },
+    async testRosTopic({ state }, data) {
+      console.log("test", data, "번 보냄");
+      state.rosTopic = new ROSLIB.Topic({
+        ros: this.state.rosSocket,
+        name: "/step",
+        messageType: "std_msgs::Int32",
+      });
+      state.rosMessage = new ROSLIB.Message({ data: data });
+      this.state.rosTopic.publish(this.state.rosMessage);
+    },
+    async testStopRosTopic({ state }, data) {
+      console.log("test", data, "번 보냄");
+      state.rosTopic = new ROSLIB.Topic({
+        ros: this.state.rosSocket,
+        name: "/stop",
+        messageType: "std_msgs::Int32",
+      });
+      state.rosMessage = new ROSLIB.Message({ data: data });
+      this.state.rosTopic.publish(this.state.rosMessage);
+    },
+    async createSubRosTopic({ state }) {
+      state.rosSubTopic = new ROSLIB.Topic({
+        ros: this.state.rosSocket,
+        name: "/listener",
+        messageType: "std_msgs/String",
+      });
+
+      state.rosSubTopic.subscribe(function (message) {
+        console.log("Received message on " + state.rosSubTopic.name + ": " + message.data);
+        if (message.data == "SUCCESS") {
+          // fast-api 로 트래킹이랑 깐부 인식 멈추기 api 하나 만들어서 보내기
+          axios.post(state.baseurl + "stop").then((response) => {
+            console.log(response);
+          });
+          router.push("/").catch(() => {});
+        }
+        state.rosSubTopic.unsubscribe();
+      });
     },
     async disconnectAllsocket({ state }) {
       if (state.springStomp != null) {

@@ -65,7 +65,7 @@ public class StaffController {
         log.debug("residentNo : " + residentNoReq.getResidentNo());
         try{
             Patients patients = staffService.receipt(residentNoReq.getResidentNo());
-            String message = patients.getName()+ "환자님의 접수가 완료되었습니다.\n" + "http://"+BACKEND_ADDRESS+"/api/patient/image/view/"+patients.getPatientId()+" ";
+            String message = "QR링크: http://"+BACKEND_ADDRESS+"/api/patient/image/view/"+patients.getPatientId()+"\n"+patients.getName()+ "환자님의 접수 완료.\n싸브란스 검진센터";
             messageService.sendMessage(patients.getTel(), message);
             return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS));
         }
