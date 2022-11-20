@@ -26,7 +26,7 @@ export default {
   },
   created() {
     this.name = this.$store.state.patient.name;
-    this.progressName = this.$store.state.progressName[this.$store.state.patient.task];
+    this.progressName = this.$store.state.progressName[this.$store.state.progressBoolean];
     this.createSubRosTopic();
   },
   computed: {
@@ -54,7 +54,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["createRosTopic", "connectRosSocket", "publishRosSocket"]),
+    ...mapActions(["createRosTopic", "connectRosSocket", "publishRosSocket", "createSubRosTopic"]),
     stopRos() {
       // 1. ros 소켓 연결 확인
       if (this.$store.getters.getRosSocket == null) {

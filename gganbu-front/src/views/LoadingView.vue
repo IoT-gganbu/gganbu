@@ -39,7 +39,6 @@ export default {
         console.log(response);
         console.log(2);
         this.$store.commit("changeTracking");
-        this.tracking = false;
       });
       console.log(3);
     },
