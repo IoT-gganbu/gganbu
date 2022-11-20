@@ -14,15 +14,15 @@ export default {
   methods: {
     ...mapActions(["createRosTopic", "connectRosSocket", "publishRosSocket"]),
     again() {
-      // 1. ros 소켓 연결 확인
-      if (this.$store.getters.getRosSocket == null) {
-        this.connectRosSocket();
-      }
-      // 2. topic 생성
-      let data = this.$store.getters.getProgressBoolean;
-      this.createRosTopic(data);
-      // 3. topic 메세지 publish
-      this.publishRosSocket();
+      // // 1. ros 소켓 연결 확인
+      // if (this.$store.getters.getRosSocket == null) {
+      //   this.connectRosSocket();
+      // }
+      // // 2. topic 생성
+      // let data = this.$store.getters.getProgressBoolean;
+      // this.createRosTopic(data);
+      // // 3. topic 메세지 publish
+      // this.publishRosSocket();
       this.$router.push("/loading");
     },
     exit() {

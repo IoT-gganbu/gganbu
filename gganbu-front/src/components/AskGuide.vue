@@ -11,17 +11,28 @@
 import { mapActions } from "vuex";
 export default {
   methods: {
-    ...mapActions(["createRosTopic", "connectRosSocket", "publishRosSocket"]),
+    ...mapActions(["createRosTopic", "connectRosSocket", "publishRosSocket", "connectTurtleSocket", "createTurtleXTopic", "createTurtleYTopic", "publishTurtleSocket"]),
     startGuide() {
-      // 1. ros 소켓 연결 확인
+      // 1. 소켓 연결 확인
       if (this.$store.getters.getRosSocket == null) {
         this.connectRosSocket();
       }
-      // 2. topic 생성
+      if (this.$store.getters.getTurtleSocket == null) {
+        this.connectTurtleSocket();
+      }
+      // 2. topic 생성 및 전송
       let data = this.$store.getters.getProgressBoolean;
       this.createRosTopic(data);
-      // 3. topic 메세지 publish
       this.publishRosSocket();
+      // turtle X topic 생성 및 전송
+      let x = this.$store.getters.getTurtleXData;
+      this.createTurtleXTopic(x);
+      this.publishTurtleSocket();
+      // turtle Y topic 생성 및 전송
+      let y = this.$store.getters.getTurtleYData;
+      this.createTurtleYTopic(y);
+      this.publishTurtleSocket();
+      // 3. 페이지 변경
       this.$router.push("/guide");
     },
   },
