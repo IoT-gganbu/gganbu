@@ -65,7 +65,7 @@ export default {
   },
   beforeDestroy() {
     console.log("pose game end");
-    clearInterval(this.startGame);
+    clearInterval(this.interval);
     this.webcam.stop();
   },
   methods: {
