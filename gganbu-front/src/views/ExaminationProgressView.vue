@@ -10,7 +10,10 @@
     <button class="btn" @click="testRosTopic(1)">1 ros topic</button>
     <button class="btn" @click="testRosTopic(2)">2 ros topic</button>
     <button class="btn" @click="testRosTopic(3)">3 ros topic</button>
-    <button class="btn" @click="testTurtleTopic({ x: 0.1, y: 0.1 })">1 turtle topic</button>
+    <button class="btn" @click="testTurtleTopic(1)">1 turtle topic</button>
+    <button class="btn" @click="testTurtleTopicY(1)">2 turtle topic</button>
+    <button class="btn" @click="testTurtleStopTopic(0)">stop turtle topic</button>
+    <button class="btn" @click="testTurtleTopicY(1)">stop turtle topic</button>
     <div class="body">
       <div class="row" v-for="(data, idx) in processes" :key="idx">
         <div class="col1" v-bind:id="idx / 2 + 1" v-if="data.item[0] != ''">
@@ -105,9 +108,10 @@ export default {
   },
   created() {
     this.connectSpringSocket();
-    this.connectRosSocket();
+    // this.connectRosSocket();
     this.connectTurtleSocket();
     this.nextProgress();
+    this.createSubTurtleTopic();
   },
   computed: {
     ...mapState(["patientId", "patient", "progressBoolean", "springSocketMessage", "tracking", "voice"]),
@@ -136,7 +140,20 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["connectSpringSocket", "disconnectAllsocket", "changeProgressBoolean", "connectRosSocket", "publishRosSocket", "createSubRosTopic", "testRosTopic", "testStopRosTopic"]),
+    ...mapActions([
+      "connectSpringSocket",
+      "disconnectAllsocket",
+      "changeProgressBoolean",
+      "connectRosSocket",
+      "publishRosSocket",
+      "createSubRosTopic",
+      "testRosTopic",
+      "testStopRosTopic",
+      "connectTurtleSocket",
+      "testTurtleTopic",
+      "testTurtleTopicY",
+      "testTurtleStopTopic",
+    ]),
     // ...mapActions(["changeProgressBoolean"]),
     async nextProgress() {
       this.$axios.get(`http://localhost:8081/api/staff/progress/` + this.$store.state.patientId).then((response) => {

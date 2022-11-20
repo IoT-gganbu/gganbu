@@ -32,7 +32,7 @@ export default {
       let y = this.$store.getters.getTurtleYData;
       this.createTurtleYTopic(y);
       this.publishTurtleSocket();
-      // 3. topic 메세지 publish
+      // 3. 페이지 변경
       this.$router.push("/guide");
     },
   },

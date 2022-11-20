@@ -38,7 +38,10 @@ export default {
       this.$axios.get(this.$store.state.baseurl + "tracking").then((response) => {
         console.log(response);
         console.log(2);
-        this.$store.commit("changeTracking");
+        this.$axios.post(this.$store.state.baseurl + "stop").then((response) => {
+          this.$store.commit("changeTracking");
+          console.log(response);
+        });
       });
       console.log(3);
     },
@@ -46,7 +49,10 @@ export default {
       this.$store.commit("changeVoice");
       this.$axios.get(this.$store.state.baseurl + "gganbu").then((response) => {
         console.log(response);
-        this.$store.commit("changeVoice");
+        this.$axios.post(this.$store.state.baseurl + "stop").then((response) => {
+          this.$store.commit("changeVoice");
+          console.log(response);
+        });
       });
     },
     checkConnection() {

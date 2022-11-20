@@ -57,18 +57,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions([
-      "createRosTopic",
-      "connectRosSocket",
-      "publishRosSocket",
-      "createSubRosTopic",
-      "createStopRosTopic",
-      "connectTurtleSocket",
-      "createTurtleTopic",
-      "publishTurtleSocket",
-      "createSubTurtleTopic",
-      "createStopTurtleTopic",
-    ]),
+    ...mapActions(["connectRosSocket", "publishRosSocket", "createSubRosTopic", "createStopRosTopic", "connectTurtleSocket", "publishTurtleSocket", "createSubTurtleTopic", "createStopTurtleTopic"]),
     stopRos() {
       // 1. ros 소켓 연결 확인
       if (this.$store.getters.getRosSocket == null) {
@@ -81,9 +70,7 @@ export default {
       this.createStopRosTopic(0);
       this.publishRosSocket();
       // 3. turtle topic 생성 및 전송
-      this.createTurtleXTopic({ x: 0, y: 0 });
-      this.publishTurtleSocket();
-      this.createTurtleYTopic(0);
+      this.createStopTurtleTopic();
       this.publishTurtleSocket();
     },
   },

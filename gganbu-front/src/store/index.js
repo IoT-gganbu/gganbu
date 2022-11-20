@@ -37,8 +37,8 @@ export default new Vuex.Store({
     voice: false,
     turtleData: [
       [0, 0],
-      [0.1, 0.1],
-      [0, 0.1],
+      [1, 1],
+      [1, 0],
     ],
   },
   getters: {
@@ -105,10 +105,10 @@ export default new Vuex.Store({
       state.isChecked = !state.isChecked;
     },
     changeTracking(state) {
-      state.tracking = !state.tracking;
+      state.tracking = false;
     },
     changeVoice(state) {
-      state.voice = !state.voice;
+      state.voice = false;
     },
   },
   actions: {
@@ -202,7 +202,7 @@ export default new Vuex.Store({
     // turtlebot 소켓 연결(한기)
     async connectTurtleSocket({ state }) {
       state.turtleSocket = new ROSLIB.Ros({
-        url: "ws://192.168.219.154:9090",
+        url: "ws://192.168.219.129:9090",
       });
       state.turtleSocket.on("connection", () => {
         console.log("Connected to RosSocket server.");
@@ -228,7 +228,7 @@ export default new Vuex.Store({
       state.turtleTopic = new ROSLIB.Topic({
         ros: this.state.turtleSocket,
         name: "/x",
-        messageType: "std_msgs::Int32",
+        messageType: "std_msgs/Int32",
       });
       state.turtleMessage = new ROSLIB.Message({ data: data });
     },
@@ -237,9 +237,18 @@ export default new Vuex.Store({
       state.turtleTopic = new ROSLIB.Topic({
         ros: this.state.turtleSocket,
         name: "/y",
-        messageType: "std_msgs::Int32",
+        messageType: "std_msgs/Int32",
       });
       state.turtleMessage = new ROSLIB.Message({ data: data });
+    },
+    // turtle stop topic 생성
+    async createStopTurtleTopic({ state }) {
+      state.turtleTopic = new ROSLIB.Topic({
+        ros: this.state.turtleSocket,
+        name: "/stop",
+        messageType: "std_msgs/Int32",
+      });
+      state.turtleMessage = new ROSLIB.Message({ data: 0 });
     },
     // ros 정지 topic 생성
     async createStopRosTopic({ state }, data) {
@@ -275,7 +284,27 @@ export default new Vuex.Store({
       state.turtleTopic = new ROSLIB.Topic({
         ros: this.state.turtleSocket,
         name: "/x",
-        messageType: "std_msgs::Int32",
+        messageType: "std_msgs/Int32",
+      });
+      state.turtleMessage = new ROSLIB.Message({ data: data });
+      this.state.turtleTopic.publish(this.state.turtleMessage);
+    },
+    async testTurtleTopicY({ state }, data) {
+      console.log("turtle 테스트", data, "보냄");
+      state.turtleTopic = new ROSLIB.Topic({
+        ros: this.state.turtleSocket,
+        name: "/y",
+        messageType: "std_msgs/Int32",
+      });
+      state.turtleMessage = new ROSLIB.Message({ data: data });
+      this.state.turtleTopic.publish(this.state.turtleMessage);
+    },
+    async testTurtleStopTopic({ state }, data) {
+      console.log("turtle 테스트", data, "보냄");
+      state.turtleTopic = new ROSLIB.Topic({
+        ros: this.state.turtleSocket,
+        name: "/stop",
+        messageType: "std_msgs/Int32",
       });
       state.turtleMessage = new ROSLIB.Message({ data: data });
       this.state.turtleTopic.publish(this.state.turtleMessage);
@@ -319,8 +348,8 @@ export default new Vuex.Store({
       });
 
       state.turtleSubTopic.subscribe(function (message) {
-        console.log("Received message from turtle " + state.turtleSubTopic.name + ": " + message.data);
-        if (message.data == "SUCCESS") {
+        console.log("Received message from turtle " + state.turtleSubTopic.name + ": " + message);
+        if (message == "SUCCESS") {
           // fast-api 로 트래킹이랑 깐부 인식 멈추기 api 하나 만들어서 보내기
           axios.post(state.baseurl + "stop").then((response) => {
             console.log(response);
