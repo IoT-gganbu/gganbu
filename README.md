@@ -79,7 +79,7 @@
 
 |                      의료진 접수처 화면                      |                      의료진 검진실 화면                      |
 | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| ![ec2 로그인](https://user-images.githubusercontent.com/111056719/202899306-89b79aae-18df-4b7a-b434-dbde869c1d04.gif) | ![image](https://user-images.githubusercontent.com/79126498/202899402-df589648-b0db-4600-9c95-c99aa901223a.png) |
+| ![ec2 로그인](https://user-images.githubusercontent.com/111056719/202899306-89b79aae-18df-4b7a-b434-dbde869c1d04.gif) | ![image](https://https://lab.ssafy.com/s07-final/S07P31B309/-/blob/develop/exec/image/ec2%20%EA%B2%80%EC%A7%84.gif) |
 
 ### 의료진 접수처 화면
 
