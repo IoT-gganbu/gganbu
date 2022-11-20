@@ -10,7 +10,7 @@
     <button class="btn" @click="testRosTopic(1)">1 ros topic</button>
     <button class="btn" @click="testRosTopic(2)">2 ros topic</button>
     <button class="btn" @click="testRosTopic(3)">3 ros topic</button>
-    <button class="btn" @click="testRosTopic(4)">4 ros topic</button>
+    <button class="btn" @click="testTurtleTopic({ x: 0.1, y: 0.1 })">1 turtle topic</button>
     <div class="body">
       <div class="row" v-for="(data, idx) in processes" :key="idx">
         <div class="col1" v-bind:id="idx / 2 + 1" v-if="data.item[0] != ''">
@@ -106,6 +106,7 @@ export default {
   created() {
     this.connectSpringSocket();
     this.connectRosSocket();
+    this.connectTurtleSocket();
     this.nextProgress();
   },
   computed: {
