@@ -28,9 +28,9 @@ export default {
     this.name = this.$store.state.patient.name;
     this.progressName = this.$store.state.progressName[this.$store.state.progressBoolean];
     // ros 메세지 받기
-    // this.createSubRosTopic();
+    this.createSubRosTopic();
     // turtle 메세지 받기
-    this.createSubTurtleTopic();
+    // this.createSubTurtleTopic();
   },
   computed: {
     getTracking: function () {
@@ -63,15 +63,15 @@ export default {
       if (this.$store.getters.getRosSocket == null) {
         this.connectRosSocket();
       }
-      if (this.$store.getters.getTurtleSocket == null) {
-        this.connectTurtleSocket();
-      }
+      // if (this.$store.getters.getTurtleSocket == null) {
+      //   this.connectTurtleSocket();
+      // }
       // 2. ros topic 생성 및 전송
       this.createStopRosTopic(0);
       this.publishRosSocket();
       // 3. turtle topic 생성 및 전송
-      this.createStopTurtleTopic();
-      this.publishTurtleSocket();
+      // this.createStopTurtleTopic();
+      // this.publishTurtleSocket();
     },
   },
 };

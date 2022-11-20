@@ -17,21 +17,21 @@ export default {
       if (this.$store.getters.getRosSocket == null) {
         this.connectRosSocket();
       }
-      if (this.$store.getters.getTurtleSocket == null) {
-        this.connectTurtleSocket();
-      }
+      // if (this.$store.getters.getTurtleSocket == null) {
+      //   this.connectTurtleSocket();
+      // }
       // 2. topic 생성 및 전송
       let data = this.$store.getters.getProgressBoolean;
       this.createRosTopic(data);
       this.publishRosSocket();
       // turtle X topic 생성 및 전송
-      let x = this.$store.getters.getTurtleXData;
-      this.createTurtleXTopic(x);
-      this.publishTurtleSocket();
-      // turtle Y topic 생성 및 전송
-      let y = this.$store.getters.getTurtleYData;
-      this.createTurtleYTopic(y);
-      this.publishTurtleSocket();
+      // let x = this.$store.getters.getTurtleXData;
+      // this.createTurtleXTopic(x);
+      // this.publishTurtleSocket();
+      // // turtle Y topic 생성 및 전송
+      // let y = this.$store.getters.getTurtleYData;
+      // this.createTurtleYTopic(y);
+      // this.publishTurtleSocket();
       // 3. 페이지 변경
       this.$router.push("/guide");
     },
