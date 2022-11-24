@@ -156,7 +156,7 @@ export default {
     ]),
     // ...mapActions(["changeProgressBoolean"]),
     async nextProgress() {
-      this.$axios.get(`http://localhost:8081/api/staff/progress/` + this.$store.state.patientId).then((response) => {
+      this.$axios.get(`https://k7b309.p.ssafy.io/api/staff/progress/` + this.$store.state.patientId).then((response) => {
         console.log(response.data.data);
         console.log(this.progressBoolean);
         let progress = response.data.data;

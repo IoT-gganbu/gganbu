@@ -224,7 +224,7 @@ def tracking():
                             cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 0, 255), 2, cv2.LINE_AA)
                 # print("추적 실패")
                 failCount += 1
-                if (failCount >= 60):
+                if (failCount >= 60000):
                     print("일정 시간 추적 실패로 종료")
                     returnState = 1
                     break

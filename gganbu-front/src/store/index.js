@@ -105,10 +105,10 @@ export default new Vuex.Store({
       state.isChecked = !state.isChecked;
     },
     changeTracking(state) {
-      state.tracking = false;
+      state.tracking = !state.tracking;
     },
     changeVoice(state) {
-      state.voice = false;
+      state.voice = !state.voice;
     },
   },
   actions: {
@@ -181,7 +181,7 @@ export default new Vuex.Store({
     // ros 소켓 연결(다경)
     async connectRosSocket({ state }) {
       state.rosSocket = new ROSLIB.Ros({
-        url: "ws://192.168.219.154:9090",
+        url: "ws://192.168.31.96:9090",
       });
       state.rosSocket.on("connection", () => {
         console.log("Connected to RosSocket server.");
