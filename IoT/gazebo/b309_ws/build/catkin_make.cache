@@ -1,2 +1,2 @@
-
+gganbu:gganbu_sim:movepr2:ssafy:turtlebot3_simulations/turtlebot3_fake:turtlebot3_simulations/turtlebot3_gazebo:turtlebot3_simulations/turtlebot3_simulations
 -DCATKIN_DEVEL_PREFIX=/home/ssafy/b309_ws/devel -DCMAKE_INSTALL_PREFIX=/home/ssafy/b309_ws/install -G Unix Makefiles

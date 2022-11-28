@@ -1,0 +1,8 @@
+prefix=/home/ssafy/b309_ws/devel
+
+Name: gganbu
+Description: Description of gganbu
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

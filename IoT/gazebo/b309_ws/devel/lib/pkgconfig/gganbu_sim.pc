@@ -1,0 +1,8 @@
+prefix=/home/ssafy/b309_ws/devel
+
+Name: gganbu_sim
+Description: Description of gganbu_sim
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
