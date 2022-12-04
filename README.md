@@ -138,7 +138,7 @@
 
 |              실제 깐부의 주행 모습               |                          Gazebo 시뮬레이터 내의 깐부 주행 모습                           |
 | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| ![주행](https://user-images.githubusercontent.com/63536606/205482468-c6109f4d-5174-4598-ab64-9978a99c74c9.gif) | ![가제보](https://user-images.githubusercontent.com/63536606/205482386-688476f4-91f1-4f09-b5fd-6bacbe3a3058.gif) |
+| ![주행](https://user-images.githubusercontent.com/63536606/205482468-c6109f4d-5174-4598-ab64-9978a99c74c9.gif) | ![가제보](https://user-images.githubusercontent.com/63536606/205482830-ec47612f-c2d8-4522-bd23-6d37b3a6283d.gif) |
 
 ### 실제 깐부의 주행 모습
 
