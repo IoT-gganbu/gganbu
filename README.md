@@ -10,11 +10,10 @@
 
 > 안내 기능뿐 아니라 검진 대기 중 다양한 컨텐츠를 제공하여 건강 검진을 보다 지루하지 않게 받을 수 있게 구성하였습니다.
 
-1. SLAM 기반의 자율주행 
-2. 1:1 안내를 위해 OpenCV을 이용한 수검자 Tracking 기능
-3.  STT(Speech-to-Text), TTS(Text-to-Speech)를 이용한 자동 문진 작성 기능 및 KWS(Keyword Spotting) 기능
-
-4. Pose Estimation을 이용한 스트레칭 게임
+1. 1:1 안내를 위해 OpenCV을 이용한 수검자 Tracking 기능
+2. STT(Speech-to-Text), TTS(Text-to-Speech)를 이용한 자동 문진 작성 기능 및 KWS(Keyword Spotting) 기능
+3. Pose Estimation을 이용한 스트레칭 게임, 카드 뒤집기 게임
+4. Gazebo 시뮬레이션을 활용하여 디지털 트윈 환경 구축 및 유지보수
 
 <br>
 
